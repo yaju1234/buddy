@@ -31,9 +31,9 @@ class User extends REST_Controller {
 			$response['response'] = array();
 			$response['message'] = "email already exist";
 		}else{
-			$data = array()
+			$data = array();
 			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$otp);
-			$data['user_id'] = $last_inserted_id
+			$data['user_id'] = $last_inserted_id;
 			$this->Api_user_model->sendOTP($phone,$otp);
 			$response['status'] = true;
 			$response['response'] = $data;
@@ -55,7 +55,7 @@ class User extends REST_Controller {
 		$otp = $this->input->post('otp');
 		if($this->Api_user_model->validateOTP($user_id,$otp)){
 			$user_date = array();
-			$user_date = $this->Api_user_model->getUser($user_id)
+			$user_date = $this->Api_user_model->getUser($user_id);
 			if($user_date['status'] == '0'){
 				$response['status'] = false;
 				$response['response'] = array();
@@ -79,6 +79,7 @@ class User extends REST_Controller {
 			$response['response'] = array();
 			$response['message'] = "otp does not match";
 		}
+		$this->response($response);
 	}
 
 
@@ -87,8 +88,9 @@ class User extends REST_Controller {
 
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));
+		$user_type = $this->input->post('user_type');
 
-		$user_id = $this->Api_user_model->isLoginValid($email,$password)
+		$user_id = $this->Api_user_model->isLoginValid($email,$password);
 		if($user_id == '0'){
 			$response['status'] = false;
 			$response['response'] = array();
@@ -106,14 +108,18 @@ class User extends REST_Controller {
 			}else if($user_date['is_phone_verified'] == '0'){
 				$response['status'] = true;
 				$response['response'] = array();
-				$response['message'] = "phone numver not verified";
-			}else{
+				$response['message'] = "phone number not verified";
+			}else if(count($user_date)>0){
 				$response['status'] = true;
 				$response['response'] = $user_date;
 				$response['message'] = "login success";
+			}else{
+				$response['status'] = false;
+				$response['response'] = array();
+				$response['message'] = "Error occurred!";
 			}
 		}
-
+		$this->response($response);
 	}
 
 }
