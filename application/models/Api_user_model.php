@@ -22,10 +22,10 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function isEmailExist($email){
+	public function isEmailExist($email, $user_type){
 
 		$rows = array();
-		$rows= $this->db->select('count(*) AS count')->where("email",$email)->get('traffic_users')->row_array();
+		$rows= $this->db->select('count(*) AS count')->where("email",$email)->where("user_type",$user_type)->get('traffic_users')->row_array();
 		return $rows['count']>0 ? true : false;
 	}
 	

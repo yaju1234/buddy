@@ -26,7 +26,7 @@ class User extends REST_Controller {
 
 		$otp = '0000';
 
-		if($this->Api_user_model->isEmailExist($email)){
+		if($this->Api_user_model->isEmailExist($email, $user_type)){
 			$response['status'] = false;
 			$response['response'] = array();
 			$response['message'] = "email already exist";
