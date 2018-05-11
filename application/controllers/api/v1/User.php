@@ -90,7 +90,7 @@ class User extends REST_Controller {
 		$password = md5($this->input->post('password'));
 		$user_type = $this->input->post('user_type');
 
-		$user_id = $this->Api_user_model->isLoginValid($email,$password);
+		$user_id = $this->Api_user_model->isLoginValid($email,$password,$user_type);
 		if($user_id == '0'){
 			$response['status'] = false;
 			$response['response'] = array();

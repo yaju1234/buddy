@@ -29,10 +29,10 @@ class Api_user_model extends CI_Model
 		return $rows['count']>0 ? true : false;
 	}
 	
-	public function isLoginValid($email,$password){
+	public function isLoginValid($email,$password,$user_type){
 
 		$rows = array();
-		$rows= $this->db->select('id')->where("email",$email)->where("password",$password)->get('traffic_users')->row_array();
+		$rows= $this->db->select('id')->where("email",$email)->where("password",$password)->where("user_type",$user_type)->get('traffic_users')->row_array();
 		return $rows['id']>0 ? $rows['id'] : false;
 	}
 	
