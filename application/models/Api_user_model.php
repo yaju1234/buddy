@@ -2,7 +2,7 @@
 
 class Api_user_model extends CI_Model
 {
-	public function register($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$otp){
+	public function register($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$otp,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
@@ -14,6 +14,9 @@ class Api_user_model extends CI_Model
 		$user['otp'] = $otp;
 		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
+		$user['country'] = $country;
+		$user['state'] = $state;
+		$user['city'] = $city;
 
 		
 		$this->db->insert('traffic_users',$user);
@@ -23,7 +26,7 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_facebook($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$facebook_id){
+	public function register_facebook($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$facebook_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
@@ -37,6 +40,9 @@ class Api_user_model extends CI_Model
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['register_from'] = 'FACEBOOK';
 		$user['facebook_id'] = $facebook_id;
+		$user['country'] = $country;
+		$user['state'] = $state;
+		$user['city'] = $city;
 		
 		$this->db->insert('traffic_users',$user);
 		$insert_id = $this->db->insert_id();
@@ -45,7 +51,7 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_google($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$google_id){
+	public function register_google($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$google_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
@@ -59,6 +65,9 @@ class Api_user_model extends CI_Model
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['register_from'] = 'GOOGLE';
 		$user['google_id'] = $google_id;
+		$user['country'] = $country;
+		$user['state'] = $state;
+		$user['city'] = $city;
 		
 		$this->db->insert('traffic_users',$user);
 		$insert_id = $this->db->insert_id();
