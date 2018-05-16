@@ -44,7 +44,17 @@ class Api_user_model extends CI_Model
 	}
 
 	public function sendOTP($phone,$otp){
-			// OTP need to send Here
+		$from = '+1 647-697-7286';
+		$to = '+919933816402';
+		$message = 'This is a test...';
+
+		$response = $this->twilio->sms($from, $to, $message);
+
+
+		if($response->IsError)
+			echo 'Error: ' . $response->ErrorMessage;
+		else
+			echo 'Sent message to ' . $to;
 	}
 
 	public function resendOTP($user_id,$otp){

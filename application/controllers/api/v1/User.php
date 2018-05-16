@@ -7,11 +7,10 @@ class User extends REST_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper(array('url', 'form'));
+		$this->load->library('twilio');
 		$this->load->model(array('Api_user_model'));
 	}
-
 	
-
 	public function register_post(){
 
 		$response = array();
