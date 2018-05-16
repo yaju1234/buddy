@@ -14,6 +14,51 @@ class Api_user_model extends CI_Model
 		$user['otp'] = $otp;
 		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
+
+		
+		$this->db->insert('traffic_users',$user);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+
+
+	}
+
+	public function register_facebook($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$facebook_id){
+		$user = array();
+		$user['first_name'] = $first_name;
+		$user['last_name'] = $last_name;
+		$user['email'] = $email;
+		$user['phone'] = $phone;
+		$user['gender'] = $gender;
+		$user['password'] = $password;
+		$user['user_type'] = $user_type;
+		$user['image'] = $image;
+		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
+		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
+		$user['register_from'] = 'FACEBOOK';
+		$user['facebook_id'] = $facebook_id;
+		
+		$this->db->insert('traffic_users',$user);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+
+
+	}
+
+	public function register_google($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$google_id){
+		$user = array();
+		$user['first_name'] = $first_name;
+		$user['last_name'] = $last_name;
+		$user['email'] = $email;
+		$user['phone'] = $phone;
+		$user['gender'] = $gender;
+		$user['password'] = $password;
+		$user['user_type'] = $user_type;
+		$user['image'] = $image;
+		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
+		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
+		$user['register_from'] = 'GOOGLE';
+		$user['google_id'] = $google_id;
 		
 		$this->db->insert('traffic_users',$user);
 		$insert_id = $this->db->insert_id();
@@ -27,6 +72,13 @@ class Api_user_model extends CI_Model
 		$rows = array();
 		$rows= $this->db->select('count(*) AS count')->where("email",$email)->where("user_type",$user_type)->get('traffic_users')->row_array();
 		return $rows['count']>0 ? true : false;
+	}
+
+	public function userIdByEmail($email, $user_type){
+
+		$rows = array();
+		$rows= $this->db->select('id')->where("email",$email)->where("user_type",$user_type)->get('traffic_users')->row_array();
+		return $rows['id'];
 	}
 	
 	public function isLoginValid($email,$password,$user_type){
@@ -45,16 +97,14 @@ class Api_user_model extends CI_Model
 
 	public function sendOTP($phone,$otp){
 		$from = '+1 647-697-7286';
-		$to = '+919933816402';
-		$message = 'This is a test...';
-
+		$to = $phone;
+		$message = 'Your verification code is '.$otp;
 		$response = $this->twilio->sms($from, $to, $message);
-
-
 		if($response->IsError)
-			echo 'Error: ' . $response->ErrorMessage;
+			//echo 'Error: ' . $response->ErrorMessage;
+			return false;
 		else
-			echo 'Sent message to ' . $to;
+			return true;
 	}
 
 	public function resendOTP($user_id,$otp){

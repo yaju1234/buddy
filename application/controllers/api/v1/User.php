@@ -33,6 +33,7 @@ class User extends REST_Controller {
 			$data = array();
 			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$otp);
 			$data['user_id'] = $last_inserted_id;
+			$data['phone'] = $phone;
 			$this->Api_user_model->sendOTP($phone,$otp);
 			$response['status'] = true;
 			$response['response'] = $data;
@@ -41,6 +42,7 @@ class User extends REST_Controller {
 		}
 
 		
+
 		
 		$this->response($response);
 
@@ -64,9 +66,9 @@ class User extends REST_Controller {
 				$response['response'] = array();
 				$response['message'] = $user_date['admin_message'];
 			}else if($user_date['is_phone_verified'] == '0'){
-				$response['status'] = true;
+				$response['status'] = false;
 				$response['response'] = array();
-				$response['message'] = "phone numver not verified";
+				$response['message'] = "phone number not verified";
 			}else{
 				$response['status'] = true;
 				$response['response'] = $user_date;
@@ -78,6 +80,25 @@ class User extends REST_Controller {
 			$response['response'] = array();
 			$response['message'] = "otp does not match";
 		}
+		$this->response($response);
+	}
+
+	public function resend_otp_post(){
+		$response = array();
+		//$user_id = $this->input->post('user_id');
+		$phone = $this->input->post('phone');
+		$otp = '0000';
+		$user_date = array();
+		if($this->Api_user_model->sendOTP($phone,$otp)){
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "success";
+		}else{
+			$response['status'] = false;
+			$response['response'] = $user_date;
+			$response['message'] = "error";
+		}
+
 		$this->response($response);
 	}
 
@@ -120,5 +141,110 @@ class User extends REST_Controller {
 		}
 		$this->response($response);
 	}
+
+	public function register_facebook_post(){
+
+		$response = array();
+
+		$first_name = $this->input->post('first_name');
+		$last_name = $this->input->post('last_name');
+		$email = $this->input->post('email');
+		$phone = $this->input->post('phone');
+		$gender = $this->input->post('gender');
+		$user_type = $this->input->post('user_type');
+		$image = $this->input->post('image');
+		$facebook_id = $this->input->post('facebook_id');
+
+		//$otp = '0000';
+		$user_id = '';
+
+		if(!$this->Api_user_model->isEmailExist($email, $user_type)){
+			$user_id = $this->Api_user_model->register_facebook($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$facebook_id);
+		}else{
+			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
+		}
+
+
+		$user_date = $this->Api_user_model->getUser($user_id);
+		if($user_date['status'] == '0'){
+			$response['status'] = false;
+			$response['response'] = array();
+			$response['message'] = "user status false";
+		}else if($user_date['is_active'] == '0'){
+			$response['status'] = false;
+			$response['response'] = array();
+			$response['message'] = $user_date['admin_message'];
+		}else if($user_date['is_phone_verified'] == '0'){
+			$response['status'] = true;
+			$response['response'] = array();
+			$response['message'] = "phone number not verified";
+		}else if(count($user_date)>0){
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "login success";
+		}else{
+			$response['status'] = false;
+			$response['response'] = array();
+			$response['message'] = "Error occurred!";
+		}
+		
+		
+		$this->response($response);
+
+
+	}
+
+	public function register_google_post(){
+
+		$response = array();
+
+		$first_name = $this->input->post('first_name');
+		$last_name = $this->input->post('last_name');
+		$email = $this->input->post('email');
+		$phone = $this->input->post('phone');
+		$gender = $this->input->post('gender');
+		$user_type = $this->input->post('user_type');
+		$image = $this->input->post('image');
+		$google_id = $this->input->post('google_id');
+
+		//$otp = '0000';
+		$user_id = '';
+
+		if(!$this->Api_user_model->isEmailExist($email, $user_type)){
+			$user_id = $this->Api_user_model->register_google($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$google_id);
+		}else{
+			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
+		}
+
+
+		$user_date = $this->Api_user_model->getUser($user_id);
+		if($user_date['status'] == '0'){
+			$response['status'] = false;
+			$response['response'] = array();
+			$response['message'] = "user status false";
+		}else if($user_date['is_active'] == '0'){
+			$response['status'] = false;
+			$response['response'] = array();
+			$response['message'] = $user_date['admin_message'];
+		}else if($user_date['is_phone_verified'] == '0'){
+			$response['status'] = true;
+			$response['response'] = array();
+			$response['message'] = "phone number not verified";
+		}else if(count($user_date)>0){
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "login success";
+		}else{
+			$response['status'] = false;
+			$response['response'] = array();
+			$response['message'] = "Error occurred!";
+		}
+		
+		
+		$this->response($response);
+
+
+	}
+
 
 }
