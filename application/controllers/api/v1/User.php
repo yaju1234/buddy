@@ -20,6 +20,9 @@ class User extends REST_Controller {
 		$email = $this->input->post('email');
 		$phone = $this->input->post('phone');
 		$gender = $this->input->post('gender');
+		$country = $this->input->post('country');
+		$state = $this->input->post('state');
+		$city = $this->input->post('city');
 		$password = md5($this->input->post('password'));
 		$user_type = $this->input->post('user_type');
 
@@ -31,7 +34,7 @@ class User extends REST_Controller {
 			$response['message'] = "email already exist";
 		}else{
 			$data = array();
-			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$otp);
+			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$otp,$country,$state,$city);
 			$data['user_id'] = $last_inserted_id;
 			$data['phone'] = $phone;
 			$this->Api_user_model->sendOTP($phone,$otp);
@@ -154,12 +157,15 @@ class User extends REST_Controller {
 		$user_type = $this->input->post('user_type');
 		$image = $this->input->post('image');
 		$facebook_id = $this->input->post('facebook_id');
+		$country = $this->input->post('country');
+		$state = $this->input->post('state');
+		$city = $this->input->post('city');
 
 		//$otp = '0000';
 		$user_id = '';
 
 		if(!$this->Api_user_model->isEmailExist($email, $user_type)){
-			$user_id = $this->Api_user_model->register_facebook($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$facebook_id);
+			$user_id = $this->Api_user_model->register_facebook($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$facebook_id,$country,$state,$city);
 		}else{
 			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
 		}
@@ -206,12 +212,15 @@ class User extends REST_Controller {
 		$user_type = $this->input->post('user_type');
 		$image = $this->input->post('image');
 		$google_id = $this->input->post('google_id');
+		$country = $this->input->post('country');
+		$state = $this->input->post('state');
+		$city = $this->input->post('city');
 
 		//$otp = '0000';
 		$user_id = '';
 
 		if(!$this->Api_user_model->isEmailExist($email, $user_type)){
-			$user_id = $this->Api_user_model->register_google($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$google_id);
+			$user_id = $this->Api_user_model->register_google($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$google_id,$country,$state,$city);
 		}else{
 			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
 		}
@@ -245,6 +254,34 @@ class User extends REST_Controller {
 
 
 	}
+
+	public function states_post(){
+
+		$response = array();
+
+		
+		$data = $this->Api_user_model->getStates();
+		$response['status'] = true;
+		$response['response'] = $data;
+		$response['message'] = "success";
+		
+		$this->response($response);
+	}
+
+	public function cities_post(){
+
+		$response = array();
+		$state = $this->input->post('state');
+		
+		$data = $this->Api_user_model->getCity($state);
+		$response['status'] = true;
+		$response['response'] = $data;
+		$response['message'] = "success";
+		
+		$this->response($response);
+	}
+
+
 
 
 }
