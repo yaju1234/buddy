@@ -149,5 +149,17 @@ class Api_user_model extends CI_Model
      	$rows= $this->db->select('id,first_name, last_name, email,phone, image,is_phone_verified, is_active,admin_message, status')->where("id",$userid)->get('traffic_users')->row_array();
      	return $rows;
 	}
+
+	public function getStates(){
+ 		$rows = array();
+     	$rows= $this->db->select('*')->get('traffic_state')->result_array();
+     	return $rows;
+	}
+
+	public function getCity($state){
+ 		$rows = array();
+     	$rows= $this->db->select('*')->where('state',$state)->get('traffic_city')->result_array();
+     	return $rows;
+	}
 }
 ?>

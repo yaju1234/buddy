@@ -255,5 +255,33 @@ class User extends REST_Controller {
 
 	}
 
+	public function states_post(){
+
+		$response = array();
+
+		
+		$data = $this->Api_user_model->getStates();
+		$response['status'] = true;
+		$response['response'] = $data;
+		$response['message'] = "success";
+		
+		$this->response($response);
+	}
+
+	public function cities_post(){
+
+		$response = array();
+		$state = $this->input->post('state');
+		
+		$data = $this->Api_user_model->getCity($state);
+		$response['status'] = true;
+		$response['response'] = $data;
+		$response['message'] = "success";
+		
+		$this->response($response);
+	}
+
+
+
 
 }
