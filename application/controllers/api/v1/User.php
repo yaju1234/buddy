@@ -26,7 +26,7 @@ class User extends REST_Controller {
 		$password = md5($this->input->post('password'));
 		$user_type = $this->input->post('user_type');
 
-		$otp = '0000';
+		$otp = rand ( 1000 , 9999 );
 
 		if($this->Api_user_model->isEmailExist($email, $user_type)){
 			$response['status'] = false;
@@ -37,7 +37,7 @@ class User extends REST_Controller {
 			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$otp,$country,$state,$city);
 			$data['user_id'] = $last_inserted_id;
 			$data['phone'] = $phone;
-			$this->Api_user_model->sendOTP($phone,$otp);
+			$this->Api_user_model->sendOTP($phone,$otp,$last_inserted_id);
 			$response['status'] = true;
 			$response['response'] = $data;
 			$response['message'] = "register successfully";
@@ -90,9 +90,10 @@ class User extends REST_Controller {
 		$response = array();
 		//$user_id = $this->input->post('user_id');
 		$phone = $this->input->post('phone');
-		$otp = '0000';
+		$user_id = $this->input->post('user_id');
+		$otp = rand ( 1000 , 9999 );
 		$user_date = array();
-		if($this->Api_user_model->sendOTP($phone,$otp)){
+		if($this->Api_user_model->sendOTP($phone,$otp,$user_id)){
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "success";
@@ -123,15 +124,17 @@ class User extends REST_Controller {
 			if($user_date['status'] == '0'){
 				$response['status'] = false;
 				$response['response'] = array();
-				$response['message'] = "user status false";
+				$response['message'] = "inactive user";
 			}else if($user_date['is_active'] == '0'){
 				$response['status'] = false;
 				$response['response'] = array();
 				$response['message'] = $user_date['admin_message'];
 			}else if($user_date['is_phone_verified'] == '0'){
-				$response['status'] = true;
+				$otp = rand ( 1000 , 9999 );
+				$this->Api_user_model->sendOTP($user_date['phone'],$otp,$user_date['id']);
+				$response['status'] = false;
 				$response['response'] = array();
-				$response['message'] = "phone number not verified";
+				$response['message'] = "phone not verified";
 			}else if(count($user_date)>0){
 				$response['status'] = true;
 				$response['response'] = $user_date;
@@ -139,7 +142,7 @@ class User extends REST_Controller {
 			}else{
 				$response['status'] = false;
 				$response['response'] = array();
-				$response['message'] = "Error occurred!";
+				$response['message'] = "error occurred!";
 			}
 		}
 		$this->response($response);

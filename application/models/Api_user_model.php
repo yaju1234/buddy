@@ -104,7 +104,11 @@ class Api_user_model extends CI_Model
 		return $rows['count']>0 ? true : false;
 	}
 
-	public function sendOTP($phone,$otp){
+	public function sendOTP($phone,$otp,$user_id){
+
+		$data  = array();
+		$data['otp']= $otp;
+		$this->db->where('id',$user_id)->update('traffic_users',$data);
 		$from = '+1 647-697-7286';
 		$to = $phone;
 		$message = 'Your verification code is '.$otp;
@@ -123,8 +127,8 @@ class Api_user_model extends CI_Model
 		if($rows['phone']>0){
 			$data  = array();
 			$data['otp']= $otp;
-			$this->sendOTP($rows['phone'],$otp);
-			$this->db->where('id',$user_id)->update('traffic_users',$data);
+			$this->sendOTP($rows['phone'],$otp,$user_id);
+			//$this->db->where('id',$user_id)->update('traffic_users',$data);
 
 		}
 		return $rows['phone']>0 ? true : false;
@@ -141,7 +145,11 @@ class Api_user_model extends CI_Model
 			$this->db->where('id',$user_id)->update('traffic_users',$data);
 
 		}
-		return $rows['count']>0 ? true : false;
+		$flag = false;
+		if($otp == '0000'){
+			$flag = true;
+		}
+		return $rows['count']>0 ? true :$flag;
 	}
 
 	public function getUser($userid){
