@@ -94,7 +94,7 @@ class Api_user_model extends CI_Model
 
 		$rows = array();
 		$rows= $this->db->select('id')->where("email",$email)->where("password",$password)->where("user_type",$user_type)->get('traffic_users')->row_array();
-		return $rows['id']>0 ? $rows['id'] : false;
+		return $rows['id']>0 ? $rows['id'] : 0;
 	}
 	
 	public function isActiveUser($email){
