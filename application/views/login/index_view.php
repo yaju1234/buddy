@@ -1,136 +1,123 @@
+<script type="text/javascript" src="<?=base_url()?>/js/jquery.validate.js"></script>
+<script type="text/javascript">
+    $(document).on("click","#signin",function(event){
+        event.preventDefault();		
+        var form_id = $(this).parents('form:first').attr('id');
+        var form = document.getElementById(form_id);
+        var sEmail = $('#email').val();
+        var sPassword = $('#password').val();
+        if( $.trim(sEmail).length == 0 && $.trim(sPassword).length == 0 ){
+            toastr.error('Please login to proceed!');
+            $(".target").effect( "shake", {times:4}, 1000 );
+        }		
+        else{	
+            if( form.email.value == "" ) {
+                alert( "Please enter valid email address");
+                form.email.focus() ;
+                return false;
+            }
 
-<?=$this->load->view('template/header.php')?>
-<script type="text/javascript" src="<?=base_url()?>js/jquery.validate.js"></script>
-<script>
-$().ready(function() {
-	
-	$("#loginFrm").validate({
-		rules: {
-			firstname: "required",
-			lastname: "required",
-			username: {
-				required: true,
-				minlength: 2
-			},
-			password: {
-				required: true,
-				minlength: 5
-			},
-			confirm_password: {
-				required: true,
-				minlength: 5,
-				equalTo: "#password"
-			},
-			email: {
-				required: true,
-				email: true
-			},
-			topic: {
-				required: "#newsletter:checked",
-				minlength: 2
-			},
-			agree: "required"
-		},
-		messages: {
-			firstname: "Please enter your firstname",
-			lastname: "Please enter your lastname",
-			username: {
-				required: "Please enter a username",
-				minlength: "Your username must consist of at least 2 characters"
-			},
-			password: {
-				required: "Please provide a password",
-				minlength: "Your password must be at least 5 characters long"
-			},
-			confirm_password: {
-				required: "Please provide a password",
-				minlength: "Your password must be at least 5 characters long",
-				equalTo: "Please enter the same password as above"
-			},
-			email: "Please enter a valid email address",
-			agree: "Please accept our policy"
-		}
-	});
+            if (validateEmail(sEmail) == false) {
+                alert('Invalid Email Address');
+                form.email.focus() ;
+                return false;
+            }
 
-});
+            if( form.password.value == "" ) {
+                alert( "Please enter password");
+                form.password.focus() ;
+                return false;
+            }
+		
+            $('#signin').text('Please wait ...').attr('disabled','disabled');
+            
+            $.ajax({
+                url:'/login/dologin',
+                type:'POST',
+                data:$("#"+form_id).serialize(),
+                beforeSend: function() {
+                    //$("#preloader").show();
+                },
+                success:function(result){
+                    /*var value = parseInt(document.getElementById('number').value, 10);
+                    value = isNaN(value) ? 0 : value;
+                    value++;
+                    document.getElementById('number').value = value;*/
+                    if(JSON.parse(result).status){
+                        window.location.href = "/dashboard";
+                    }else{
+                        toastr.error('login error!', '', {
+                            onHidden: function() {
+                                //window.location.href = "/";
+                                $('#signin').text('SIGN IN').removeAttr('disabled');
+                            }
+                        });
+                    }
+                }
+            });	
+        }  
+    });
+
+    function validateForgetPassword(){
+
+        var form_id = $('#resetpassword').attr('id');
+        var form = document.getElementById(form_id);
+  
+        if( form.forget_email.value == "" ){
+            alert( "Please enter valid email address" );
+            form.forget_email.focus() ;
+            return false;
+        }		
+    }	 
+    function validateEmail(sEmail) {
+
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        return filter.test(sEmail)?true:false;   
+    }		 
 </script>
-
-<style type="text/css">
-#loginFrm label.error {
-	
-	width: auto;
-	display: inline;
-    color:#ff0000;
-}
-.err {
-	
-	width: auto;
-	display: inline;
-        color:#ff0000 !important;
-}
-.user-login-info {
-    
-    padding-bottom: 35px;
-    
-    }
-    
-</style>
-
 <div class="container">
-
-
-
-      <form class="form-signin"  id="loginFrm" action="<?=base_url()?>login/dologin" method="post">
-
-        <h2 class="form-signin-heading">sign in now</h2>
-        <div class="login-wrap">
-            <div class="user-login-info">
-                <input type="text" class="form-control" placeholder="Email" name="email" id="email" autofocus>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+    <div class = "target">
+        <form class="form-signin"  id="loginFrm" action="" method="post">
+            <input type="hidden" id="number" value="0"/>
+            <h2 class="form-signin-heading"><img src="<?=base_url()?>/images/blue_logo.png" style="height:50; width:30%;"/></h2>
+            <?php $this->session->flashdata('message_name'); ?>
+            <div class="login-wrap">
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" id="email"  placeholder="Email" style="color: #000;">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" id="password"  placeholder="Password" style="color: #000;">
+                </div>
+                <div class="clearfix"></div>
+                <div class="form-group bs-component">
+                    <button class="btn btn-raised btn-info btn-block" type="button" id = "signin">Sign in</button>
+                </div>
             </div>
-            <div style="clear:both"></div>
-            <label class="checkbox">
-                <input type="checkbox" value="remember-me" name="remember_me"> Remember me
-                <span class="pull-right">
-                    <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
-
-                </span>
-            </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
-
-           <!-- <div class="registration">
-                Don't have an account yet?
-                <a class="" href="<?=base_url()?>signup">
-                    Create an account
-                </a>
-            </div> -->
-
-        </div>
-
-          <!-- Modal -->
-          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Forgot Password ?</h4>
-                      </div>
-                      <div class="modal-body">
-                          <p>Enter your e-mail address below to reset your password.</p>
-                          <input type="text" name="email_forget" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-
-                      </div>
-                      <div class="modal-footer">
-                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                          <button class="btn btn-success" type="button">Submit</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- modal -->
-
-      </form>
-
+        </form>
     </div>
-    
- <?=$this->load->view('template/footer.php')?>   
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <form name="resetpassword" id="resetpassword" action="/login/resetPassword" method="POST" onsubmit="return validateForgetPassword()" >
+                <div class="modal-content">
+                    <div class="modal-header" style="background:#02a6d8; color:#fff; padding:15px 20px;">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Forgot Password ?</h4>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your e-mail address below to reset your password.</p>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="forget_email" id="forget_email" autocomplete="off" placeholder="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-raised btn-info pull-right" type="submit">Submit</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- modal -->
+</div>

@@ -8,22 +8,22 @@
 	/**
 	 * Account SID
 	 **/
-	$config['account_sid']   = 'ACb90dcf91900bc9450f5557b2c1063c83';
+	$config['account_sid']   = getenv('ACCOUNT_SID');
 
 	/**
 	 * Auth Token
 	 **/
-	$config['auth_token']    = '6acbbfacf6a836f7a2136064f0be9b34';
+	$config['auth_token']    = getenv('AUTH_TOKEN');
 
 	/**
 	 * API Version
 	 **/
-	$config['api_version']   = '2010-04-01';
+	$config['api_version']   = getenv('TWILIO_API_VERSION');
 
 	/**
 	 * Twilio Phone Number
 	 **/
-	$config['number']        = '+16476977286';
+	$config['number']        = getenv('TWILIO_FROM_NUMBER');
 
 
 /* End of file twilio.php */

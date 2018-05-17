@@ -16,7 +16,9 @@ class Login extends CI_Controller {
 	  
 	    $data   = array();
         $data['title']  = 'Login';
-		$this->load->view('login/index_view', $data);
+		$this->load->view('template/header.php', $data);
+		$this->load->view('login/index_view');
+		$this->load->view('template/footer.php');
 	}
     
     	public function script()

@@ -10,16 +10,11 @@ $(function() {
         autoExpand: true,
         classExpand: 'dcjq-current-parent'
     });
-
-
-
 });
-
 
 var Script = function () {
 
     //  menu auto scrolling
-
     jQuery('#sidebar .sub-menu > a').click(function () {
         var o = ($(this).offset());
         diff = 80 - o.top;
@@ -30,7 +25,6 @@ var Script = function () {
     });
 
     // toggle bar
-
     $(function() {
         var wd;
         wd = $(window).width();
@@ -44,19 +38,13 @@ var Script = function () {
             var wSize = $(window).width();
             if (wSize <= 768) {
                 $('#sidebar').addClass('hide-left-bar');
-
             }
-        else{
+            else{
                 $('#sidebar').removeClass('hide-left-bar');
             }
-
         }
         $(window).on('load', responsiveView);
         $(window).on('resize', responsiveView);
-
-
-
-
     });
 
     $('.sidebar-toggle-box .fa-bars').click(function (e) {
@@ -69,45 +57,35 @@ var Script = function () {
         if( $('.right-sidebar').hasClass('open-right-bar')){
             $('.right-sidebar').removeClass('open-right-bar')
         }
-
         if( $('.header').hasClass('merge-header')){
             $('.header').removeClass('merge-header')
         }
-
-
-
     });
+
     $('.toggle-right-box .fa-bars').click(function (e) {
         $('#container').toggleClass('open-right-panel');
         $('.right-sidebar').toggleClass('open-right-bar');
         $('.header').toggleClass('merge-header');
-
         e.stopPropagation();
     });
 
     $('.header,#main-content,#sidebar').click(function () {
-       if( $('#container').hasClass('open-right-panel')){
+        if( $('#container').hasClass('open-right-panel')){
            $('#container').removeClass('open-right-panel')
-       }
+        }
         if( $('.right-sidebar').hasClass('open-right-bar')){
             $('.right-sidebar').removeClass('open-right-bar')
         }
-
         if( $('.header').hasClass('merge-header')){
             $('.header').removeClass('merge-header')
         }
-
-
     });
 
-
-   // custom scroll bar
+    // custom scroll bar
     $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#1FB5AD", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
     $(".right-sidebar").niceScroll({styler:"fb",cursorcolor:"#1FB5AD", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
 
-
-   // widget tools
-
+    // widget tools
     jQuery('.panel .tools .fa-chevron-down').click(function () {
         var el = jQuery(this).parents(".panel").children(".panel-body");
         if (jQuery(this).hasClass("fa-chevron-down")) {
@@ -123,16 +101,14 @@ var Script = function () {
         jQuery(this).parents(".panel").parent().remove();
     });
 
-   // tool tips
-
+    // tool tips
     $('.tooltips').tooltip();
 
     // popovers
-
     $('.popovers').popover();
 
     // notification pie chart
-    $(function() {
+    /*$(function() {
         $('.notification-pie-chart').easyPieChart({
             onStep: function(from, to, percent) {
                 $(this.el).find('.percent').text(Math.round(percent));
@@ -142,16 +118,11 @@ var Script = function () {
             size:50,
             trackColor: "#efefef",
             scaleColor:"#cccccc"
-
         });
+    });*/
 
-    });
-
-
-    $(function() {
-
+    /*$(function() {
         var datatPie = [30,50];
-// DONUT
         $.plot($(".target-sell"), datatPie,
             {
                 series: {
@@ -160,18 +131,12 @@ var Script = function () {
                         show: true,
                         label: {
                             show: false
-
                         },
                         stroke: {
                             width:.01,
                             color: '#fff'
-
                         }
                     }
-
-
-
-
                 },
 
                 legend: {
@@ -184,9 +149,9 @@ var Script = function () {
 
                 colors: ["#ff6d60", "#cbcdd9"]
             });
-    });
+    });*/
 
-    $(function() {
+    /*$(function() {
         $('.pc-epie-chart').easyPieChart({
             onStep: function(from, to, percent) {
                 $(this.el).find('.percent').text(Math.round(percent));
@@ -196,25 +161,19 @@ var Script = function () {
             size:50,
             trackColor: "#32323a",
             scaleColor:"#cccccc"
-
         });
+    });*/
 
-    });
-
-
-
-    $(function() {
+    /*$(function() {
         $(".d-pending").sparkline([3,1], {
             type: 'pie',
             width: '40',
             height: '40',
             sliceColors: ['#e1e1e1','#8175c9']
         });
-    });
+    });*/
 
-
-
-// SPARKLINE
+    // SPARKLINE
     $(function () {
         var sparkLine = function () {
             $(".sparkline").each(function(){
@@ -224,7 +183,6 @@ var Script = function () {
 
                 $data.valueSpots = {'0:': $data.spotColor};
                 $(this).sparkline( $data.data || "html", $data);
-
 
                 if($(this).data("compositeData")){
                     $spdata = $(this).data("compositeConfig");
@@ -269,20 +227,4 @@ var Script = function () {
         });
 
     });
-
-//    $(function() {
-//
-//    $('.todo-check label').click(function(){
-//        var n = $(this).parents('li input[type="checkbox"]');
-//        if ($(n).is(':checked')){
-//alert('tets');
-//        }
-//        else{
-//            alert('none');
-//        }
-//
-//    });
-//
-//    });
 }();
-
