@@ -2,7 +2,7 @@
 
 
 
-class login_model extends CI_Model
+class Login_model extends CI_Model
 
 {
    
