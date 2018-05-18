@@ -32,27 +32,19 @@
             $('#signin').text('Please wait ...').attr('disabled','disabled');
             
             $.ajax({
-                url:'/login/dologin',
+                url:'login/dologin',
                 type:'POST',
                 data:$("#"+form_id).serialize(),
                 beforeSend: function() {
                     //$("#preloader").show();
                 },
                 success:function(result){
-                    /*var value = parseInt(document.getElementById('number').value, 10);
-                    value = isNaN(value) ? 0 : value;
-                    value++;
-                    document.getElementById('number').value = value;*/
                     if(JSON.parse(result).status){
-                        window.location.href = "/dashboard";
+                        window.location.href = "clients/";
                     }else{
-                        toastr.error('login error!', '', {
-                            onHidden: function() {
-                                //window.location.href = "/";
-                                $('#signin').text('SIGN IN').removeAttr('disabled');
-                            }
-                        });
+                        toastr.error('Please enter correct eamil and password.');
                     }
+					$('#signin').text('SIGN IN').removeAttr('disabled');
                 }
             });	
         }  
@@ -77,7 +69,7 @@
 </script>
 <div class="container">
     <div class = "target">
-        <form class="form-signin"  id="loginFrm" action="" method="post">
+        <form class="form-signin" id="loginFrm" action="" method="post">
             <input type="hidden" id="number" value="0"/>
             <h2 class="form-signin-heading"><img src="<?=base_url()?>/images/blue_logo.png" style="height:50; width:30%;"/></h2>
             <?php $this->session->flashdata('message_name'); ?>
@@ -90,7 +82,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="form-group bs-component">
-                    <button class="btn btn-raised btn-info btn-block" type="button" id = "signin">Sign in</button>
+                    <button class="btn btn-raised btn-info btn-block" type="submit" id ="signin">SIGN IN</button>
                 </div>
             </div>
         </form>

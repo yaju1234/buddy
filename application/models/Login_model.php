@@ -1,18 +1,8 @@
 <?php if (!defined('BASEPATH'))exit('No direct script access allowed');
 
-
-
 class Login_model extends CI_Model
-
 {
-   
-   public function script()
-    {
-        $data = array();
-        $options = array("cost" => 11);
-        $data['password']  = password_hash("123456", PASSWORD_BCRYPT, $options);
-    	$this->db->where('id','1')->update('appo_admin',$data);
-    } 
+
 //-------------------------------
 // EMAIL EXISTS (true or false)
 //---------------------------------
@@ -59,39 +49,19 @@ function forget_pass_email_exists()
 	}
 }
 
-
-    
- function check_credentials(){
-        
+	function check_credentials(){
         $email  = $this->input->post('email');
-        $password  = $this->input->post('email');
-        
-        $options = array("cost" => 11);
-        $pass = password_hash($password, PASSWORD_BCRYPT, $options);
-        $pass_verify = password_verify($password, $pass);
-        
-        if($pass_verify == 1)
-        {
-        $chkRs  = $this->db->select('*')->where('email', $email)->get('appo_admin');
-        
-        //echo $this->db->last_query();die;
+        $password  = $this->input->post('password');
+		
+        $chkRs  = $this->db->select('*')->where('email', $email)->where('password', md5($password))->get('traffic_admin');
         
         if($chkRs->num_rows() > 0){
             $temp   = array();
             $temp   = $chkRs->row_array();
-            
             $this->session->set_userdata('logged_user', $temp);
-            
-              return 1;  
-            
+            return true;
         }else{
-            return 0;
+            return false;
         }
-       }
-       else
-       {
-           return 0;
-       } 
-    }   
-
+    }
 }

@@ -25,6 +25,9 @@
     <!--Core js-->
     <script src="<?=base_url()?>js/lib/jquery.js"></script>
     <script src="<?=base_url()?>bs3/js/bootstrap.min.js"></script>
+	
+    <link href="<?=base_url()?>assets/toastr/toastr.min.css" rel="stylesheet" />
+    <script src="<?=base_url()?>assets/toastr/toastr.min.js" type="text/javascript"></script>
     
 </head>
 
