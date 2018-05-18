@@ -30,7 +30,7 @@ class User extends REST_Controller {
 
 		if($this->Api_user_model->isEmailExist($email, $user_type)){
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "email already exist";
 		}else{
 			$data = array();
@@ -62,15 +62,15 @@ class User extends REST_Controller {
 			$user_date = $this->Api_user_model->getUser($user_id);
 			if($user_date['status'] == '0'){
 				$response['status'] = false;
-				$response['response'] = array();
+				$response['response'] = new stdClass();
 				$response['message'] = "user status false";
 			}else if($user_date['is_active'] == '0'){
 				$response['status'] = false;
-				$response['response'] = array();
+				$response['response'] = new stdClass();
 				$response['message'] = $user_date['admin_message'];
 			}else if($user_date['is_phone_verified'] == '0'){
 				$response['status'] = false;
-				$response['response'] = array();
+				$response['response'] = new stdClass();
 				$response['message'] = "phone number not verified";
 			}else{
 				$response['status'] = true;
@@ -80,7 +80,7 @@ class User extends REST_Controller {
 			
 		}else{
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "otp does not match";
 		}
 		$this->response($response);
@@ -110,6 +110,7 @@ class User extends REST_Controller {
 	public function login_post(){
 		$response = array();
 
+
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));
 		$user_type = $this->input->post('user_type');
@@ -117,23 +118,23 @@ class User extends REST_Controller {
 		$user_id = $this->Api_user_model->isLoginValid($email,$password,$user_type);
 		if($user_id == '0'){
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] =new stdClass();
 			$response['message'] = "email or passowrd does not match";
 		}else{
 			$user_date = $this->Api_user_model->getUser($user_id);
 			if($user_date['status'] == '0'){
 				$response['status'] = false;
-				$response['response'] = array();
+				$response['response'] = new stdClass();
 				$response['message'] = "inactive user";
 			}else if($user_date['is_active'] == '0'){
 				$response['status'] = false;
-				$response['response'] = array();
+				$response['response'] = new stdClass();
 				$response['message'] = $user_date['admin_message'];
 			}else if($user_date['is_phone_verified'] == '0'){
 				$otp = rand ( 1000 , 9999 );
 				$this->Api_user_model->sendOTP($user_date['phone'],$otp,$user_date['id']);
 				$response['status'] = false;
-				$response['response'] = array();
+				$response['response'] = new stdClass();
 				$response['message'] = "phone not verified";
 			}else if(count($user_date)>0){
 				$response['status'] = true;
@@ -141,7 +142,7 @@ class User extends REST_Controller {
 				$response['message'] = "login success";
 			}else{
 				$response['status'] = false;
-				$response['response'] = array();
+				$response['response'] = new stdClass();
 				$response['message'] = "error occurred!";
 			}
 		}
@@ -177,15 +178,15 @@ class User extends REST_Controller {
 		$user_date = $this->Api_user_model->getUser($user_id);
 		if($user_date['status'] == '0'){
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "user status false";
 		}else if($user_date['is_active'] == '0'){
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = $user_date['admin_message'];
 		}else if($user_date['is_phone_verified'] == '0'){
 			$response['status'] = true;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "phone number not verified";
 		}else if(count($user_date)>0){
 			$response['status'] = true;
@@ -193,7 +194,7 @@ class User extends REST_Controller {
 			$response['message'] = "login success";
 		}else{
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "Error occurred!";
 		}
 		
@@ -232,15 +233,15 @@ class User extends REST_Controller {
 		$user_date = $this->Api_user_model->getUser($user_id);
 		if($user_date['status'] == '0'){
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "user status false";
 		}else if($user_date['is_active'] == '0'){
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] =new stdClass();
 			$response['message'] = $user_date['admin_message'];
 		}else if($user_date['is_phone_verified'] == '0'){
 			$response['status'] = true;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "phone number not verified";
 		}else if(count($user_date)>0){
 			$response['status'] = true;
@@ -248,7 +249,7 @@ class User extends REST_Controller {
 			$response['message'] = "login success";
 		}else{
 			$response['status'] = false;
-			$response['response'] = array();
+			$response['response'] = new stdClass();
 			$response['message'] = "Error occurred!";
 		}
 		
