@@ -169,7 +169,7 @@ class User extends REST_Controller {
 		$user_id = '';
 
 		if(!$this->Api_user_model->isEmailExist($email, $user_type)){
-			$user_id = $this->Api_user_model->register_facebook($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$facebook_id,$country,$state,$city);
+			$user_id = $this->Api_user_model->register_facebook($first_name,$last_name,$email,$phone,$gender,$user_type,$image,$facebook_id,$country,$state,$city);
 		}else{
 			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
 		}
@@ -224,7 +224,7 @@ class User extends REST_Controller {
 		$user_id = '';
 
 		if(!$this->Api_user_model->isEmailExist($email, $user_type)){
-			$user_id = $this->Api_user_model->register_google($first_name,$last_name,$email,$phone,$gender,$password,$user_type,$image,$google_id,$country,$state,$city);
+			$user_id = $this->Api_user_model->register_google($first_name,$last_name,$email,$phone,$gender,$user_type,$image,$google_id,$country,$state,$city);
 		}else{
 			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
 		}

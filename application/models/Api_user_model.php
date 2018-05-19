@@ -26,14 +26,13 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_facebook($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$facebook_id,$country,$state,$city){
+	public function register_facebook($first_name, $last_name, $email, $phone,$gender,$user_type,$image,$facebook_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
 		$user['email'] = $email;
 		$user['phone'] = $phone;
 		$user['gender'] = $gender;
-		$user['password'] = $password;
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
 		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
@@ -51,14 +50,13 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_google($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$image,$google_id,$country,$state,$city){
+	public function register_google($first_name, $last_name, $email, $phone,$gender,$user_type,$image,$google_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
 		$user['email'] = $email;
 		$user['phone'] = $phone;
 		$user['gender'] = $gender;
-		$user['password'] = $password;
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
 		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
