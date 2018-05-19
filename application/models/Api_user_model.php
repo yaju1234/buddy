@@ -35,7 +35,7 @@ class Api_user_model extends CI_Model
 		$user['gender'] = $gender;
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
-		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
+		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '1';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['register_from'] = 'FACEBOOK';
 		$user['facebook_id'] = $facebook_id;
@@ -59,7 +59,7 @@ class Api_user_model extends CI_Model
 		$user['gender'] = $gender;
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
-		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
+		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '1';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['register_from'] = 'GOOGLE';
 		$user['google_id'] = $google_id;
