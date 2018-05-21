@@ -245,21 +245,21 @@ class User extends REST_Controller {
 
 		$this->load->library('email');
 
-$config['protocol']    = 'smtp';
+		$config['protocol']    = 'smtp';
 
-$config['smtp_host']    = 'ssl://smtp.gmail.com';
+		$config['smtp_host']    = 'ssl://smtp.gmail.com';
 
-$config['smtp_port']    = '465';
+		$config['smtp_port']    = '465';
 
-$config['smtp_timeout'] = '7';
+		$config['smtp_timeout'] = '7';
 
-$config['smtp_user']    = 'homdevelopers@gmail.com';
+		$config['smtp_user']    = 'buddytraffic@gmail.com';
 
-$config['smtp_pass']    = 'Hom@4321';
+		$config['smtp_pass']    = 'Traffic@1234';
 
-$config['charset']    = 'utf-8';
+		$config['charset']    = 'utf-8';
 
-$config['newline']    = "\r\n";
+		$config['newline']    = "\r\n";
 
 $config['mailtype'] = 'text'; // or html
 
@@ -268,7 +268,7 @@ $config['validation'] = TRUE; // bool whether to validate email or not
 $this->email->initialize($config);
 
 
-$this->email->from('homdevelopers@gmail.com', 'sender_name');
+$this->email->from('buddytraffic@gmail.com', 'sender_name');
 $this->email->to('yaju.rcc@gmail.com'); 
 
 
