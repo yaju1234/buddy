@@ -33,7 +33,7 @@
             $('#signin').text('Please wait ...').attr('disabled','disabled');
             
             $.ajax({
-                url: baseUrl+'admin/login/dologin',
+                url: baseUrl+'login/dologin',
                 type:'POST',
                 data:$("#"+form_id).serialize(),
                 beforeSend: function() {
