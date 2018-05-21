@@ -243,7 +243,64 @@ class User extends REST_Controller {
 	public function send_mail_post() {
 
 
+		$this->load->library('email');
 
+$config['protocol']    = 'smtp';
+
+$config['smtp_host']    = 'ssl://smtp.gmail.com';
+
+$config['smtp_port']    = '465';
+
+$config['smtp_timeout'] = '7';
+
+$config['smtp_user']    = 'homdevelopers@gmail.com';
+
+$config['smtp_pass']    = 'Hom@4321';
+
+$config['charset']    = 'utf-8';
+
+$config['newline']    = "\r\n";
+
+$config['mailtype'] = 'text'; // or html
+
+$config['validation'] = TRUE; // bool whether to validate email or not      
+
+$this->email->initialize($config);
+
+
+$this->email->from('homdevelopers@gmail.com', 'sender_name');
+$this->email->to('yaju.rcc@gmail.com'); 
+
+
+$this->email->subject('Email Test');
+
+$this->email->message('Testing the email class.');  
+
+$this->email->send();
+
+echo $this->email->print_debugger();
+
+		/*$this->load->library('email');
+
+		$this->email->from('your@example.com', 'Your Name');
+		$this->email->to('someone@example.com');
+		$this->email->cc('another@another-example.com');
+		$this->email->bcc('them@their-example.com');
+
+		$this->email->subject('Email Test');
+		$this->email->message('Testing the email class.');
+
+		$this->email->send();
+
+		$config['protocol'] = 'sendmail';
+		$config['mailpath'] = '/usr/sbin/sendmail';
+		$config['charset'] = 'iso-8859-1';
+		$config['wordwrap'] = TRUE;
+
+		$this->email->initialize($config);*/
+
+
+/*
 		$config = Array(
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -271,7 +328,7 @@ class User extends REST_Controller {
 			echo "Email is not sent!!";
 		}
 		
-		echo $this->email->print_debugger();
+		echo $this->email->print_debugger();*/
 	}
 
 // 5001 -> email not verified
