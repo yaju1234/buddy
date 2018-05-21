@@ -52,13 +52,13 @@
 				<!-- sidebar menu start-->
 				<ul class="sidebar-menu" id="nav-accordion">
 					<li>
-						<a class="active" href="<?=base_url()?>admin/clients">
+						<a href="<?=base_url()?>admin/clients">
 							<i class="fa fa-dashboard"></i>
 							<span>Clients</span>
 						</a>
 					</li>
 					<li class="sub-menu">
-						<a href="<?=base_url()?>admin/lawyers">
+						<a class="active" href="<?=base_url()?>admin/lawyers">
 							<i class="fa fa-user"></i>
 							<span>Lawyers </span>
 						</a>
@@ -114,13 +114,14 @@
                                         <th>Country</th>
                                         <th>State</th>
                                         <th>City</th>
+                                        <th>Degree</th>
                                         <th>Created</th>
                                     </tr>
                                 </thead>
                                 <tbody id="test_list">
                                 
                                 <?php 
-                                    foreach($client_list as $key => $list) {
+                                    foreach($lawyers_list as $key => $list) {
                                         $request_date = date('l jS F Y', strtotime($list['created']));
                                 ?>
                                     <tr class="" id="request_tr_<?=$list['id']?>">
@@ -131,6 +132,7 @@
                                     <td class="center"> <?=($list['country'])?$list['country']:''?> </td>
                                     <td class="center"> <?=($list['state'])?$list['state']:''?> </td>
                                     <td class="center"> <?=($list['city'])?$list['city']:''?> </td>
+                                    <td class="center"> <?=($list['degree'])?$list['degree']:''?> </td>
                                     <td class="center"> <?=$request_date?> </td>
                                 </tr>
                                 <?php } ?>                                

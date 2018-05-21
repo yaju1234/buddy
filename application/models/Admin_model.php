@@ -5,4 +5,8 @@ class Admin_model extends CI_Model{
         $res = $this->db->select('*')->where('user_type','CLIENT')->get('traffic_users')->result_array();
         return $res;
     }
+	function getLawyers(){
+        $res = $this->db->select('*')->where('user_type','LAWYER')->get('traffic_users')->result_array();
+        return $res;
+    }
 }
