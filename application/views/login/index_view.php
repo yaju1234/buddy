@@ -1,5 +1,6 @@
 <script type="text/javascript" src="<?=base_url()?>/js/jquery.validate.js"></script>
 <script type="text/javascript">
+	var baseUrl = "<?=base_url()?>"; 
     $(document).on("click","#signin",function(event){
         event.preventDefault();		
         var form_id = $(this).parents('form:first').attr('id');
@@ -32,7 +33,7 @@
             $('#signin').text('Please wait ...').attr('disabled','disabled');
             
             $.ajax({
-                url:'login/dologin',
+                url: baseUrl+'admin/login/dologin',
                 type:'POST',
                 data:$("#"+form_id).serialize(),
                 beforeSend: function() {
@@ -40,11 +41,11 @@
                 },
                 success:function(result){
                     if(JSON.parse(result).status){
-                        window.location.href = "clients/";
+                        window.location.href = baseUrl+"admin/clients/";
                     }else{
                         toastr.error('Please enter correct eamil and password.');
+						$('#signin').text('SIGN IN').removeAttr('disabled');
                     }
-					$('#signin').text('SIGN IN').removeAttr('disabled');
                 }
             });	
         }  
