@@ -269,7 +269,7 @@ $this->email->initialize($config);
 
 
 $this->email->from('buddytraffic@gmail.com', 'sender_name');
-$this->email->to('yaju.rcc@gmail.com'); 
+$this->email->to('yajneshwar.mandal@appsbee.com'); 
 
 
 $this->email->subject('Email Test');
