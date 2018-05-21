@@ -2,17 +2,17 @@
 
 class Api_user_model extends CI_Model
 {
-	public function register($first_name, $last_name, $email, $phone,$gender, $password,$user_type,$otp,$country,$state,$city){
+	public function register($first_name, $last_name, $email, $phone, $password,$user_type,$otp,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
 		$user['email'] = $email;
 		$user['phone'] = $phone;
-		$user['gender'] = $gender;
 		$user['password'] = $password;
 		$user['user_type'] = $user_type;
 		$user['otp'] = $otp;
-		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '0';
+		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
+		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['country'] = $country;
 		$user['state'] = $state;
@@ -26,16 +26,15 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_facebook($first_name, $last_name, $email, $phone,$gender,$user_type,$image,$facebook_id,$country,$state,$city){
+	public function register_facebook($first_name, $last_name, $email, $phone,$user_type,$image,$facebook_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
 		$user['email'] = $email;
 		$user['phone'] = $phone;
-		$user['gender'] = $gender;
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
-		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '1';
+		$user['is_active'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['register_from'] = 'FACEBOOK';
 		$user['facebook_id'] = $facebook_id;
@@ -50,16 +49,15 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_google($first_name, $last_name, $email, $phone,$gender,$user_type,$image,$google_id,$country,$state,$city){
+	public function register_google($first_name, $last_name, $email, $phone,$user_type,$image,$google_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
 		$user['email'] = $email;
 		$user['phone'] = $phone;
-		$user['gender'] = $gender;
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
-		$user['is_active'] = $user_type == 'CLIENT' ? '1' : '1';
+		$user['is_active'] = $user_type == "CLIENT" ? '1' : '1';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['register_from'] = 'GOOGLE';
 		$user['google_id'] = $google_id;
@@ -152,19 +150,25 @@ class Api_user_model extends CI_Model
 
 	public function getUser($userid){
  		$rows = array();
-     	$rows= $this->db->select('id,first_name, last_name, email,phone, image,is_phone_verified, is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
+     	$rows= $this->db->select('id,first_name, last_name, email,phone, image,is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
      	return $rows;
 	}
 
-	public function getStates(){
+	public function getStates($country_id){
  		$rows = array();
-     	$rows= $this->db->select('*')->get('traffic_state')->result_array();
+     	$rows= $this->db->select('*')->where('country_id',$country_id)->get('traffic_state')->result_array();
      	return $rows;
 	}
 
 	public function getCity($state){
  		$rows = array();
      	$rows= $this->db->select('*')->where('state',$state)->get('traffic_city')->result_array();
+     	return $rows;
+	}
+
+	public function getCountry(){
+ 		$rows = array();
+     	$rows= $this->db->select('*')->get('traffic_country')->result_array();
      	return $rows;
 	}
 }
