@@ -62,23 +62,9 @@ class User extends REST_Controller {
 		if($this->Api_user_model->validateOTP($user_id,$otp)){
 			$user_date = array();
 			$user_date = $this->Api_user_model->getUser($user_id);
-			if($user_date['status'] == '0'){
-				$response['status'] = false;
-				$response['response'] = new stdClass();
-				$response['message'] = "user status false";
-			}else if($user_date['is_active'] == '0'){
-				$response['status'] = false;
-				$response['response'] = new stdClass();
-				$response['message'] = $user_date['admin_message'];
-			}else if($user_date['is_phone_verified'] == '0'){
-				$response['status'] = false;
-				$response['response'] = new stdClass();
-				$response['message'] = "phone number not verified";
-			}else{
 				$response['status'] = true;
 				$response['response'] = $user_date;
 				$response['message'] = "success";
-			}
 			
 		}else{
 			$response['status'] = false;
@@ -241,102 +227,72 @@ class User extends REST_Controller {
 		$this->response($response);
 	}
 
-	public function send_mail_post() {
+	public function send_mail_otp_post() {
 
-
+		$response = array();
+		//$user_id = $this->input->post('user_id');
+		$email = $this->input->post('email');
+		$user_id = $this->input->post('user_id');
+		$otp = rand ( 1000 , 9999 );
+		if($this->Api_user_model->sendEmailOTP($email, $otp,$user_id)){
 		$this->load->library('email');
-
 		$config['protocol']    = 'smtp';
-
 		$config['smtp_host']    = 'ssl://smtp.gmail.com';
-
 		$config['smtp_port']    = '465';
-
 		$config['smtp_timeout'] = '7';
-
 		$config['smtp_user']    = 'buddytraffic@gmail.com';
-
 		$config['smtp_pass']    = 'Traffic@1234';
-
 		$config['charset']    = 'utf-8';
-
 		$config['newline']    = "\r\n";
-
-$config['mailtype'] = 'text'; // or html
-
-$config['validation'] = TRUE; // bool whether to validate email or not      
-
-$this->email->initialize($config);
+		$config['mailtype'] = 'text'; // or html
+		$config['validation'] = TRUE; // bool whether to validate email or not      
+		$this->email->initialize($config);
 
 
-$this->email->from('buddytraffic@gmail.com', 'sender_name');
-$this->email->to('yajneshwar.mandal@appsbee.com'); 
+		$this->email->from('buddytraffic@gmail.com', 'sender_name');
+		$this->email->to($email); 
 
+		$message = 'Your verification code is '.$otp;
+		$this->email->subject('Trafic Buddy OTP Validation');
 
-$this->email->subject('Email Test');
-
-$this->email->message('Testing the email class.');  
-
-$this->email->send();
-
-echo $this->email->print_debugger();
-
-		/*$this->load->library('email');
-
-		$this->email->from('your@example.com', 'Your Name');
-		$this->email->to('someone@example.com');
-		$this->email->cc('another@another-example.com');
-		$this->email->bcc('them@their-example.com');
-
-		$this->email->subject('Email Test');
-		$this->email->message('Testing the email class.');
+		$this->email->message($message);  
 
 		$this->email->send();
 
-		$config['protocol'] = 'sendmail';
-		$config['mailpath'] = '/usr/sbin/sendmail';
-		$config['charset'] = 'iso-8859-1';
-		$config['wordwrap'] = TRUE;
-
-		$this->email->initialize($config);*/
-
-
-/*
-		$config = Array(
-			'protocol' => 'smtp',
-			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_port' => 587,
-			'smtp_user' => 'homdevelopers@gmail.com',
-			'smtp_pass' => 'Hom@1234',
-			'mailtype'  => 'html', 
-			'charset' => 'utf-8',
-			'newline' => "\r\n",
-			'wordwrap' => TRUE
-			);
-		
-		$this->load->library('email',$config);
-		$this->email->from('homdevelopers@gmail.com', 'Support');
-		$this->email->to('yaju.rcc@gmail.com');
-		$this->email->cc('');
-		$this->email->bcc('');
-		
-		$this->email->subject('Test');
-		$this->email->message('This is a test email');
-		
-		if ( ! $this->email->send())
-		{
-    // Generate error
-			echo "Email is not sent!!";
+		$response['status'] = true;
+		$response['response'] = new stdClass();
+		$response['message'] = "success";
+		}else{
+			$response['status'] = false;
+		$response['response'] = new stdClass();
+		$response['message'] = "error";
 		}
+
+		$this->response($response);
+
 		
-		echo $this->email->print_debugger();*/
 	}
 
-// 5001 -> email not verified
-// 5002 -> phone not verified
-// 5003 -> both email and phone not verified
-// 5004 -> email already exist
-// 5005 -> email id or password does not match
+	public function validate_email_otp_post(){
+		$response = array();
+
+		$user_id = $this->input->post('user_id');
+		$otp = $this->input->post('otp');
+		if($this->Api_user_model->validateEmailOTP($user_id,$otp)){
+			$user_date = array();
+			$user_date = $this->Api_user_model->getUser($user_id);
+				$response['status'] = true;
+				$response['response'] = $user_date;
+				$response['message'] = "success";
+			
+		}else{
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "otp does not match";
+		}
+		$this->response($response);
+	}
+
 
 
 }
