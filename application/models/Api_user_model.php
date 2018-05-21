@@ -13,6 +13,7 @@ class Api_user_model extends CI_Model
 		$user['otp'] = $otp;
 		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
 		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		$user['is_email_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
 		$user['country'] = $country;
 		$user['state'] = $state;
@@ -35,7 +36,9 @@ class Api_user_model extends CI_Model
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
 		$user['is_active'] = $user_type == "CLIENT" ? '0' : '1';
-		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
+		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		$user['is_email_verified'] = '1';
+		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'waiting for admin approval';
 		$user['register_from'] = 'FACEBOOK';
 		$user['facebook_id'] = $facebook_id;
 		$user['country'] = $country;
@@ -58,7 +61,9 @@ class Api_user_model extends CI_Model
 		$user['user_type'] = $user_type;
 		$user['image'] = $image;
 		$user['is_active'] = $user_type == "CLIENT" ? '1' : '1';
-		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
+		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'waiting for admin approval';
+		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		$user['is_email_verified'] = '1';
 		$user['register_from'] = 'GOOGLE';
 		$user['google_id'] = $google_id;
 		$user['country'] = $country;
