@@ -23,6 +23,7 @@ class User extends REST_Controller {
 		$country = $this->input->post('country');
 		$state = $this->input->post('state');
 		$city = $this->input->post('city');
+		$degree = $this->input->post('degree');
 		$password = md5($this->input->post('password'));
 		$user_type = $this->input->post('user_type');
 
@@ -35,7 +36,7 @@ class User extends REST_Controller {
 			$response['message'] = "email already exist";
 		}else{
 			$data = array();
-			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$password,$user_type,$otp,$country,$state,$city);
+			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$password,$user_type,$otp,$country,$state,$city,$degree);
 			$data['user_id'] = $last_inserted_id;
 			$data['phone'] = $phone;
 			$this->Api_user_model->sendOTP($phone,$otp,$last_inserted_id);

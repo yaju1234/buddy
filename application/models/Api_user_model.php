@@ -2,7 +2,7 @@
 
 class Api_user_model extends CI_Model
 {
-	public function register($first_name, $last_name, $email, $phone, $password,$user_type,$otp,$country,$state,$city){
+	public function register($first_name, $last_name, $email, $phone, $password,$user_type,$otp,$country,$state,$city,$degree){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
@@ -18,6 +18,7 @@ class Api_user_model extends CI_Model
 		$user['country'] = $country;
 		$user['state'] = $state;
 		$user['city'] = $city;
+		$user['degree'] = $degree;
 
 		
 		$this->db->insert('traffic_users',$user);
