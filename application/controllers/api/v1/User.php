@@ -249,7 +249,7 @@ class User extends REST_Controller {
 		$this->email->initialize($config);
 
 
-		$this->email->from('buddytraffic@gmail.com', 'sender_name');
+		$this->email->from('buddytraffic@gmail.com', 'Traffic Buddy');
 		$this->email->to($email); 
 
 		$message = 'Your verification code is '.$otp;
