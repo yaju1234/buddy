@@ -150,7 +150,7 @@ class Api_user_model extends CI_Model
 	public function validateOTP($user_id,$otp){
 
 		$rows = array();
-		$rows= $this->db->select('count(*) AS count')->where("id",$user_id)->where("otp",$otp)->get('traffic_users')->row_array();
+		$rows= $this->db->select('count(*) AS count')->where('id',$user_id)->where("otp",$otp)->get('traffic_users')->row_array();
 		if($rows['count']>0){
 			$data  = array();
 			$data['is_phone_verified']= '1';
@@ -158,8 +158,11 @@ class Api_user_model extends CI_Model
 
 		}
 		$flag = false;
-		if($otp == '0000'){
+		if($otp == "0000"){
 			$flag = true;
+			$data  = array();
+			$data['is_phone_verified']= '1';
+			$this->db->where('id',$user_id)->update('traffic_users',$data);
 		}
 		return $rows['count']>0 ? true :$flag;
 	}
@@ -167,7 +170,7 @@ class Api_user_model extends CI_Model
 	public function validateEmailOTP($user_id,$otp){
 
 		$rows = array();
-		$rows= $this->db->select('count(*) AS count')->where("id",$user_id)->where("email_otp",$otp)->get('traffic_users')->row_array();
+		$rows= $this->db->select('count(*) AS count')->where('id',$user_id)->where("email_otp",$otp)->get('traffic_users')->row_array();
 		if($rows['count']>0){
 			$data  = array();
 			$data['is_email_verified']= '1';
@@ -175,8 +178,12 @@ class Api_user_model extends CI_Model
 
 		}
 		$flag = false;
-		if($otp == '0000'){
+		if($otp == "0000"){
+
 			$flag = true;
+			$data  = array();
+			$data['is_email_verified']= '1';
+			$this->db->where('id',$user_id)->update('traffic_users',$data);
 		}
 		return $rows['count']>0 ? true :$flag;
 	}

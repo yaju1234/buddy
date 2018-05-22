@@ -36,12 +36,17 @@ class User extends REST_Controller {
 			$response['message'] = "email already exist";
 		}else{
 			$data = array();
+
 			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$password,$user_type,$otp,$country,$state,$city,$degree);
+			$user_date = $this->Api_user_model->getUser($last_inserted_id);
 			$data['user_id'] = $last_inserted_id;
 			$data['phone'] = $phone;
-			$this->Api_user_model->sendOTP($phone,$otp,$last_inserted_id);
+			if($user_type == "CLIENT"){
+				$this->Api_user_model->sendOTP($phone,$otp,$last_inserted_id);
+			}
+			
 			$response['status'] = true;
-			$response['response'] = $data;
+			$response['response'] = $user_date;
 			$response['message'] = "register successfully";
 
 		}
