@@ -59,7 +59,9 @@ class User extends REST_Controller {
 		$id = $this->input->post('id');
 		$data['first_name'] = $this->input->post('first_name');
 		$data['last_name'] = $this->input->post('last_name');
-		$data['phone'] = $this->input->post('phone');
+		if($this->input->post('phone')){
+			$data['phone'] = $this->input->post('phone');
+		}
 		$data['country'] = $this->input->post('country');
 		$data['state'] = $this->input->post('state');
 		$data['city'] = $this->input->post('city');
@@ -76,16 +78,16 @@ class User extends REST_Controller {
 			$data['license_image'] = $license_upload_image;
         }
 		$st = $this->Api_user_model->updateClientProfile($data,$id);
-		if($st){
+		//if($st){
 			$user_date = $this->Api_user_model->getUser($id);
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "Updated successfully";
-		}else{
+		/*}else{
 			$response['status'] = false;
 			$response['response'] = new stdClass();
 			$response['message'] = "Updated unsuccessful";
-		}
+		}*/
 		$this->response($response);
 	}
 	
