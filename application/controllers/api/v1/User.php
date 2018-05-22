@@ -93,10 +93,10 @@ class User extends REST_Controller {
 	
 	public function imageCreate($profile_image, $type='client_profile_image') {
 		$file_name = uniqid();
-		if(!is_file('uploadImage')){
+		if(!is_dir('uploadImage')){
 			mkdir('uploadImage', '0777');
 		}
-		if(!is_file('uploadImage/'.$type)){
+		if(!is_dir('uploadImage/'.$type)){
 			mkdir('uploadImage/'.$type, '0777');
 		}
 		define('UPLOAD_DIR', './uploadImage/'.$type.'/');
