@@ -79,7 +79,7 @@ class User extends REST_Controller {
 				$data['license_image'] = $license_upload_image;
 			}
 			$st = $this->Api_user_model->updateClientProfile($data,$id);
-			unlink('uploadImage/client_profile_image/5b0471096fd86.png');
+			
 			$user_date = $this->Api_user_model->getUser($id);
 			$response['status'] = true;
 			$response['response'] = $user_date;
