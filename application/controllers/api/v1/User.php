@@ -56,39 +56,42 @@ class User extends REST_Controller {
 	public function updateClientProfile_post(){
 
 		$response = array();
-		$id = $this->input->post('id');
-		$data['first_name'] = $this->input->post('first_name');
-		$data['last_name'] = $this->input->post('last_name');
-		if($this->input->post('phone')){
-			$data['phone'] = $this->input->post('phone');
-		}
-		$data['country'] = $this->input->post('country');
-		$data['state'] = $this->input->post('state');
-		$data['city'] = $this->input->post('city');
-		//$data['degree'] = $this->input->post('degree');
-		$data['is_phone_verified'] = '0';
-		$profile_image = $this->input->post('profile_image');
-        if(strlen($profile_image) > 10){
-			$upload_image = $this->imageCreate($profile_image,'client_profile_image');
-			$data['profile_image'] = $upload_image;
-        }
-		$license_image = $this->input->post('license_image');
-        if(strlen($license_image) > 10){
-			$license_upload_image = $this->imageCreate($license_image,'client_license_image');
-			$data['license_image'] = $license_upload_image;
-        }
-		$st = $this->Api_user_model->updateClientProfile($data,$id);
-		//if($st){
+		try {
+			$id = $this->input->post('id');
+			$data['first_name'] = $this->input->post('first_name');
+			$data['last_name'] = $this->input->post('last_name');
+			if($this->input->post('phone')){
+				$data['phone'] = $this->input->post('phone');
+			}
+			$data['country'] = $this->input->post('country');
+			$data['state'] = $this->input->post('state');
+			$data['city'] = $this->input->post('city');
+			//$data['degree'] = $this->input->post('degree');
+			$data['is_phone_verified'] = '0';
+			$profile_image = $this->input->post('profile_image');
+			if(strlen($profile_image) > 10){
+				$upload_image = $this->imageCreate($profile_image,'client_profile_image');
+				$data['profile_image'] = $upload_image;
+			}
+			$license_image = $this->input->post('license_image');
+			if(strlen($license_image) > 10){
+				$license_upload_image = $this->imageCreate($license_image,'client_license_image');
+				$data['license_image'] = $license_upload_image;
+			}
+			$st = $this->Api_user_model->updateClientProfile($data,$id);
+			
 			$user_date = $this->Api_user_model->getUser($id);
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "Updated successfully";
-		/*}else{
+			$this->response($response);
+		} catch(Exception $e){
 			$response['status'] = false;
 			$response['response'] = new stdClass();
 			$response['message'] = "Updated unsuccessful";
-		}*/
-		$this->response($response);
+			$this->response($response);
+		}
+		
 	}
 	
 	public function imageCreate($profile_image, $type='client_profile_image') {
