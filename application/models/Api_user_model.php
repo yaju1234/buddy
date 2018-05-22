@@ -28,14 +28,14 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_facebook($first_name, $last_name, $email, $phone,$user_type,$image,$facebook_id,$country,$state,$city){
+	public function register_facebook($first_name, $last_name, $email, $phone,$user_type,$profile_image,$facebook_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
 		$user['email'] = $email;
 		$user['phone'] = $phone;
 		$user['user_type'] = $user_type;
-		$user['image'] = $image;
+		$user['profile_image'] = $profile_image;
 		$user['is_active'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = '1';
@@ -53,14 +53,14 @@ class Api_user_model extends CI_Model
 
 	}
 
-	public function register_google($first_name, $last_name, $email, $phone,$user_type,$image,$google_id,$country,$state,$city){
+	public function register_google($first_name, $last_name, $email, $phone,$user_type,$profile_image,$google_id,$country,$state,$city){
 		$user = array();
 		$user['first_name'] = $first_name;
 		$user['last_name'] = $last_name;
 		$user['email'] = $email;
 		$user['phone'] = $phone;
 		$user['user_type'] = $user_type;
-		$user['image'] = $image;
+		$user['profile_image'] = $profile_image;
 		$user['is_active'] = $user_type == "CLIENT" ? '1' : '1';
 		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'waiting for admin approval';
 		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
@@ -104,6 +104,14 @@ class Api_user_model extends CI_Model
 		$rows = array();
 		$rows= $this->db->select('count(*) AS count')->where("email",$email)->where("is_active",'1')->get('traffic_users')->row_array();
 		return $rows['count']>0 ? true : false;
+	}
+
+	public function updateClientProfile($data, $user_id){
+		$response = $this->db->where('id',$user_id)->update('traffic_users',$data);
+		if($response)
+			return false;
+		else
+			return true;
 	}
 
 	public function sendOTP($phone,$otp,$user_id){
@@ -190,7 +198,7 @@ class Api_user_model extends CI_Model
 
 	public function getUser($userid){
  		$rows = array();
-     	$rows= $this->db->select('id,first_name, last_name, email,phone, image,is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
+     	$rows= $this->db->select('id,first_name, last_name, email,phone, profile_image,is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
      	return $rows;
 	}
 

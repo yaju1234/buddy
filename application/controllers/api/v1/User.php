@@ -50,15 +50,68 @@ class User extends REST_Controller {
 			$response['message'] = "register successfully";
 
 		}
-
-		
-
-		
 		$this->response($response);
-
-
 	}
+	
+	public function updateClientProfile_post(){
 
+		$response = array();
+		$id = $this->input->post('id');
+		$data['first_name'] = $this->input->post('first_name');
+		$data['last_name'] = $this->input->post('last_name');
+		$data['phone'] = $this->input->post('phone');
+		$data['country'] = $this->input->post('country');
+		$data['state'] = $this->input->post('state');
+		$data['city'] = $this->input->post('city');
+		//$data['degree'] = $this->input->post('degree');
+		$data['is_phone_verified'] = '0';
+		$profile_image = $this->input->post('profile_image');
+        if(strlen($profile_image) > 10){
+			$upload_image = $this->imageCreate($profile_image,'client_profile_image');
+			$data['profile_image'] = $upload_image;
+        }
+		$license_image = $this->input->post('license_image');
+        if(strlen($license_image) > 10){
+			$license_upload_image = $this->imageCreate($license_image,'client_license_image');
+			$data['license_image'] = $license_upload_image;
+        }
+		$st = $this->Api_user_model->updateClientProfile($data,$id);
+		if($st){
+			$user_date = $this->Api_user_model->getUser($id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "Updated successfully";
+		}else{
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "Updated unsuccessful";
+		}
+		$this->response($response);
+	}
+	
+	public function imageCreate($profile_image, $type='client_profile_image') {
+		$file_name = uniqid();
+		if(!is_file('./uploadImage/'.$type)){
+			mkdir('./uploadImage/'.$type, '0777');
+		}
+		define('UPLOAD_DIR', './uploadImage/'.$type.'/');
+		$img = $profile_image;
+		$data = base64_decode($img);
+		$file = UPLOAD_DIR . $file_name . '.png';
+		$success = file_put_contents($file, $data);
+		$this->load->library('image_lib');
+		$configUpload22['upload_path'] = './uploadImage/'.$type.'/';
+		$configUpload22['allowed_types'] = 'gif|jpg|png|bmp|jpeg';
+		$configUpload22['max_size'] = '0';
+		$configUpload22['max_width'] = '0';
+		$configUpload22['max_height'] = '0';
+		$configUpload22['encrypt_name'] = true;
+
+		$this->load->library('upload', $configUpload22);
+		$this->upload->initialize($configUpload22);
+		return $file_name . '.png';
+	}
+	  
 	public function validate_otp_post(){
 		$response = array();
 
