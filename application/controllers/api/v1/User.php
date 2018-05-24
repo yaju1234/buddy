@@ -146,6 +146,86 @@ class User extends REST_Controller {
 		
 	}
 	
+	public function caseFile_post(){
+
+		$response = array();
+		try {
+			$data = array();
+			$user_id = $this->input->post('user_id');
+			$data['user_id'] = $user_id;
+			
+			$case_number = 'CASE'.rand(11111, 99999);
+			$data['case_number'] = $case_number;
+			
+			$case_details = $this->input->post('case_details');
+			$data['case_details'] = $case_details;
+			
+			$state = $this->input->post('state');
+			$data['state'] = $state;
+			
+			$city = $this->input->post('city');
+			$data['city'] = $city;
+			
+			if(!empty($_FILES['case_front_img']['name'])){
+				$profile_image_file_name = $this->uploadImage('./uploadImage/case_image/',  $_FILES['case_front_img'],'case_front_img');
+				if(!empty($profile_image_file_name)){
+					$data['case_front_img'] = $profile_image_file_name;
+				}
+				
+			}
+			
+			if(!empty($_FILES['case_rear_img']['name'])){
+				$profile_image_file_name = $this->uploadImage('./uploadImage/case_image/',  $_FILES['case_rear_img'],'case_rear_img');
+				if(!empty($profile_image_file_name)){
+					$data['case_rear_img'] = $profile_image_file_name;
+				}
+				
+			}
+
+			if(!empty($_FILES['driving_license']['name'])){
+				$driving_licence_image_file_name = $this->uploadImage('./uploadImage/client_license_image/',$_FILES['driving_license'],'driving_license');
+				if(!empty($driving_licence_image_file_name)){
+					$data['driving_license'] = $driving_licence_image_file_name;
+				}
+			}
+
+			$id = $this->Api_user_model->addCaseFile($data);
+			
+			$user_date = $this->Api_user_model->getCaseDetails($id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "Case filed successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
+	}
+	
+	public function getAllCases_post(){
+
+		$response = array();
+		try {
+			$data = array();
+			$user_id = $this->input->post('user_id');
+			$data['user_id'] = $user_id;
+			$user_date = $this->Api_user_model->getCaseList($user_id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "fetched successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
+	}
+	
 	public function imageCreate($profile_image, $type='client_profile_image') {
 		$file_name = uniqid();
 		if(!is_dir('uploadImage')){
@@ -411,9 +491,8 @@ public function validate_email_otp_post(){
 	$this->response($response);
 }
 
-public function uploadImage($upload_path,$file_arr, $key) {
+public function uploadImage($upload_path, $file_arr, $key) {
 	$config = array();
-	$config['upload_path']   = ''; 
 	$config['upload_path']   = $upload_path; 
 	$config['allowed_types'] = 'gif|jpg|jpeg|png'; 
 	$config['max_size']      = 0; 
@@ -427,7 +506,7 @@ public function uploadImage($upload_path,$file_arr, $key) {
 
 
 	if ( ! $this->upload->do_upload($key)) {
-		$error = array('error' => $this->upload->display_errors()); 
+		$error = array('error' => $this->upload->display_errors());
 		return '';
 	}
 

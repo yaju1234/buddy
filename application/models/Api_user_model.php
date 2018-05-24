@@ -77,6 +77,24 @@ class Api_user_model extends CI_Model
 
 
 	}
+	
+	public function addCaseFile($data){
+		$this->db->insert('traffic_cases',$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+	}
+	
+	public function getCaseDetails($id){
+		$rows = array();
+     	$rows= $this->db->select('id, user_id, case_number, case_details, case_front_img, case_rear_img, driving_license, status, state, city')->where("id",$id)->get('traffic_cases')->row_array();
+     	return $rows;
+	}
+	
+	public function getCaseList($user_id){
+		$rows = array();
+     	$rows= $this->db->select('id, user_id, case_number, case_details, case_front_img, case_rear_img, driving_license, status, state, city')->where("user_id",$user_id)->get('traffic_cases')->result_array();
+     	return $rows;
+	}
 
 	public function isEmailExist($email, $user_type){
 
