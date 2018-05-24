@@ -86,13 +86,13 @@ class Api_user_model extends CI_Model
 	
 	public function getCaseDetails($id){
 		$rows = array();
-     	$rows= $this->db->select('id, user_id, case_number, case_details, case_front_img, case_rear_img, driving_license, status, state, city')->where("id",$id)->get('traffic_cases')->row_array();
+     	$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city')->where("id",$id)->get('traffic_cases')->row_array();
      	return $rows;
 	}
 	
 	public function getCaseList($user_id){
 		$rows = array();
-     	$rows= $this->db->select('id, user_id, case_number, case_details, case_front_img, case_rear_img, driving_license, status, state, city')->where("user_id",$user_id)->get('traffic_cases')->result_array();
+     	$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city')->where("user_id",$user_id)->get('traffic_cases')->result_array();
      	return $rows;
 	}
 
@@ -147,8 +147,7 @@ class Api_user_model extends CI_Model
 		else
 			return true;
 	}
-
-
+	
 	public function sendEmailOTP($email,$otp,$user_id){
 
 		$data  = array();
@@ -216,7 +215,7 @@ class Api_user_model extends CI_Model
 
 	public function getUser($userid){
  		$rows = array();
-     	$rows= $this->db->select('id,first_name, last_name, email,phone, profile_image, license_image, is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
+     	$rows= $this->db->select('id,first_name, last_name, email, phone, IF(profile_image = "", "", CONCAT("uploadImage/client_profile_image/",profile_image)) as profile_image, IF(license_image = "", "", CONCAT("uploadImage/client_license_image/",license_image)) as license_image, is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
      	return $rows;
 	}
 
