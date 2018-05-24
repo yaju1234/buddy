@@ -53,7 +53,7 @@ class User extends REST_Controller {
 		$this->response($response);
 	}
 	
-	public function updateClientProfile_post(){
+	public function updateClientProfile1_post(){
 
 		$response = array();
 		try {
@@ -93,6 +93,63 @@ class User extends REST_Controller {
 		}
 		
 	}
+
+	public function updateClientProfile_post(){
+
+		$response = array();
+		try {
+			$data = array();
+			$id = $this->input->post('id');
+			$first_name = $this->input->post('first_name');
+			$data['first_name'] = $first_name;
+			$last_name = $this->input->post('last_name');
+			$data['last_name'] = $last_name;
+			if($this->input->post('phone')){
+				$data['is_phone_verified'] = '0';
+				$data['phone'] = $this->input->post('phone');
+			}
+			$country = $this->input->post('country');
+			$data['country'] = $country;
+			$state = $this->input->post('state');
+			$data['state'] = $state;
+			$city = $this->input->post('city');
+			$data['city'] = $city;
+			//uploadImage/client_profile_image/
+			//uploadImage/client_license_image/
+			//
+
+			if($_FILES['profile_image']){
+				$profile_image_file_name = $this->uploadImage('./uploadImage/client_profile_image/',  $_FILES['profile_image'],'profile_image');
+				if(!empty($profile_image_file_name)){
+					$data['profile_image'] = $profile_image_file_name;
+				}
+				
+			}
+
+			if($_FILES['license_image']){
+				$driving_licence_image_file_name = $this->uploadImage('./uploadImage/client_license_image/',$_FILES['license_image'],'license_image');
+				if(!empty($driving_licence_image_file_name)){
+					$data['license_image'] = $driving_licence_image_file_name;
+				}
+			}
+			
+
+
+			$st = $this->Api_user_model->updateClientProfile($data,$id);
+			
+			$user_date = $this->Api_user_model->getUser($id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "Updated successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
+	}
 	
 	public function imageCreate($profile_image, $type='client_profile_image') {
 		$file_name = uniqid();
@@ -119,7 +176,7 @@ class User extends REST_Controller {
 		$this->upload->initialize($configUpload22);
 		return $file_name . '.png';
 	}
-	  
+
 	public function validate_otp_post(){
 		$response = array();
 
@@ -128,9 +185,9 @@ class User extends REST_Controller {
 		if($this->Api_user_model->validateOTP($user_id,$otp)){
 			$user_date = array();
 			$user_date = $this->Api_user_model->getUser($user_id);
-				$response['status'] = true;
-				$response['response'] = $user_date;
-				$response['message'] = "success";
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "success";
 			
 		}else{
 			$response['status'] = false;
@@ -301,15 +358,15 @@ class User extends REST_Controller {
 		$user_id = $this->input->post('user_id');
 		$otp = rand ( 1000 , 9999 );
 		if($this->Api_user_model->sendEmailOTP($email, $otp,$user_id)){
-		$this->load->library('email');
-		$config['protocol']    = 'smtp';
-		$config['smtp_host']    = 'ssl://smtp.gmail.com';
-		$config['smtp_port']    = '465';
-		$config['smtp_timeout'] = '7';
-		$config['smtp_user']    = 'buddytraffic@gmail.com';
-		$config['smtp_pass']    = 'Traffic@1234';
-		$config['charset']    = 'utf-8';
-		$config['newline']    = "\r\n";
+			$this->load->library('email');
+			$config['protocol']    = 'smtp';
+			$config['smtp_host']    = 'ssl://smtp.gmail.com';
+			$config['smtp_port']    = '465';
+			$config['smtp_timeout'] = '7';
+			$config['smtp_user']    = 'buddytraffic@gmail.com';
+			$config['smtp_pass']    = 'Traffic@1234';
+			$config['charset']    = 'utf-8';
+			$config['newline']    = "\r\n";
 		$config['mailtype'] = 'text'; // or html
 		$config['validation'] = TRUE; // bool whether to validate email or not      
 		$this->email->initialize($config);
@@ -328,36 +385,65 @@ class User extends REST_Controller {
 		$response['status'] = true;
 		$response['response'] = new stdClass();
 		$response['message'] = "success";
-		}else{
-			$response['status'] = false;
+	}else{
+		$response['status'] = false;
 		$response['response'] = new stdClass();
 		$response['message'] = "error";
-		}
-
-		$this->response($response);
-
-		
 	}
 
-	public function validate_email_otp_post(){
-		$response = array();
+	$this->response($response);
 
-		$user_id = $this->input->post('user_id');
-		$otp = $this->input->post('otp');
-		if($this->Api_user_model->validateEmailOTP($user_id,$otp)){
-			$user_date = array();
-			$user_date = $this->Api_user_model->getUser($user_id);
-				$response['status'] = true;
-				$response['response'] = $user_date;
-				$response['message'] = "success";
-			
-		}else{
-			$response['status'] = false;
-			$response['response'] = new stdClass();
-			$response['message'] = "otp does not match";
-		}
-		$this->response($response);
+
+}
+
+public function validate_email_otp_post(){
+	$response = array();
+
+	$user_id = $this->input->post('user_id');
+	$otp = $this->input->post('otp');
+	if($this->Api_user_model->validateEmailOTP($user_id,$otp)){
+		$user_date = array();
+		$user_date = $this->Api_user_model->getUser($user_id);
+		$response['status'] = true;
+		$response['response'] = $user_date;
+		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] = new stdClass();
+		$response['message'] = "otp does not match";
 	}
+	$this->response($response);
+}
+
+public function uploadImage($upload_path,$file_arr, $key) {
+	$config = array();
+	$config['upload_path']   = ''; 
+	$config['upload_path']   = $upload_path; 
+	$config['allowed_types'] = 'gif|jpg|jpeg|png'; 
+	$config['max_size']      = 0; 
+	$config['max_width']     = 0; 
+	$config['max_height']    = 0;
+	$config['encrypt_name'] = true;  
+
+	
+	$this->load->library('upload', $config);
+	$this->upload->initialize($config);
+
+
+	if ( ! $this->upload->do_upload($key)) {
+		$error = array('error' => $this->upload->display_errors()); 
+		return '';
+	}
+
+	else { 
+		$data = $this->upload->data(); 
+		return $data['file_name'];
+
+	}
+
+
+}
 
 
 
