@@ -114,11 +114,8 @@ class User extends REST_Controller {
 			$data['state'] = $state;
 			$city = $this->input->post('city');
 			$data['city'] = $city;
-			//uploadImage/client_profile_image/
-			//uploadImage/client_license_image/
-			//
-
-			if($_FILES['profile_image']){
+			
+			if(!empty($_FILES['profile_image']['name'])){
 				$profile_image_file_name = $this->uploadImage('./uploadImage/client_profile_image/',  $_FILES['profile_image'],'profile_image');
 				if(!empty($profile_image_file_name)){
 					$data['profile_image'] = $profile_image_file_name;
@@ -126,14 +123,12 @@ class User extends REST_Controller {
 				
 			}
 
-			if($_FILES['license_image']){
+			if(!empty($_FILES['license_image']['name'])){
 				$driving_licence_image_file_name = $this->uploadImage('./uploadImage/client_license_image/',$_FILES['license_image'],'license_image');
 				if(!empty($driving_licence_image_file_name)){
 					$data['license_image'] = $driving_licence_image_file_name;
 				}
 			}
-			
-
 
 			$st = $this->Api_user_model->updateClientProfile($data,$id);
 			
