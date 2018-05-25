@@ -494,7 +494,7 @@ public function validate_email_otp_post(){
 public function uploadImage($upload_path, $file_arr, $key) {
 	$config = array();
 	$config['upload_path']   = $upload_path; 
-	$config['allowed_types'] = 'gif|jpg|jpeg|png'; 
+	$config['allowed_types'] = '*'; 
 	$config['max_size']      = 0; 
 	$config['max_width']     = 0; 
 	$config['max_height']    = 0;
