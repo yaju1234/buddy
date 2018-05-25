@@ -165,7 +165,9 @@ class User extends REST_Controller {
 			
 			$city = $this->input->post('city');
 			$data['city'] = $city;
-			
+			echo "<pre />";
+			print_r($_FILES);
+			exit;
 			if(!empty($_FILES['case_front_img']['name'])){
 				$profile_image_file_name = $this->uploadImage('./uploadImage/case_image/',  $_FILES['case_front_img'],'case_front_img');
 				if(!empty($profile_image_file_name)){
