@@ -20,6 +20,7 @@
     <script src="<?=base_url()?>js/custom.min.js"></script>
 
 
+    <script src="<?=base_url()?>assets/lightbox/js/lightbox-plus-jquery.min.js"></script>
     <script src="<?=base_url()?>js/lib/datatables/datatables.min.js"></script>
     <script src="<?=base_url()?>js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
     <script src="<?=base_url()?>js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
