@@ -188,6 +188,8 @@ class User extends REST_Controller {
 					$data['driving_license'] = $driving_licence_image_file_name;
 				}
 			}
+			
+			$data['created_at'] = date('Y-m-d H:i:s');
 
 			$id = $this->Api_user_model->addCaseFile($data);
 			
