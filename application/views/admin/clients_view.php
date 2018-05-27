@@ -25,7 +25,6 @@
 								<tr>
 									<th style="display: none;">tab22_id</th>
 									<th>Name</th>
-									<th>Email</th>
 									<th>Phone</th>
 									<th>Address</th>
 									<th>Verification Status</th>
@@ -63,8 +62,8 @@
 											</a>
                                         </div>
 										<p><?=($list['first_name'])?$list['first_name'].' '.$list['last_name']:''?></p>
+										<p>Email: <?=($list['email'])?$list['email']:''?></p>
 									</td>
-                                    <td class="center"> <?=($list['email'])?$list['email']:''?> </td>
                                     <td class="center"> <?=($list['phone'])?$list['phone']:''?> </td>
                                     <td class="center">
 										<p>City: <?=($list['city'])?$list['city']:''?></p>
