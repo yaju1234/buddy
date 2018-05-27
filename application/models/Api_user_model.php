@@ -84,6 +84,10 @@ class Api_user_model extends CI_Model
 		return $insert_id;
 	}
 	
+	public function deleteClientProfile($id){
+		return $this->db->where("id",$id)->delete('traffic_users');
+	}
+	
 	public function getCaseDetails($id){
 		$rows = array();
      	$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("id",$id)->get('traffic_cases')->row_array();

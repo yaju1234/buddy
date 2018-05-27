@@ -146,6 +146,26 @@ class User extends REST_Controller {
 		
 	}
 	
+	public function deleteClient_post(){
+		
+		$response = array();
+		try {
+			$data = array();
+			$id = $this->input->post('id');
+			$st = $this->Api_user_model->deleteClientProfile($id);
+			$response['status'] = true;
+			$response['response'] = new stdClass();
+			$response['message'] = "Deleted successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
+	}
+	
 	public function caseFile_post(){
 
 		$response = array();
@@ -389,6 +409,19 @@ class User extends REST_Controller {
 		
 	}
 
+	public function fetchClientDtls_post(){
+
+		$response = array();
+		$id = $this->input->post('id');
+		
+		$data = $this->Api_user_model->getUser($id);
+		$response['status'] = true;
+		$response['response'] = $data;
+		$response['message'] = "success";
+		
+		$this->response($response);
+	}
+
 	public function states_post(){
 
 		$response = array();
@@ -473,54 +506,49 @@ class User extends REST_Controller {
 
 }
 
-public function validate_email_otp_post(){
-	$response = array();
+	public function validate_email_otp_post(){
+		$response = array();
 
-	$user_id = $this->input->post('user_id');
-	$otp = $this->input->post('otp');
-	if($this->Api_user_model->validateEmailOTP($user_id,$otp)){
-		$user_date = array();
-		$user_date = $this->Api_user_model->getUser($user_id);
-		$response['status'] = true;
-		$response['response'] = $user_date;
-		$response['message'] = "success";
+		$user_id = $this->input->post('user_id');
+		$otp = $this->input->post('otp');
+		if($this->Api_user_model->validateEmailOTP($user_id,$otp)){
+			$user_date = array();
+			$user_date = $this->Api_user_model->getUser($user_id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "success";
 
-	}else{
-		$response['status'] = false;
-		$response['response'] = new stdClass();
-		$response['message'] = "otp does not match";
-	}
-	$this->response($response);
-}
-
-public function uploadImage($upload_path, $file_arr, $key) {
-	$config = array();
-	$config['upload_path']   = $upload_path; 
-	$config['allowed_types'] = '*'; 
-	$config['max_size']      = 0; 
-	$config['max_width']     = 0; 
-	$config['max_height']    = 0;
-	$config['encrypt_name'] = true;  
-
-	
-	$this->load->library('upload', $config);
-	$this->upload->initialize($config);
-
-
-	if ( ! $this->upload->do_upload($key)) {
-		$error = array('error' => $this->upload->display_errors());
-		return '';
+		}else{
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "otp does not match";
+		}
+		$this->response($response);
 	}
 
-	else { 
-		$data = $this->upload->data(); 
-		return $data['file_name'];
+	public function uploadImage($upload_path, $file_arr, $key) {
+		$config = array();
+		$config['upload_path']   = $upload_path; 
+		$config['allowed_types'] = '*'; 
+		$config['max_size']      = 0; 
+		$config['max_width']     = 0; 
+		$config['max_height']    = 0;
+		$config['encrypt_name'] = true;  
 
+		
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+
+		if ( ! $this->upload->do_upload($key)) {
+			$error = array('error' => $this->upload->display_errors());
+			return '';
+		}
+
+		else { 
+			$data = $this->upload->data(); 
+			return $data['file_name'];
+
+		}
 	}
-
-
-}
-
-
-
 }

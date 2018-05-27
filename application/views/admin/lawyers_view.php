@@ -4,7 +4,7 @@
 			<h3 class="text-primary">Lawyers</h3> </div>
 		<div class="col-md-7 align-self-center">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Home</a></li>
 				<li class="breadcrumb-item active">Lawyers</li>
 			</ol>
 		</div>

@@ -2350,9 +2350,12 @@ textarea {
 .modal-dialog {
   margin: 30px auto;
   position: relative;
-  top: 50%;
+  top: 250px;
   transform: translateY(-50%) !important;
-  width: 70%;
+  width: 100%;
+}
+.float-left {
+	float: left;
 }
 .modal-header .close {
   font-size: 14px;
@@ -2688,7 +2691,7 @@ table.dataTable thead .sorting::after {
   color: #252525;
 }
 .btn {
-  padding: 7px 12px;
+  padding: 7px 10px;
   cursor: pointer;
 }
 .btn-group label {

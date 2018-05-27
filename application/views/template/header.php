@@ -15,7 +15,9 @@
     <!-- Custom CSS -->
     <link href="<?=base_url()?>css/helper.css" rel="stylesheet">
     <link href="<?=base_url()?>css/style.css" rel="stylesheet">
-    <link href="<?=base_url()?>assets/lightbox/css/lightbox.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+
 </head>
 
 <body class="fix-header fix-sidebar">
