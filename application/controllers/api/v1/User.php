@@ -26,6 +26,8 @@ class User extends REST_Controller {
 		$degree = $this->input->post('degree');
 		$password = md5($this->input->post('password'));
 		$user_type = $this->input->post('user_type');
+		$token = $this->input->post('token');
+		$device_type = $this->input->post('device_type');
 
 		$otp = rand ( 1000 , 9999 );
 
@@ -44,6 +46,8 @@ class User extends REST_Controller {
 			if($user_type == "CLIENT"){
 				$this->Api_user_model->sendOTP($phone,$otp,$last_inserted_id);
 			}
+
+			$this->Api_user_model->insertOrUpdateDeviceToken($last_inserted_id,$token,$device_type,$user_type);
 			
 			$response['status'] = true;
 			$response['response'] = $user_date;
@@ -322,6 +326,8 @@ class User extends REST_Controller {
 		$email = $this->input->post('email');
 		$password = md5($this->input->post('password'));
 		$user_type = $this->input->post('user_type');
+		$token = $this->input->post('token');
+		$device_type = $this->input->post('device_type');
 
 		$user_id = $this->Api_user_model->isLoginValid($email,$password,$user_type);
 		if($user_id == '0'){
@@ -330,6 +336,7 @@ class User extends REST_Controller {
 			$response['error_code'] = 5005;
 			$response['message'] = "email or passowrd does not match";
 		}else{
+			$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 			$user_date = $this->Api_user_model->getUser($user_id);
 			$response['status'] = true;
 			$response['response'] = $user_date;
@@ -352,6 +359,8 @@ class User extends REST_Controller {
 		$country = $this->input->post('country');
 		$state = $this->input->post('state');
 		$city = $this->input->post('city');
+		$token = $this->input->post('token');
+		$device_type = $this->input->post('device_type');
 
 		//$otp = '0000';
 		$user_id = '';
@@ -362,7 +371,7 @@ class User extends REST_Controller {
 			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
 		}
 
-
+		$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 		$user_date = $this->Api_user_model->getUser($user_id);
 		$response['status'] = true;
 		$response['response'] = $user_date;
@@ -388,6 +397,8 @@ class User extends REST_Controller {
 		$country = $this->input->post('country');
 		$state = $this->input->post('state');
 		$city = $this->input->post('city');
+		$token = $this->input->post('token');
+		$device_type = $this->input->post('device_type');
 
 		//$otp = '0000';
 		$user_id = '';
@@ -398,7 +409,7 @@ class User extends REST_Controller {
 			$user_id = $this->Api_user_model->userIdByEmail($email,$user_type);
 		}
 
-
+		$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 		$user_date = $this->Api_user_model->getUser($user_id);
 		$response['status'] = true;
 		$response['response'] = $user_date;

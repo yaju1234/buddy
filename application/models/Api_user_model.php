@@ -90,14 +90,14 @@ class Api_user_model extends CI_Model
 	
 	public function getCaseDetails($id){
 		$rows = array();
-     	$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("id",$id)->get('traffic_cases')->row_array();
-     	return $rows;
+		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("id",$id)->get('traffic_cases')->row_array();
+		return $rows;
 	}
 	
 	public function getCaseList($user_id){
 		$rows = array();
-     	$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("user_id",$user_id)->get('traffic_cases')->result_array();
-     	return $rows;
+		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("user_id",$user_id)->get('traffic_cases')->result_array();
+		return $rows;
 	}
 
 	public function isEmailExist($email, $user_type){
@@ -157,7 +157,7 @@ class Api_user_model extends CI_Model
 		$data  = array();
 		$data['email_otp']= $otp;
 		$this->db->where('id',$user_id)->update('traffic_users',$data);
-			return true;
+		return true;
 		
 	}
 
@@ -218,27 +218,51 @@ class Api_user_model extends CI_Model
 	}
 
 	public function getUser($userid){
- 		$rows = array();
-     	$rows= $this->db->select('id,first_name, last_name, email, phone, IF(LOCATE("http", profile_image) > 0, profile_image, IF(profile_image = "", "", CONCAT("uploadImage/client_profile_image/",profile_image))) as profile_image, IF(license_image = "", "", CONCAT("uploadImage/client_license_image/",license_image)) as license_image, is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
-     	return $rows;
+		$rows = array();
+		$rows= $this->db->select('id,first_name, last_name, email, phone, IF(LOCATE("http", profile_image) > 0, profile_image, IF(profile_image = "", "", CONCAT("uploadImage/client_profile_image/",profile_image))) as profile_image, IF(license_image = "", "", CONCAT("uploadImage/client_license_image/",license_image)) as license_image, is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
+		return $rows;
 	}
 
 	public function getStates($country_id){
- 		$rows = array();
-     	$rows= $this->db->select('*')->where('country_id',$country_id)->get('traffic_state')->result_array();
-     	return $rows;
+		$rows = array();
+		$rows= $this->db->select('*')->where('country_id',$country_id)->get('traffic_state')->result_array();
+		return $rows;
 	}
 
 	public function getCity($state){
- 		$rows = array();
-     	$rows= $this->db->select('*')->where('state',$state)->get('traffic_city')->result_array();
-     	return $rows;
+		$rows = array();
+		$rows= $this->db->select('*')->where('state',$state)->get('traffic_city')->result_array();
+		return $rows;
 	}
 
 	public function getCountry(){
- 		$rows = array();
-     	$rows= $this->db->select('*')->get('traffic_country')->result_array();
-     	return $rows;
+		$rows = array();
+		$rows= $this->db->select('*')->get('traffic_country')->result_array();
+		return $rows;
+	}
+
+	public function insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type){
+
+		$rows = array();
+		$rows= $this->db->select('count(*) AS count')->where("token",$token)->get('device_token')->row_array();
+		$data = array();
+		if($rows['count']>0){
+
+			$rows1 = array();
+			$rows1= $this->db->select('count(*) AS count')->where("token",$token)->where("user_id",$user_id)->get('device_token')->row_array();
+			if($rows1['count'] == 0){
+				$data['user_id'] = $user_id;
+				$data['user_type'] = $user_type;
+				$this->db->where('token',$token)->update('device_token',$data);
+			}
+		}else{
+			$data['user_id'] = $user_id;
+			$data['device_type'] = $device_type;
+			$data['token'] = $token;
+			$data['user_type'] = $user_type;
+			$this->db->insert('device_token',$data);
+		}
+		
 	}
 }
 ?>
