@@ -72,7 +72,7 @@
     <div class = "target">
         <form class="form-signin" id="loginFrm" action="" method="post">
             <input type="hidden" id="number" value="0"/>
-            <h2 class="form-signin-heading"><img src="<?=base_url()?>/images/blue_logo.png" style="height:50; width:30%;"/></h2>
+            <div class="form-signin-heading"><img src="<?=base_url()?>/images/logo_white.png"/></div>
             <?php $this->session->flashdata('message_name'); ?>
             <div class="login-wrap">
                 <div class="form-group">

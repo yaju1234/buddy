@@ -36,7 +36,7 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">
                         <!-- Logo icon -->
-                        <b><img src="<?=base_url()?>images/blue_logo.png" alt="homepage" class="dark-logo" height="60px"/></b>
+                        <b><img src="<?=base_url()?>images/logo_white.png" alt="homepage" class="dark-logo" height="60px"/></b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <!--span><img src="<?//=base_url()?>images/logo-text.png" alt="homepage" class="dark-logo" /></span>-->
