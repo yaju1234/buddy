@@ -22,14 +22,10 @@
 				<p><i class="fa fa-map-marker"></i>Toronto</p>
 				<p><i class="fa fa-envelope-o"></i>jhondoe@gmail.com</p>
 			</div>
-			<div class="toggle btn btn-primary" data-toggle="toggle">
-				<input checked="" data-toggle="toggle" type="checkbox">
-				<div class="toggle-group">
-					<label class="btn btn-primary toggle-on">On</label>
-					<label class="btn btn-default active toggle-off">Off</label>
-					<span class="toggle-handle btn btn-default"></span>
-				</div>
-			</div>
+			<label class="switch">
+				<input type="checkbox">
+				<span class="slider round"></span>
+			</label>
 		</div>
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item">

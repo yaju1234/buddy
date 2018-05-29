@@ -1828,35 +1828,22 @@ tbody tr td:last-child { text-align: right; }
 /* CLIENT DETAILS
 ------------------------------------------------------------------ */
 .user-details { width: 100%; background-color: #e8f6ff; padding: 20px; }
-.user-details figure { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; display: inline-block; vertical-align: top; margin-right: 20px; }
+.user-details figure { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; display: inline-block; vertical-align: middle; margin: 0px 20px 0px 0px; }
 .user-details figure img { width: 100%; height: 100%; }
-.user-details .details { display: inline-block; vertical-align: top; width: calc(100% - 125px); }
+.user-details .details { display: inline-block; vertical-align: top; width: calc(100% - 195px); }
 .user-details .details h2 { text-transform: capitalize; font-size: 20px; line-height: 26px; color: #222; margin: 0px 0px 10px; }
 .user-details .details p { font-size: 14px; line-height: 20px; color: #333; margin: 0px; }
 .user-details .details p i { margin-right: 10px; }
-.user-details .toggle { width: 58px; height: 34px }
-.user-details .toggle input[type="checkbox"] { display: none; }
-.toggle-group {
-    position: absolute;
-    width: 200%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    transition: left 0.35s;
-    -webkit-transition: left 0.35s;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-}
-.toggle-on {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 50%;
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-}
-.toggle-off.btn {
-    padding-left: 24px;
-}
+
+
+.user-details .switch { position: relative; width: 60px; height: 34px; display: inline-block; vertical-align: middle; margin: 0px; }
+.user-details .switch input { display: none; }
+.user-details .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #eee; -webkit-transition: .4s; transition: .4s; }
+.user-details .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; -webkit-transition: .4s; transition: .4s; }
+.user-details input:checked + .slider { background-color: #1097f1; }
+.user-details input:focus + .slider { box-shadow: 0 0 1px #1097f1; }
+.user-details input:checked + .slider:before { -webkit-transform: translateX(26px); -ms-transform: translateX(26px); transform: translateX(26px); }
+
+/* Rounded sliders */
+.user-details .slider.round { border-radius: 34px; }
+.user-details .slider.round:before { border-radius: 50%; }
