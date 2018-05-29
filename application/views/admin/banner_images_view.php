@@ -19,6 +19,7 @@
 				<div class="card-body">
 					<h4 class="card-title">Banner images</h4>
 					<!--<h6 class="card-subtitle">Data table example</h6>-->
+					<button type="button" class="btn btn-primary btn-flat float-right" data-toggle="modal" data-target="#addBannerModal" data-backdrop="static" keyboard="false" onClick="addBanner()">Add New</button>
 					<div class="table-responsive m-t-40">
 						<table id="myTable" class="table table-bordered table-striped">
 							<thead>
@@ -57,9 +58,14 @@
                                     <td class="center"> <?=$request_date?> </td>
                                     <td class="center" style="width:150px !important;">
 										<div class="button-list1">
-											<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editBanner(<?=$list['id']?>)">View Details</button>
-											<button type="button" class="btn btn-danger btn-flat" onClick="deleteBanner(<?=$list['id']?>)">Delete</button>
-										</button>
+											<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#addBannerModal" data-backdrop="static" keyboard="false" onClick="editBanner(<?=$list['id']?>)">
+												<i class="fa fa-edit btn-info" aria-hidden="true" title="View details"></i>
+											</button>
+											
+											<button type="button" class="btn btn-danger btn-flat" onClick="deleteBanner(<?=$list['id']?>)">
+												<i class="fa fa-trash btn-danger" aria-hidden="true"></i>
+											</button>
+										</div>
 									</td>
                                 </tr>
                                 <?php } ?>
@@ -74,84 +80,39 @@
 </div>
 <!-- End Container fluid  -->
 
-<div class="modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editClientModal">
+<div class="modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="addBannerModal">
 	<div class="modal-dialog modal-lg" role="document">
 	  <div class="modal-content">
-			<form action="<?=base_url()?>admin/clients/updateClient" method="post" >
+			<form action="<?=base_url()?>admin/banners/addUpdateBanner" method="post" encType="multipart/form-data">
 				<div class="modal-header">
-				<h4 class="modal-title">Edit Client</h4>
+				<h4 class="modal-title addorUpd">Add Banner</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:0; padding:0; font-size:25px;">
 					<span aria-hidden="true">&times;</span>
 				</button>
 				</div>
 				<div class="modal-body">
 					<div class="col-md-12">
-						<div class="form-group col-md-6 float-left">
+						<div class="form-group col-md-12 float-left">
+							<input type="hidden" class="form-control" name="cid" id="cid"/>
 							<label for="fname">
-								First Name
+								Image
 							</label>
-							<input type="hidden" class="form-control" name="id" id="cid"/>
-							<input type="text"  data-val="true" data-val-required="this is Required Field" class="form-control" name="first_name" id="fname" required/>
-							<span class="field-validation-valid text-danger" data-valmsg-for="fname" data-valmsg-replace="true"></span>
+							<input type="file" class="form-control" name="banner_image" id="fname" required/>
+							<img src="<?=base_url().'images/no-image.png'?>" id="fileImg" style="height: 85px; width: 85px; float:right;">
 						</div>
 						
-						<div class="form-group col-md-6 float-left">
+						<div class="form-group col-md-12 float-left">
 							<label for="lname">
-								Last Name
+								Description
 							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="last_name" id="lname" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="lname" data-valmsg-replace="true"></span>
-						</div>
-						
-						<div class="form-group col-md-6 float-left">
-							<label for="email">
-								Email
-							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="email" id="email" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="email" data-valmsg-replace="true"></span>
-						</div>
-						
-						<div class="form-group col-md-6 float-left">
-							<label for="phone">
-								Phone
-							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="phone" id="phone" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="phone" data-valmsg-replace="true"></span>
-						</div>
-						
-						<div class="form-group col-md-6 float-left">
-							<label for="city">
-								City
-							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="city" id="city" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="city" data-valmsg-replace="true"></span>
-						</div>
-						
-						<div class="form-group col-md-6 float-left">
-							<label for="state">
-								State
-							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="state" id="state" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="state" data-valmsg-replace="true"></span>
-						</div>
-						
-						<div class="form-group col-md-6 float-left">
-							<label for="country">
-								Country
-							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="country" id="country" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="country" data-valmsg-replace="true"></span>
-						</div>
-						
-						<div class="form-group col-md-6 float-left">
-							&nbsp;
+							<input type="text" class="form-control" name="description" id="desc" required/>
 						</div>
 						
 					</div>
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="submit" class="btn btn-primary">Save</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</form>
@@ -161,13 +122,13 @@
 
 <script>
 	var baseUrl = "<?=base_url()?>";
-	function deleteClient(id){
+	function deleteBanner(id){
 		if(confirm('Are you sure, you want to delete?')){
 			$(".preloader").show();
 			$.ajax({
 				type: "POST",
 				dataType: "json",
-				url: baseUrl + "api/v1/user/deleteClient",
+				url: baseUrl + "api/v1/user/deleteBanner",
 				data: {'id': id},
 				success: function(resp) {
 					if(resp.status){
@@ -185,23 +146,30 @@
 		}
 	}
 	
-	function editClient(id){
+	function addBanner(){
+		$('#fname').css({'width':'100%'});
+		$('#fileImg').hide();
+		$('.addorUpd').html('Add Banner');
+	}
+	
+	function editBanner(id){
+		$('#fname').css({'width':'50%'});
+		$('.addorUpd').html('Edit Banner');
 		$(".preloader").show();
 		$.ajax({
 			type: "POST",
 			dataType: "json",
-			url: baseUrl + "api/v1/user/fetchClientDtls",
+			url: baseUrl + "api/v1/user/fetchBannerDtls",
 			data: {'id': id},
 			success: function(resp) {
 				if(resp.status){
 					$('#cid').val(resp.response.id);
-					$('#fname').val(resp.response.first_name);
-					$('#lname').val(resp.response.last_name);
-					$('#email').val(resp.response.email);
-					$('#phone').val(resp.response.phone);
-					$('#city').val(resp.response.city);
-					$('#state').val(resp.response.state);
-					$('#country').val(resp.response.country);
+					var bnrImg = baseUrl+"images/no-image.png";
+					if (resp.response.banner_image != '') {
+						bnrImg = baseUrl+resp.response.banner_image;
+					}
+					$('#fileImg').prop('src', bnrImg).show();
+					$('#desc').val(resp.response.description);
 				}
 				$(".preloader").hide();
 			},

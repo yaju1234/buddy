@@ -89,6 +89,10 @@ class Api_user_model extends CI_Model
 		return $this->db->where("id",$id)->update('traffic_users', $data);
 	}
 	
+	public function deleteBanner($id){
+		return $this->db->where("id",$id)->delete('traffic_banners');
+	}
+	
 	public function getCaseDetails($id){
 		$rows = array();
 		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("id",$id)->get('traffic_cases')->row_array();
@@ -217,12 +221,19 @@ class Api_user_model extends CI_Model
 		}
 		return $rows['count']>0 ? true :$flag;
 	}
-
+	
 	public function getUser($userid){
 		$rows = array();
 		$rows= $this->db->select('id,first_name, last_name, email, phone, IF(LOCATE("http", profile_image) > 0, profile_image, IF(profile_image = "", "", CONCAT("uploadImage/client_profile_image/",profile_image))) as profile_image, IF(license_image = "", "", CONCAT("uploadImage/client_license_image/",license_image)) as license_image, is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city')->where("id",$userid)->get('traffic_users')->row_array();
 		return $rows;
 	}
+	
+	public function getBanner($bnrid){
+		$rows = array();
+		$rows= $this->db->select('id, description, IF(banner_image = "", "", CONCAT("uploadImage/banner_image/",banner_image)) as banner_image')->where("id",$bnrid)->get('traffic_banners')->row_array();
+		return $rows;
+	}
+
 
 	public function getStates($country_id){
 		$rows = array();

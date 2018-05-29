@@ -169,6 +169,26 @@ class User extends REST_Controller {
 			$this->response($response);
 		}
 		
+	}	
+	
+	public function deleteBanner_post(){
+		
+		$response = array();
+		try {
+			$data = array();
+			$id = $this->input->post('id');
+			$st = $this->Api_user_model->deleteBanner($id);
+			$response['status'] = true;
+			$response['response'] = new stdClass();
+			$response['message'] = "Deleted successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
 	}
 	
 	public function caseFile_post(){
@@ -427,6 +447,19 @@ class User extends REST_Controller {
 		$id = $this->input->post('id');
 		
 		$data = $this->Api_user_model->getUser($id);
+		$response['status'] = true;
+		$response['response'] = $data;
+		$response['message'] = "success";
+		
+		$this->response($response);
+	}
+	
+	public function fetchBannerDtls_post(){
+
+		$response = array();
+		$id = $this->input->post('id');
+		
+		$data = $this->Api_user_model->getBanner($id);
 		$response['status'] = true;
 		$response['response'] = $data;
 		$response['message'] = "success";
