@@ -71,18 +71,17 @@
 									</td>
                                     <td class="center">
 										<p>
-											Email: <?=($list['email'])?$list['email']:''?>
+											<?=($list['email'])?$list['email']:''?>
 											<?=$list['is_email_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
 										</p>
 										<p>
-											Phone: <?=($list['phone'])?$list['phone']:''?>
+											<?=($list['phone'])?$list['phone']:''?>
 											<?=$list['is_phone_verified'] == '1' ? '<i class="fa fa-check" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
 										</p>
 									</td>
                                     <td class="center">
-										<p>City: <?=($list['city'])?$list['city']:''?></p>
-										<p>State: <?=($list['state'])?$list['state']:''?></p>
-										<p>Country; <?=($list['country'])?$list['country']:''?></p>
+										<p><?=($list['city'])?$list['city']:''?>,<?=($list['state'])?$list['state']:''?>,<?=($list['country'])?$list['country']:''?></p>
+									
 									</td>
                                     <!--<td class="center"> <?//=$list['register_from']?> </td>-->
                                     <td class="center">
