@@ -85,7 +85,8 @@ class Api_user_model extends CI_Model
 	}
 	
 	public function deleteClientProfile($id){
-		return $this->db->where("id",$id)->delete('traffic_users');
+		$data['status'] = '0';
+		return $this->db->where("id",$id)->update('traffic_users', $data);
 	}
 	
 	public function getCaseDetails($id){
