@@ -1,11 +1,11 @@
 <!-- Bread crumb -->
 	<div class="row page-titles">
 		<div class="col-md-5 align-self-center">
-			<h3 class="text-primary">Clients</h3> </div>
+			<h3 class="text-primary">Banners</h3> </div>
 		<div class="col-md-7 align-self-center">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Home</a></li>
-				<li class="breadcrumb-item active">Clients</li>
+				<li class="breadcrumb-item active">Banners</li>
 			</ol>
 		</div>
 	</div>
@@ -17,7 +17,7 @@
 			<div class="col-12">
 			<div class="card">
 				<div class="card-body">
-					<h4 class="card-title">Clients List</h4>
+					<h4 class="card-title">Banner images</h4>
 					<!--<h6 class="card-subtitle">Data table example</h6>-->
 					<div class="table-responsive m-t-40">
 						<table id="myTable" class="table table-bordered table-striped">
@@ -26,13 +26,8 @@
 									<th style="display: none;">tab22_id</th>
 									<th>SL No.</th>
 									<th>Image</th>
-									<th>Name</th>
-									<th>Email & Phone</th>
-									<th>Address</th>
-									<!--<th>Platform</th>-->
-									<th>License</th>
-									<th>Status</th>
-									<th>Joined</th>
+									<th>Description</th>
+									<th>Added</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -40,19 +35,11 @@
 								<?php 
 									$i = 0;
                                     foreach($client_list as $key => $list) {
-                                        //$request_date = date('l jS F Y', strtotime($list['created']));
                                         $request_date = date('m-d-Y', strtotime($list['created']));
 										
-										$prfImg = base_url()."images/no-image.png";
-										if( $list['profile_image'] != '' && (strpos($list['profile_image'], 'http://') !== false || strpos($list['profile_image'], 'https://') !== false) ){
-											$prfImg = $list['profile_image'];
-										} else if ($list['profile_image'] != '') {
-											$prfImg = base_url()."uploadImage/client_profile_image/".$list['profile_image'];
-										}
-										
-										$licnseImg = base_url()."images/no-image.png";
-										if ($list['license_image'] != '') {
-											$licnseImg = base_url()."uploadImage/client_license_image/".$list['license_image'];
+										$bnrImg = base_url()."images/no-image.png";
+										if ($list['banner_image'] != '') {
+											$bnrImg = base_url()."uploadImage/banner_image/".$list['banner_image'];
 										}
 										$i ++;
                                 ?>
@@ -61,52 +48,18 @@
 									<td><?=$i?></td>
                                     <td class="center">
 										<div class="avatar">
-                                            <a class="example-image-link" href="<?=$prfImg?>" data-fancybox="client-image-<?=$list['id']?>">
-												<img src="<?=$prfImg?>" style="height: 85px; width: 85px;">
+                                            <a class="example-image-link" href="<?=$bnrImg?>" data-fancybox="banner-image-<?=$list['id']?>">
+												<img src="<?=$bnrImg?>" style="height: 85px; width: 85px;">
 											</a>
                                         </div>
 									</td>
-                                    <td class="center">
-										<p><?=($list['first_name'])?$list['first_name'].' '.$list['last_name']:''?></p>
-									</td>
-                                    <td class="center">
-										<p>
-											Email: <?=($list['email'])?$list['email']:''?>
-											<?=$list['is_email_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
-										</p>
-										<p>
-											Phone: <?=($list['phone'])?$list['phone']:''?>
-											<?=$list['is_phone_verified'] == '1' ? '<i class="fa fa-check" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
-										</p>
-									</td>
-                                    <td class="center">
-										<p>City: <?=($list['city'])?$list['city']:''?></p>
-										<p>State: <?=($list['state'])?$list['state']:''?></p>
-										<p>Country; <?=($list['country'])?$list['country']:''?></p>
-									</td>
-                                    <!--<td class="center"> <?//=$list['register_from']?> </td>-->
-                                    <td class="center">
-										<div class="avatar">
-											<a class="example-image-link" href="<?=$licnseImg?>" data-fancybox="client-license-<?=$list['id']?>">
-												<img src="<?=$licnseImg?>" style="height: 85px; width: 85px;">
-												<!--<img src="<?=$licnseImg?>" style="height: 85px; border-radius: 50%; width: 85px;">-->
-											</a>
-                                        </div>
-									</td>
-                                    <td class="center"> <?=$list['is_active']==='0'?'Active':'Inactive'?> </td>
+                                    <td class="center"> <?=$list['description']?> </td>
                                     <td class="center"> <?=$request_date?> </td>
-                                    <td class="center" style="width: 100px !important;">
+                                    <td class="center" style="width:150px !important;">
 										<div class="button-list1">
-										
-											<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$list['id']?>)">
-												<i class="fa fa-info-circle btn-info" aria-hidden="true" title="View details"></i>
-											</button>
-											
-											<button type="button" class="btn btn-danger btn-flat" onClick="deleteClient(<?=$list['id']?>)">
-												<i class="fa fa-trash btn-danger" aria-hidden="true"></i>
-											</button>
-											
-										</div>
+											<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editBanner(<?=$list['id']?>)">View Details</button>
+											<button type="button" class="btn btn-danger btn-flat" onClick="deleteBanner(<?=$list['id']?>)">Delete</button>
+										</button>
 									</td>
                                 </tr>
                                 <?php } ?>

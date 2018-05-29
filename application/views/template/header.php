@@ -186,15 +186,13 @@
                                 <li><a href="<?=base_url()?>admin/lawyers">List </a></li>
                             </ul>
                         </li>
-                        <!-- 
-						<li class="nav-label">Apps</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hide-menu">Email</span></a>
+                        <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-picture-o"></i><span class="hide-menu">Banner images</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="email-compose.html">Compose</a></li>
-                                <li><a href="email-read.html">Read</a></li>
-                                <li><a href="email-inbox.html">Inbox</a></li>
+                                <li><a href="<?=base_url()?>admin/banners">List </a></li>
                             </ul>
                         </li>
+						
+                        <!-- 
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Charts</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="chart-flot.html">Flot</a></li>
