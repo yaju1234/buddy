@@ -264,5 +264,34 @@ class Api_user_model extends CI_Model
 		}
 		
 	}
+
+	public function pushNotificationForAppoManager($user_id, $title, $notification_message_body) {
+        $baseUrl = base_url(); 
+        $device_tokens = $this->db->select('token')->from('device_token')>where('user_id', $user_id)->get()->result_array();
+        $registration_ids = array();
+        if(!empty($device_tokens)){
+            foreach ($device_tokens as $key => $value) {
+                $registration_ids[] = $value['token'];
+            }
+            $fields = array (
+                'registration_ids' => $registration_ids,
+                'notification' => array (
+                    "body" => $notification_message_body,
+                    "title" => $title,
+                    "icon" => "myicon",
+                    "sound" => "default",
+                    "click_action" => "ACTIVITY_XP1"
+                )/*,
+                'data' => array (
+                    "booking_date" => date('d-m-Y', strtotime($booking_date)),
+                    "clinic_name" => $clinic_name,
+                    'is_virtual' => $is_virtual,
+                    'is_redirect_from_fcm' => "1",
+                    'tab' => $tab
+                )*/
+            );
+            $this->fcm->send_fcm_notification($fields);
+        }
+    }
 }
 ?>

@@ -9,6 +9,7 @@ class User extends REST_Controller {
 		$this->load->helper(array('url', 'form'));
 		$this->load->library('twilio');
 		$this->load->library('email');
+		$this->load->library('fcm');
 		$this->load->model(array('Api_user_model'));
 	}
 	
