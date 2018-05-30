@@ -93,20 +93,20 @@
 						<tbody>
 							<?php 
 									$i = 0;
-                                    foreach($all_case_list as $key => $list) {
+                                    foreach($open_case_list as $key => $list) {
                                         $request_date = date('m-d-Y', strtotime($list['created_at']));
 										
 										$cFrntImg = base_url()."images/no-image.png";
 										if ($list['case_front_img'] != '') {
-											$cFrntImg = base_url()."uploadImage/case_image/".$list['case_front_img'];
+											$cFrntImg = base_url().$list['case_front_img'];
 										}
 										$cRerImg = base_url()."images/no-image.png";
 										if ($list['case_rear_img'] != '') {
-											$cRerImg = base_url()."uploadImage/case_image/".$list['case_rear_img'];
+											$cRerImg = base_url().$list['case_rear_img'];
 										}
 										$drvrImg = base_url()."images/no-image.png";
 										if ($list['driving_license'] != '') {
-											$drvrImg = base_url()."uploadImage/client_license_image/".$list['driving_license'];
+											$drvrImg = base_url().$list['driving_license'];
 										}
 										$i ++;
                                 ?>
@@ -116,15 +116,15 @@
 								<td><?=$list['city']?>, <?=$list['state']?></td>
 								<td><?=$list['case_details']?></td>
 								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+									<figure><img src="<?=$drvrImg?>" alt="Driving License"></figure>
 								</td>
 								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+									<figure><img src="<?=$cFrntImg?>" alt="Case Front Image"></figure>
 								</td>
 								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+									<figure><img src="<?=$cRerImg?>" alt="Case Rear Image"></figure>
 								</td>
-								<td>Not Acceptde</td>
+								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 								<?php
@@ -149,40 +149,45 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php 
+									$i = 0;
+                                    foreach($all_case_list as $key => $list) {
+                                        $request_date = date('m-d-Y', strtotime($list['created_at']));
+										
+										$cFrntImg = base_url()."images/no-image.png";
+										if ($list['case_front_img'] != '') {
+											$cFrntImg = base_url()."uploadImage/case_image/".$list['case_front_img'];
+										}
+										$cRerImg = base_url()."images/no-image.png";
+										if ($list['case_rear_img'] != '') {
+											$cRerImg = base_url()."uploadImage/case_image/".$list['case_rear_img'];
+										}
+										$drvrImg = base_url()."images/no-image.png";
+										if ($list['driving_license'] != '') {
+											$drvrImg = base_url()."uploadImage/client_license_image/".$list['driving_license'];
+										}
+										$i ++;
+                                ?>
 							<tr>
-								<td>1</td>
-								<td>#908765</td>
-								<td>Toronto, Ontario, Canada</td>
-								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
+								<td><?=$i?></td>
+								<td>#<?=$list['case_number']?></td>
+								<td><?=$list['city']?>, <?=$list['state']?></td>
+								<td><?=$list['case_details']?></td>
 								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+									<figure><img src="<?=$drvrImg?>" alt="Driving License"></figure>
 								</td>
 								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+									<figure><img src="<?=$cFrntImg?>" alt="Case Front Image"></figure>
 								</td>
 								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+									<figure><img src="<?=$cRerImg?>" alt="Case Rear Image"></figure>
 								</td>
-								<td>Not Acceptde</td>
+								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td>#908765</td>
-								<td>Toronto, Ontario, Canada</td>
-								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
-								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
-								</td>
-								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
-								</td>
-								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
-								</td>
-								<td>Not Acceptde</td>
-								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
-							</tr>
+								<?php
+									}
+								?>
 						</tbody>
 					</table>
 				</div>
