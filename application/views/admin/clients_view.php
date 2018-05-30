@@ -97,7 +97,7 @@
                                     <td class="center" style="width: 100px !important;">
 										<div class="button-list1">
 										
-											<button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$list['id']?>)">
+											<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$list['id']?>)">
 												<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
 											</button>
 											

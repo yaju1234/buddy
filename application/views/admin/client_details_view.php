@@ -29,7 +29,12 @@
 		</div>
 		<div class="his_cases">
 			<div class="block">
-				5
+				<span>5</span>
+				<h3>total cases</h3>
+			</div>
+			<div class="block">
+				<span>5</span>
+				<h3>open cases</h3>
 			</div>
 		</div>
 		<div class="tab-area">
@@ -46,7 +51,30 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					
+					<table id="" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>email ID</th>
+								<th>phone no</th>
+								<th>gender</th>
+								<th>location</th>
+								<th>edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>John Doe</td>
+								<td>jhon.doe@gmail.com</td>
+								<td>+01 9898776545</td>
+								<td>Male</td>
+								<td>Toronto, Ontario, Canada</td>
+								<td>
+									<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div class="tab-pane" id="open-cases" role="tabpanel" aria-labelledby="open-cases-tab">
 					<table id="myTableone" class="table table-bordered table-striped">
@@ -79,7 +107,7 @@
 									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
 								</td>
 								<td>Not Acceptde</td>
-								<td></td>
+								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 							<tr>
 								<td>1</td>
@@ -96,7 +124,7 @@
 									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
 								</td>
 								<td>Not Acceptde</td>
-								<td></td>
+								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -132,7 +160,7 @@
 									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
 								</td>
 								<td>Not Acceptde</td>
-								<td></td>
+								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 							<tr>
 								<td>1</td>
@@ -149,7 +177,7 @@
 									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
 								</td>
 								<td>Not Acceptde</td>
-								<td></td>
+								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 						</tbody>
 					</table>
