@@ -104,13 +104,17 @@
 										if ($list['case_rear_img'] != '') {
 											$cRerImg = base_url()."uploadImage/case_image/".$list['case_rear_img'];
 										}
+										$drvrImg = base_url()."images/no-image.png";
+										if ($list['driving_license'] != '') {
+											$drvrImg = base_url()."uploadImage/client_license_image/".$list['driving_license'];
+										}
 										$i ++;
                                 ?>
 							<tr>
 								<td><?=$i?></td>
 								<td>#<?=$list['case_number']?></td>
-								<td>Toronto, Ontario, Canada</td>
-								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
+								<td><?=$list['city']?>, <?=$list['state']?></td>
+								<td><?=$list['case_details']?></td>
 								<td>
 									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
 								</td>
