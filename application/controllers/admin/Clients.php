@@ -62,7 +62,7 @@ class Clients extends CI_Controller {
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "Updated successfully";
-			redirect('/admin/clients', 'refresh');
+			redirect('/admin/clients/details/'.$id, 'refresh');
 		} catch(Exception $e){
 			$response['status'] = false;
 			$response['response'] = new stdClass();

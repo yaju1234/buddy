@@ -1,7 +1,7 @@
 <!-- Bread crumb -->
 	<div class="row page-titles">
 		<div class="col-md-5 align-self-center">
-			<h3 class="text-primary">Clients</h3> </div>
+			<h3 class="text-primary">Client Details</h3> </div>
 		<div class="col-md-7 align-self-center">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Home</a></li>
@@ -24,7 +24,7 @@
 				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
 			</div>
 			<label class="switch">
-				<input type="checkbox" <?=$client_list['status']=='1'?'checked':''?>>
+				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onClick="disableUser(<?=$client_list['id']?>);">
 				<span class="slider round"></span>
 			</label>
 		</div>
@@ -69,7 +69,7 @@
 								<td><?=$client_list['phone']?></td>
 								<td><?=$client_list['city']?>, <?=$client_list['state']?>, <?=$client_list['country']?></td>
 								<td>
-									<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
+									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$client_list['id']?>)"><i class="fa fa-pencil"></i></button>
 								</td>
 							</tr>
 						</tbody>
@@ -285,8 +285,14 @@
 
 <script>
 	var baseUrl = "<?=base_url()?>";
+	function disableUser(id){
+		if(!$('.dsbleUsr').is(':checked')){
+			deleteClient(id);
+		}
+	}
+	
 	function deleteClient(id){
-		if(confirm('Are you sure, you want to delete?')){
+		if(confirm('Are you sure, you want to disable the user?')){
 			$(".preloader").show();
 			$.ajax({
 				type: "POST",
