@@ -577,7 +577,7 @@ public function banners_post(){
 	$data = $this->Api_user_model->getBanners();
 
 	$response['status'] = true;
-	$response['response'] = $date;
+	$response['response'] = $data;
 	$response['message'] = "success";
 	$this->response($response);
 }
