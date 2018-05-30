@@ -27,7 +27,7 @@
 									<th>SL No.</th>
 									<th>Image</th>
 									<th>Name</th>
-									<th>Email & Phone</th>
+									<th>Email &amp; Phone</th>
 									<th>Address</th>
 									<!--<th>Platform</th>-->
 									<th>License</th>
@@ -62,7 +62,7 @@
                                     <td class="center">
 										<div class="avatar">
                                             <a class="example-image-link" href="<?=$prfImg?>" data-fancybox="client-image-<?=$list['id']?>">
-												<img src="<?=$prfImg?>" style="height: 85px; width: 85px;">
+												<img src="<?=$prfImg?>">
 											</a>
                                         </div>
 									</td>
@@ -87,7 +87,7 @@
                                     <td class="center">
 										<div class="avatar">
 											<a class="example-image-link" href="<?=$licnseImg?>" data-fancybox="client-license-<?=$list['id']?>">
-												<img src="<?=$licnseImg?>" style="height: 85px; width: 85px;">
+												<img src="<?=$licnseImg?>">
 												<!--<img src="<?=$licnseImg?>" style="height: 85px; border-radius: 50%; width: 85px;">-->
 											</a>
                                         </div>
@@ -97,12 +97,8 @@
                                     <td class="center" style="width: 100px !important;">
 										<div class="button-list1">
 										
-											<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$list['id']?>)">
-												<i class="fa fa-info-circle btn-info" aria-hidden="true" title="View details"></i>
-											</button>
-											
-											<button type="button" class="btn btn-danger btn-flat" onClick="deleteClient(<?=$list['id']?>)">
-												<i class="fa fa-trash btn-danger" aria-hidden="true"></i>
+											<button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$list['id']?>)">
+												<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
 											</button>
 											
 										</div>

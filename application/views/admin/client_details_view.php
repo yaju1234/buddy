@@ -27,21 +27,134 @@
 				<span class="slider round"></span>
 			</label>
 		</div>
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
-			<li class="nav-item">
-				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-			</li>
-		</ul>
-		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-			<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+		<div class="his_cases">
+			<div class="block">
+				5
+			</div>
+		</div>
+		<div class="tab-area">
+			<ul class="nav nav-tabs details-nav" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><i class="fa fa-user"></i>profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="open-cases-tab" data-toggle="tab" href="#open-cases" role="tab" aria-controls="open-cases" aria-selected="false"><i class="fa fa-folder-open"></i>open cases</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="all-cases-tab" data-toggle="tab" href="#all-cases" role="tab" aria-controls="all-cases" aria-selected="false"><i class="fa fa-reply-all"></i>all cases</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+					
+				</div>
+				<div class="tab-pane" id="open-cases" role="tabpanel" aria-labelledby="open-cases-tab">
+					<table id="myTableone" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Sl No.</th>
+								<th>case no</th>
+								<th>location</th>
+								<th>description</th>
+								<th>driving licence</th>
+								<th>front image</th>
+								<th>rare image</th>
+								<th>status</th>
+								<th>details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>#908765</td>
+								<td>Toronto, Ontario, Canada</td>
+								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>Not Acceptde</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>#908765</td>
+								<td>Toronto, Ontario, Canada</td>
+								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>Not Acceptde</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="tab-pane" id="all-cases" role="tabpanel" aria-labelledby="all-cases-tab">
+					<table id="myTable" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Sl No.</th>
+								<th>case no</th>
+								<th>location</th>
+								<th>description</th>
+								<th>driving licence</th>
+								<th>front image</th>
+								<th>rare image</th>
+								<th>status</th>
+								<th>details</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>#908765</td>
+								<td>Toronto, Ontario, Canada</td>
+								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>Not Acceptde</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>#908765</td>
+								<td>Toronto, Ontario, Canada</td>
+								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>
+									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
+								</td>
+								<td>Not Acceptde</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- End PAge Content -->
