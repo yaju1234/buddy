@@ -5,7 +5,8 @@
 		<div class="col-md-7 align-self-center">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Home</a></li>
-				<li class="breadcrumb-item active">Clients</li>
+				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Clients</a></li>
+				<li class="breadcrumb-item active">Details</li>
 			</ol>
 		</div>
 	</div>
@@ -15,25 +16,25 @@
 		<!-- Start Page Content -->
 		<div class="user-details">
 			<figure>
-				<img src="<?=base_url()?>images/users/1.jpg" alt="">
+				<img src="<?=base_url().$client_list['profile_image']?>" alt="Profile Picture">
 			</figure>
 			<div class="details">
-				<h2>jhon doe</h2>
-				<p><i class="fa fa-map-marker"></i>Toronto</p>
-				<p><i class="fa fa-envelope-o"></i>jhondoe@gmail.com</p>
+				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
+				<p><i class="fa fa-map-marker"></i><?=$client_list['city']?></p>
+				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
 			</div>
 			<label class="switch">
-				<input type="checkbox">
+				<input type="checkbox" <?=$client_list['status']=='1'?'checked':''?>>
 				<span class="slider round"></span>
 			</label>
 		</div>
 		<div class="his_cases">
 			<div class="block">
-				<span>5</span>
+				<span><?=count($all_case_list)?></span>
 				<h3>total cases</h3>
 			</div>
 			<div class="block">
-				<span>5</span>
+				<span><?=count($open_case_list)?></span>
 				<h3>open cases</h3>
 			</div>
 		</div>
@@ -57,18 +58,16 @@
 								<th>Name</th>
 								<th>email ID</th>
 								<th>phone no</th>
-								<th>gender</th>
 								<th>location</th>
 								<th>edit</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>John Doe</td>
-								<td>jhon.doe@gmail.com</td>
-								<td>+01 9898776545</td>
-								<td>Male</td>
-								<td>Toronto, Ontario, Canada</td>
+								<td><?=$client_list['first_name']." ".$client_list['last_name']?></td>
+								<td><?=$client_list['email']?></td>
+								<td><?=$client_list['phone']?></td>
+								<td><?=$client_list['city']?>, <?=$client_list['state']?>, <?=$client_list['country']?></td>
 								<td>
 									<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
 								</td>
@@ -92,9 +91,24 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php 
+									$i = 0;
+                                    foreach($all_case_list as $key => $list) {
+                                        $request_date = date('m-d-Y', strtotime($list['created_at']));
+										
+										$cFrntImg = base_url()."images/no-image.png";
+										if ($list['case_front_img'] != '') {
+											$cFrntImg = base_url()."uploadImage/case_image/".$list['case_front_img'];
+										}
+										$cRerImg = base_url()."images/no-image.png";
+										if ($list['case_rear_img'] != '') {
+											$cRerImg = base_url()."uploadImage/case_image/".$list['case_rear_img'];
+										}
+										$i ++;
+                                ?>
 							<tr>
-								<td>1</td>
-								<td>#908765</td>
+								<td><?=$i?></td>
+								<td>#<?=$list['case_number']?></td>
 								<td>Toronto, Ontario, Canada</td>
 								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
 								<td>
@@ -109,23 +123,9 @@
 								<td>Not Acceptde</td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td>#908765</td>
-								<td>Toronto, Ontario, Canada</td>
-								<td>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece..</td>
-								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
-								</td>
-								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
-								</td>
-								<td>
-									<figure><img src="<?=base_url()?>images/no-image.png" alt=""></figure>
-								</td>
-								<td>Not Acceptde</td>
-								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
-							</tr>
+								<?php
+									}
+								?>
 						</tbody>
 					</table>
 				</div>

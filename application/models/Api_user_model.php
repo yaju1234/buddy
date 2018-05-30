@@ -305,5 +305,10 @@ class Api_user_model extends CI_Model
             $this->fcm->send_fcm_notification($fields);
         }
     }
+	
+	public function getBanners(){
+        $res = $this->db->select('IF(banner_image = "", "", CONCAT("uploadImage/banner_image/",banner_image)) as banner_image, description, created')->get('traffic_banners')->result_array();
+        return $res;
+    }
 }
 ?>
