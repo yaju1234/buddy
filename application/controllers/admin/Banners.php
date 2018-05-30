@@ -18,58 +18,24 @@ class Banners extends CI_Controller {
 		$this->load->view('template/footer.php');
     }
 	
-	public function updateBanner(){
-
-		$response = array();
-		try {
-			$data = array();
-			$id = $this->input->post('id');
-			$first_name = $this->input->post('first_name');
-			$data['first_name'] = $first_name;
-			$last_name = $this->input->post('last_name');
-			$data['last_name'] = $last_name;
-			if($this->input->post('phone')){
-				$data['is_phone_verified'] = '0';
-				$data['phone'] = $this->input->post('phone');
+	public function addUpdateBanner(){
+		if(!empty($_FILES['banner_image']['name'])){
+			$banner_image = $this->uploadImage('./uploadImage/banner_image/',  $_FILES['banner_image'],'banner_image');
+			if(!empty($banner_image)){
+				$data['banner_image'] = $banner_image;
 			}
-			$country = $this->input->post('country');
-			$data['country'] = $country;
-			$state = $this->input->post('state');
-			$data['state'] = $state;
-			$city = $this->input->post('city');
-			$data['city'] = $city;
-			
-			if(!empty($_FILES['profile_image']['name'])){
-				$profile_image_file_name = $this->uploadImage('./uploadImage/client_profile_image/',  $_FILES['profile_image'],'profile_image');
-				if(!empty($profile_image_file_name)){
-					$data['profile_image'] = $profile_image_file_name;
-				}
-				
-			}
-
-			if(!empty($_FILES['license_image']['name'])){
-				$driving_licence_image_file_name = $this->uploadImage('./uploadImage/client_license_image/',$_FILES['license_image'],'license_image');
-				if(!empty($driving_licence_image_file_name)){
-					$data['license_image'] = $driving_licence_image_file_name;
-				}
-			}
-
-			$st = $this->Api_user_model->updateClientProfile($data,$id);
-			
-			$user_date = $this->Api_user_model->getUser($id);
-			$response['status'] = true;
-			$response['response'] = $user_date;
-			$response['message'] = "Updated successfully";
-			redirect('/admin/clients', 'refresh');
-		} catch(Exception $e){
-			$response['status'] = false;
-			$response['response'] = new stdClass();
-			$response['message'] = "error";
-			redirect('/admin/clients', 'refresh');
 		}
-		
+		$description = $this->input->post('description');
+		$data['description'] = $description;
+		$data['created'] = date('Y-m-d H:i:s');
+		if($this->input->post('cid') && $this->input->post('cid') > 0){
+			$st = $this->admin_model->updateBanner($data, $this->input->post('cid'));
+		} else {
+			$st = $this->admin_model->addNewBanner($data);
+		}
+		redirect('/admin/banners', 'refresh');
 	}
-		
+	
 	public function uploadImage($upload_path, $file_arr, $key) {
 		$config = array();
 		$config['upload_path']   = $upload_path; 
