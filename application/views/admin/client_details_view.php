@@ -15,8 +15,16 @@
 	<div class="container-fluid">
 		<!-- Start Page Content -->
 		<div class="user-details">
+			<?php 
+				$prfImg = base_url()."images/no-image.png";
+				if( $client_list['profile_image'] != '' && (strpos($client_list['profile_image'], 'http://') !== false || strpos($client_list['profile_image'], 'https://') !== false) ){
+					$prfImg = $client_list['profile_image'];
+				} else if ($client_list['profile_image'] != '') {
+					$prfImg = base_url().$client_list['profile_image'];
+				}
+			?>
 			<figure>
-				<img src="<?=base_url().$client_list['profile_image']?>" alt="Profile Picture">
+				<img src="<?=base_url().$prfImg?>" alt="Profile Picture">
 			</figure>
 			<div class="details">
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
