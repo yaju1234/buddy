@@ -165,15 +165,15 @@
 										
 										$cFrntImg = base_url()."images/no-image.png";
 										if ($list['case_front_img'] != '') {
-											$cFrntImg = base_url()."uploadImage/case_image/".$list['case_front_img'];
+											$cFrntImg = base_url().$list['case_front_img'];
 										}
 										$cRerImg = base_url()."images/no-image.png";
 										if ($list['case_rear_img'] != '') {
-											$cRerImg = base_url()."uploadImage/case_image/".$list['case_rear_img'];
+											$cRerImg = base_url().$list['case_rear_img'];
 										}
 										$drvrImg = base_url()."images/no-image.png";
 										if ($list['driving_license'] != '') {
-											$drvrImg = base_url()."uploadImage/client_license_image/".$list['driving_license'];
+											$drvrImg = base_url().$list['driving_license'];
 										}
 										$i ++;
                                 ?>
