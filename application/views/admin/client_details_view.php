@@ -24,7 +24,7 @@
 				}
 			?>
 			<figure>
-				<img src="<?=base_url().$prfImg?>" alt="Profile Picture">
+				<img src="<?=$prfImg?>" alt="Profile Picture">
 			</figure>
 			<div class="details">
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
