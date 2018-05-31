@@ -62,7 +62,7 @@ class Clients extends CI_Controller {
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "Updated successfully";
-			redirect('/admin/clients', 'refresh');
+			redirect('/admin/clients/details/'.$id, 'refresh');
 		} catch(Exception $e){
 			$response['status'] = false;
 			$response['response'] = new stdClass();
@@ -99,12 +99,14 @@ class Clients extends CI_Controller {
 	}
 
 
-	public function details() {
+	public function details($client_id) {
         $data = array();
         $data['title'] = 'Client Management';
-        $data['client_list'] = $this->admin_model->getClients();
+        $data['client_list'] = $this->admin_model->getClientDetails($client_id);
+        $data['all_case_list'] = $this->admin_model->getCaseList($client_id, 'ALL');
+        $data['open_case_list'] = $this->admin_model->getCaseList($client_id, 'PENDING');
 		/*echo "<pre />";
-		print_r($data['client_list']);exit;*/
+		print_r($data);exit;*/
 		$this->load->view('template/header.php', $data);
         $this->load->view('admin/client_details_view', $data);
 		$this->load->view('template/footer.php');

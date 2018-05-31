@@ -29,7 +29,6 @@
 									<th>Name</th>
 									<th>Email &amp; Phone</th>
 									<th>Address</th>
-									<!--<th>Platform</th>-->
 									<th>License</th>
 									<th>Status</th>
 									<th>Joined</th>
@@ -83,12 +82,10 @@
 										<p><?=($list['city'])?$list['city']:''?>,<?=($list['state'])?$list['state']:''?>,<?=($list['country'])?$list['country']:''?></p>
 									
 									</td>
-                                    <!--<td class="center"> <?//=$list['register_from']?> </td>-->
                                     <td class="center">
 										<div class="avatar">
 											<a class="example-image-link" href="<?=$licnseImg?>" data-fancybox="client-license-<?=$list['id']?>">
 												<img src="<?=$licnseImg?>">
-												<!--<img src="<?=$licnseImg?>" style="height: 85px; border-radius: 50%; width: 85px;">-->
 											</a>
                                         </div>
 									</td>
@@ -96,11 +93,12 @@
                                     <td class="center"> <?=$request_date?> </td>
                                     <td class="center" style="width: 100px !important;">
 										<div class="button-list1">
-										
-											<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$list['id']?>)">
+											<a class="btn btn-info" href="<?=base_url()?>admin/clients/details/<?=$list['id']?>">
 												<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
-											</button>
-											
+											</a>
+											<!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient()">
+												<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
+											</button> -->
 										</div>
 									</td>
                                 </tr>
