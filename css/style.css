@@ -1826,12 +1826,12 @@ tbody tr td:last-child { text-align: center; }
 
 /* CLIENT DETAILS
 ------------------------------------------------------------------ */
-.user-details { width: 100%; background-color: #e8f6ff; padding: 20px; -webkit-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -ms-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -o-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); }
+.user-details { width: 100%; background-color: #e8f6ff; padding: 50px 20px; -webkit-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -ms-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -o-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); }
 .user-details figure { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; display: inline-block; vertical-align: middle; margin: 0px 20px 0px 0px; }
 .user-details figure img { width: 100%; height: 100%; }
 .user-details .details { display: inline-block; vertical-align: top; width: calc(100% - 195px); }
 .user-details .details h2 { text-transform: capitalize; font-size: 20px; line-height: 26px; color: #222; margin: 0px 0px 10px; }
-.user-details .details p { font-size: 14px; line-height: 20px; color: #333; margin: 0px; }
+.user-details .details p { font-size: 14px; line-height: 20px; color: #333; margin: 0px 0px 5px; }
 .user-details .details p i { margin-right: 10px; }
 
 
@@ -1856,13 +1856,17 @@ tbody tr td:last-child { text-align: center; }
 
 
 .tab-area {  }
+.tab-area .nav-tabs { -webkit-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -ms-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -o-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); }
 .tab-area .nav-tabs .nav-item { width: 33.333%; text-align: center; }
-.tab-area .nav-tabs .nav-item .nav-link { padding: 10px; background-color: #fff; color: #222222; font-size: 16px; line-height: 26px; text-transform: uppercase; position: relative; }
+.tab-area .nav-tabs .nav-item .nav-link { padding: 15px 10px; background-color: #fff; color: #888; font-size: 16px; line-height: 26px; text-transform: uppercase; position: relative; -webkit-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.05); -ms-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.05); -o-box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.05); box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.05);
+ }
 .tab-area .nav-tabs .nav-item .nav-link i { margin-right: 10px; font-size: 20px; line-height: 26px; }
-.tab-area .nav-tabs .nav-item .nav-link.active { background-color: #fff; -webkit-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -ms-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); -o-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.05); z-index: 5; }
-.tab-area .nav-tabs .nav-item .nav-link:hover { background-color: #1097f1; color: #fff; }
-.tab-area .tab-pane { padding: 20px 0px 0px; }
+.tab-area .nav-tabs .nav-item .nav-link:before { content: ""; position: absolute; bottom: 0px; left: 0px; width: 0px; height: 3px; background-color: #01406c; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease; }
+.tab-area .nav-tabs .nav-item .nav-link.active, .tab-area .nav-tabs .nav-item .nav-link:hover { background-color: #fff; color: #222; }
+.tab-area .nav-tabs .nav-item .nav-link.active i, .tab-area .nav-tabs .nav-item .nav-link:hover i { color: #1097f1; }
+.tab-area .nav-tabs .nav-item .nav-link.active:before, .tab-area .nav-tabs .nav-item .nav-link:hover:before { width: 100%; }
 
+.tab-area .tab-pane { padding: 20px 0px 0px; }
 .table tbody td { font-size: 12px; line-height: 18px; color: #333; vertical-align: middle; }
 .table tbody td figure { max-width: 60px; }
 .table tbody td figure img { max-width: 100%; }
@@ -1870,6 +1874,15 @@ tbody tr td:last-child { text-align: center; }
 .table .avatar img { max-width: 100%; }
 .table tbody td p { font-size: 12px; line-height: 18px; color: #333; margin: 2px 0px; }
 
+.client-details {  }
+.client-details .block { padding: 5px; height: 70px; -webkit-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); -moz-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); -ms-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); -o-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); }
+.client-details .block:after { content: ""; display: table; clear: both; }
+.client-details .block .caption { float: left; width: 20%; -webkit-display: flex; display: flex; -webkit-flex-flow: row-reverse; flex-flow: row-reverse; align-items: center; height: 60px; }
+.client-details .block .caption label { font-size: 14px; line-height: 22px; color: #222; font-weight: 700; text-transform: capitalize; margin: 0px; }
+.client-details .block .column { float: right; width: 75%; -webkit-display: flex; display: flex; -webkit-flex-flow: row wrap; flex-flow: row wrap; align-items: center; height: 60px; }
+.client-details .block .column p { font-size: 16px; line-height: 22px; color: #222; margin: 0px; text-transform: capitalize; }
+.client-details .block .column figure { width: 60px; height: 60px; overflow: hidden; margin: 0px; }
+.client-details .block .column figure img { width: 100%; height: 100%; }
 
 
 /* PROFILE EDI

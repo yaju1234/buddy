@@ -60,6 +60,7 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
 					<table id="" class="table table-bordered table-striped">
 						<thead>
 							<tr>
