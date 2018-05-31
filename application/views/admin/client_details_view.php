@@ -51,30 +51,86 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<table id="" class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>email ID</th>
-								<th>phone no</th>
-								<th>gender</th>
-								<th>location</th>
-								<th>edit</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>John Doe</td>
-								<td>jhon.doe@gmail.com</td>
-								<td>+01 9898776545</td>
-								<td>Male</td>
-								<td>Toronto, Ontario, Canada</td>
-								<td>
-									<button type="button" class="btn btn-info"><i class="fa fa-pencil"></i></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="client-details">
+						<div class="block">
+							<div class="caption">
+								<label for="">name:</label>
+							</div>
+							<div class="column">
+								<p>John Doe</p>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">email:</label>
+							</div>
+							<div class="column">
+								<p style="text-transform: none;">jhon.doe@gmail.com</p>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">phone no:</label>
+							</div>
+							<div class="column">
+								<p>+01 9898776545</p>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">driving licence:</label>
+							</div>
+							<div class="column">
+								<figure>
+									<img src="<?=base_url()?>images/New-UK1.jpg" alt="">
+								</figure>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">front image:</label>
+							</div>
+							<div class="column">
+								<figure>
+									<img src="<?=base_url()?>images/New-UK1.jpg" alt="">
+								</figure>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">rare image:</label>
+							</div>
+							<div class="column">
+								<figure>
+									<img src="<?=base_url()?>images/New-UK1.jpg" alt="">
+								</figure>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">country:</label>
+							</div>
+							<div class="column">
+								<p>canada</p>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">provinces / territories:</label>
+							</div>
+							<div class="column">
+								<p>ontario</p>
+							</div>
+						</div>
+						<div class="block">
+							<div class="caption">
+								<label for="">City:</label>
+							</div>
+							<div class="column">
+								<p>torento</p>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="tab-pane" id="open-cases" role="tabpanel" aria-labelledby="open-cases-tab">
 					<table id="myTableone" class="table table-bordered table-striped">
