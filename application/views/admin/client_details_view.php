@@ -1,5 +1,5 @@
 <!-- Bread crumb -->
-	<div class="row page-titles">
+	<div class="row page-titles no-gap">
 		<div class="col-md-5 align-self-center">
 			<h3 class="text-primary">Client Details</h3> </div>
 		<div class="col-md-7 align-self-center">
@@ -12,7 +12,7 @@
 	</div>
 	<!-- End Bread crumb -->
 	<!-- Container fluid  -->
-	<div class="container-fluid">
+	<div class="container-fluid no-padding">
 		<!-- Start Page Content -->
 		<div class="user-details">
 			<?php 
