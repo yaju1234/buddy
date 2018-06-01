@@ -32,7 +32,7 @@
 				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
 			</div>
 			<label class="switch">
-				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onClick="disableUser(<?=$client_list['id']?>);">
+				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
 				<span class="slider round"></span>
 			</label>
 		</div>
@@ -300,11 +300,13 @@
 	</div>
 </div>
 
-<script>
+<script type="text/javascript">
 	var baseUrl = "<?=base_url()?>";
 	function disableUser(id){
 		if(!$('.dsbleUsr').is(':checked')){
 			deleteClient(id);
+		} else {
+			enableClient(id);
 		}
 	}
 	
@@ -327,11 +329,6 @@
 				url: baseUrl + "api/v1/user/deleteClient",
 				data: {'id': id},
 				success: function(resp) {
-					if(resp.status){
-						$("#myTable").dataTable().fnDestroy()
-						$('#myTable').DataTable();
-						$('#request_tr_'+id).remove();
-					}
 					$(".preloader").hide();
 				},
 				error : function(xhr, textStatus, errorThrown){
@@ -339,7 +336,26 @@
 					$("#preloader").hide();
 				}
 			});
+		} else {
+			retuen false;
 		}
+	}
+	
+	function enableClient(id){
+		$(".preloader").show();
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: baseUrl + "api/v1/user/enableClient",
+			data: {'id': id},
+			success: function(resp) {
+				$(".preloader").hide();
+			},
+			error : function(xhr, textStatus, errorThrown){
+				console.log(xhr);
+				$("#preloader").hide();
+			}
+		});
 	}
 	
 	function editClient(id){

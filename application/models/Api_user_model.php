@@ -88,6 +88,10 @@ class Api_user_model extends CI_Model
 		$data['status'] = '0';
 		return $this->db->where("id",$id)->update('traffic_users', $data);
 	}
+	public function enableClientProfile($id){
+		$data['status'] = '1';
+		return $this->db->where("id",$id)->update('traffic_users', $data);
+	}
 	
 	public function deleteBanner($id){
 		return $this->db->where("id",$id)->delete('traffic_banners');
