@@ -102,6 +102,7 @@ class Clients extends CI_Controller {
 	public function details($client_id) {
         $data = array();
         $data['title'] = 'Client Management';
+        $data['country_list'] = $this->Api_user_model->getCountry();
         $data['client_list'] = $this->admin_model->getClientDetails($client_id);
         $data['all_case_list'] = $this->admin_model->getCaseList($client_id, 'ALL');
         $data['open_case_list'] = $this->admin_model->getCaseList($client_id, 'PENDING');

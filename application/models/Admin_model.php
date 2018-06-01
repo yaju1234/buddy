@@ -2,7 +2,7 @@
 
 class Admin_model extends CI_Model{
 	function getClients(){
-        $res = $this->db->select('*')->where('user_type','CLIENT')->where('status','1')->get('traffic_users')->result_array();
+        $res = $this->db->select('*')->where('user_type','CLIENT')/*->where('status','1')*/->get('traffic_users')->result_array();
         return $res;
     }
 	function getClientDetails($userid){

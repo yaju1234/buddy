@@ -240,6 +240,11 @@ class Api_user_model extends CI_Model
 		$rows= $this->db->select('*')->where('country_id',$country_id)->get('traffic_state')->result_array();
 		return $rows;
 	}
+	public function getStatesByCntryName($country){
+		$rows = array();
+		$rows= $this->db->select('ts.*')->JOIN('traffic_country tc', 'ts.country_id = tc.id', 'INNER')->where('tc.country_name', $country)->get('traffic_state ts')->result_array();
+		return $rows;
+	}
 
 	public function getCity($state){
 		$rows = array();

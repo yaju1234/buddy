@@ -479,6 +479,19 @@ class User extends REST_Controller {
 		
 		$this->response($response);
 	}
+	
+	public function getStatesByCntry_post(){
+
+		$response = array();
+		$country = $this->input->post('country');
+		
+		$data = $this->Api_user_model->getStatesByCntryName($country);
+		$response['status'] = true;
+		$response['response'] = $data;
+		$response['message'] = "success";
+		
+		$this->response($response);
+	}
 
 	public function cities_post(){
 

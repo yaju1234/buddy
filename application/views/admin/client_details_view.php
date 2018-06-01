@@ -253,27 +253,35 @@
 						</div>
 						
 						<div class="form-group col-md-6 float-left">
-							<label for="city">
-								City
+							<label for="country">
+								Country
 							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="city" id="city" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="city" data-valmsg-replace="true"></span>
+							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="country" id="country" required onChange="fetchStates();">
+							<?php foreach($country_list as $country) { ?>
+								<option value="<?=$country['country_name']?>"><?=$country['country_name']?></option>
+							<?php } ?>
+							</select>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="country" data-valmsg-replace="true"></span>
 						</div>
 						
 						<div class="form-group col-md-6 float-left">
 							<label for="state">
 								State
 							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="state" id="state" required/>
+							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="state" id="state" required onChange="fetchCities();">
+								
+							</select>
 							<span class="field-validation-valid text-danger"  data-valmsg-for="state" data-valmsg-replace="true"></span>
 						</div>
 						
 						<div class="form-group col-md-6 float-left">
-							<label for="country">
-								Country
+							<label for="city">
+								City
 							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="country" id="country" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="country" data-valmsg-replace="true"></span>
+							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="city" id="city" required>
+								
+							</select>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="city" data-valmsg-replace="true"></span>
 						</div>
 						
 						<div class="form-group col-md-6 float-left">
@@ -298,6 +306,16 @@
 		if(!$('.dsbleUsr').is(':checked')){
 			deleteClient(id);
 		}
+	}
+	
+	function fetchStates(){
+		let cnt = $('#country').val();
+		getStates(cnt, '');
+	}
+	
+	function fetchCities(){
+		let ste = $('#state').val();
+		getCities(ste, '');
 	}
 	
 	function deleteClient(id){
@@ -338,9 +356,64 @@
 					$('#lname').val(resp.response.last_name);
 					$('#email').val(resp.response.email);
 					$('#phone').val(resp.response.phone);
-					$('#city').val(resp.response.city);
-					$('#state').val(resp.response.state);
+					//$('#city').val(resp.response.city);
 					$('#country').val(resp.response.country);
+					getStates(resp.response.country, resp.response.state);
+					getCities(resp.response.state, resp.response.city);
+				}
+				$(".preloader").hide();
+			},
+			error : function(xhr, textStatus, errorThrown){
+				console.log(xhr);
+				$("#preloader").hide();
+			}
+		});
+	}
+	
+	function getStates(country, slctState){
+		$(".preloader").show();
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: baseUrl + "api/v1/user/getStatesByCntry",
+			data: {'country': country},
+			success: function(resp) {
+				if(resp.status){
+					let stateHTML = '';
+					for(let i=0; i<resp.response.length; i++){
+						stateHTML += '<option value="'+resp.response[i].name+'">'+resp.response[i].name+'</option>';
+					}
+					//console.log(stateHTML);
+					$('#state').html(stateHTML);
+					$('#state').val(slctState);				
+				}
+				$(".preloader").hide();
+			},
+			error : function(xhr, textStatus, errorThrown){
+				console.log(xhr);
+				$("#preloader").hide();
+			}
+		});
+	}
+	
+	function getCities(state, slctCity){
+		$(".preloader").show();
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: baseUrl + "api/v1/user/cities",
+			data: {'state': state},
+			success: function(resp) {
+				if(resp.status){
+					let cityHTML = '';
+					for(let i=0; i<resp.response.length; i++){
+						cityHTML += '<option value="'+resp.response[i].city+'">'+resp.response[i].city+'</option>';
+					}
+					//console.log(cityHTML);
+					$('#city').html(cityHTML);
+					if(slctCity != ''){
+						$('#city').val(slctCity);
+					}
 				}
 				$(".preloader").hide();
 			},
