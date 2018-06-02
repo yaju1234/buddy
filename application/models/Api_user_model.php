@@ -307,7 +307,7 @@ class Api_user_model extends CI_Model
                 $registration_ids[] = $value['token'];
             }
             $fields = array (
-                'to' => $registration_ids,
+                'registration_ids' => $registration_ids,
                 'notification' => array (
                     "body" => $notification_message_body,
                     "title" => $title,
@@ -337,7 +337,7 @@ class Api_user_model extends CI_Model
                 $registration_ids[] = $value['token'];
             }
             $fields = array (
-                'to' => $registration_ids,
+                'registration_ids' => $registration_ids,
                 'notification' => array (
                     "body" => $notification_message_body,
                     "title" => $title,
