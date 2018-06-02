@@ -785,7 +785,7 @@ public function pushtest_post(){
 	$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
 
 	$response['status'] = true;
-	$response['response'] = $data;
+	//$response['response'] = ;
 	$response['message'] = "success";
 	$this->response($response);
 }
