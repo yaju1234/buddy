@@ -8,11 +8,30 @@ class Fcm
         
     }
 
-    function send_fcm_notification($fields){
+    function send_fcm_notification_client($fields){
         $url = 'https://fcm.googleapis.com/fcm/send';
         $fields = json_encode ( $fields );
         $headers = array (
-            'Authorization: key='.getenv('FIREBASE_AUTH_KEY'),
+            'Authorization: key='.getenv('FIREBASE_AUTH_KEY_CLIENT'),
+            'Content-Type: application/json'
+        );
+        $ch = curl_init ();
+        curl_setopt ( $ch, CURLOPT_URL, $url );
+        curl_setopt ( $ch, CURLOPT_POST, true );
+        curl_setopt ( $ch, CURLOPT_HTTPHEADER, $headers );
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt ( $ch, CURLOPT_POSTFIELDS, $fields );
+
+        $result = curl_exec ( $ch );
+
+        curl_close ( $ch );
+    }
+
+    function send_fcm_notification_lawyer($fields){
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $fields = json_encode ( $fields );
+        $headers = array (
+            'Authorization: key='.getenv('FIREBASE_AUTH_KEY_LAWYER'),
             'Content-Type: application/json'
         );
         $ch = curl_init ();

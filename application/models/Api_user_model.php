@@ -295,7 +295,7 @@ class Api_user_model extends CI_Model
                 $registration_ids[] = $value['token'];
             }
             $fields = array (
-                'registration_ids' => $registration_ids,
+                'to' => $registration_ids,
                 'notification' => array (
                     "body" => $notification_message_body,
                     "title" => $title,
@@ -311,7 +311,7 @@ class Api_user_model extends CI_Model
                     'tab' => $tab
                 )*/
             );
-            $this->fcm->send_fcm_notification($fields);
+            $this->fcm->send_fcm_notification_lawyer($fields);
         }
     }
 	
