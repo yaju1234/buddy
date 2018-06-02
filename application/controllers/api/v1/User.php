@@ -333,7 +333,22 @@ class User extends REST_Controller {
 			
 			//to do push here
 			//if push success then save into traffic_case_notifications table
-			$push_save_status = $this->Api_user_model->saveLawyerPushDtls($id);
+			
+			//fetch laywers
+			$lawyers = $this->Admin_model->getLawyers();
+			
+			$pushNotificationData = array();
+			foreach ($lawyers as $lawyer) {
+				$pushNtfctn = array(
+					'case_id' => $user_date['id'],
+					'client_id' => $user_date['user_id'],
+					'lawyer_id' => $lawyer['id'],
+					'created_at' => date('Y-m-d H:i:s')
+				);
+				array_push($pushNotificationData, $pushNtfctn);
+			}
+			$push_save_status = $this->Api_user_model->saveLawyerPushDtls($pushNotificationData);
+			
 			
 			$response['status'] = true;
 			$response['response'] = $user_date;

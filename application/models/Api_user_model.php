@@ -344,5 +344,9 @@ class Api_user_model extends CI_Model
         $res = $this->db->select('*')->where('user_id',$user_id)->get('traffic_degree')->result_array();
         return $res;
     }
+	
+	public function saveLawyerPushDtls($data) {
+		return $this->db->insert_batch('traffic_case_notifications', $data);
+	}
 }
 ?>
