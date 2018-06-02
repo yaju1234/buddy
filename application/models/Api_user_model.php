@@ -319,5 +319,30 @@ class Api_user_model extends CI_Model
         $res = $this->db->select('IF(banner_image = "", "", CONCAT("uploadImage/banner_image/",banner_image)) as banner_image, description, created')->get('traffic_banners')->result_array();
         return $res;
     }
+
+
+    public function insertOrUpdateDegree($user_id,$image_type,$image){
+    	$rows = array();
+    	$rows= $this->db->select('count(*) AS count')->where("user_id",$user_id)->where("image_type",$image_type)->get('traffic_degree')->row_array();
+    	$data = array();
+
+    	if($rows['count']>0){
+		$rows1 = array();
+    	$rows1= $this->db->select('id')->where("user_id",$user_id)->where("image_type",$image_type)->get('traffic_degree')->row_array();
+		$data['image'] = $image;
+    	$this->db->where('id',$rows1['id'])->update('traffic_degree',$data);
+    	}else{
+    		$data['user_id'] = $user_id;
+    		$data['image_type'] = $image_type;
+    		$data['image'] = $image;
+			$this->db->insert('traffic_degree',$data);
+    	}
+    }
+
+
+    public function getDegreeImage($user_id){
+        $res = $this->db->select('*')->where('user_id',$user_id)->get('traffic_degree')->result_array();
+        return $res;
+    }
 }
 ?>
