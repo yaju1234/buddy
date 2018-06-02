@@ -212,7 +212,7 @@ class User extends REST_Controller {
 			$st = $this->Api_user_model->updateClientProfile($data,$id);
 			
 			$user_date = $this->Api_user_model->getUser($id);
-			$degree_image = $this->Api_user_model->getDegreeImage($last_inserted_id);
+			$degree_image = $this->Api_user_model->getDegreeImage($id);
 			$user_date['degree_images'] = $degree_image;
 			$response['status'] = true;
 			$response['response'] = $user_date;
