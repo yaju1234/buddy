@@ -218,7 +218,7 @@ class User extends REST_Controller {
 			$user_id = $this->input->post('user_id');
 			$data['user_id'] = $user_id;
 			
-			$case_number = 'CASE'.rand(11111, 99999);
+			$case_number = 'CASE'.$user_id.rand(11111, 99999);
 			$data['case_number'] = $case_number;
 			
 			$case_details = $this->input->post('case_details');
@@ -258,6 +258,11 @@ class User extends REST_Controller {
 			$id = $this->Api_user_model->addCaseFile($data);
 			
 			$user_date = $this->Api_user_model->getCaseDetails($id);
+			
+			//to do push here
+			//if push success then save into traffic_case_notifications table
+			$push_save_status = $this->Api_user_model->saveLawyerPushDtls($id);
+			
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "Case filed successfully";
