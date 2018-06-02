@@ -344,7 +344,7 @@ class User extends REST_Controller {
 			foreach ($lawyers as $lawyer) {
 				$title = "New case file";
 				$message = "New case file";
-				$this->Api_user_model->pushNotificationForlawyer($lawyer['id'],$title,$lawyer);
+				$this->Api_user_model->pushNotificationForlawyer($lawyer['id'],$title,$message);
 			}
 			
 			$pushNotificationData = array();
@@ -782,7 +782,7 @@ public function pushtest_post(){
 	$title = "New case file";
 	$message = "New case file";
 	$id = 50;
-	$this->Api_user_model->pushNotificationForlawyer($id,$title,$lawyer);
+	$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
 
 	$response['status'] = true;
 	$response['response'] = $data;
