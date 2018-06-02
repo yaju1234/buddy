@@ -42,6 +42,8 @@ class User extends REST_Controller {
 
 			$last_inserted_id = $this->Api_user_model->register($first_name,$last_name,$email,$phone,$password,$user_type,$otp,$country,$state,$city,$degree);
 			$user_date = $this->Api_user_model->getUser($last_inserted_id);
+			$degree_image = $this->Api_user_model->getDegreeImage($last_inserted_id);
+			$user_date['degree_images'] = $degree_image;
 			$data['user_id'] = $last_inserted_id;
 			$data['phone'] = $phone;
 			if($user_type == "CLIENT"){
@@ -132,6 +134,76 @@ class User extends REST_Controller {
 				$driving_licence_image_file_name = $this->uploadImage('./uploadImage/client_license_image/',$_FILES['license_image'],'license_image');
 				if(!empty($driving_licence_image_file_name)){
 					$data['license_image'] = $driving_licence_image_file_name;
+				}
+			}
+
+			$st = $this->Api_user_model->updateClientProfile($data,$id);
+			
+			$user_date = $this->Api_user_model->getUser($id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "Updated successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
+	}
+
+	public function updateLawyerProfile_post(){
+
+		$response = array();
+		try {
+			$data = array();
+			$id = $this->input->post('id');
+			$first_name = $this->input->post('first_name');
+			$data['first_name'] = $first_name;
+			$last_name = $this->input->post('last_name');
+			$data['last_name'] = $last_name;
+			if($this->input->post('phone')){
+				$data['is_phone_verified'] = '0';
+				$data['phone'] = $this->input->post('phone');
+			}
+			$country = $this->input->post('country');
+			$data['country'] = $country;
+			$state = $this->input->post('state');
+			$data['state'] = $state;
+			$city = $this->input->post('city');
+			$data['city'] = $city;
+			$degree = $this->input->post('degree');
+			$data['degree'] = $degree;
+			
+			if(!empty($_FILES['profile_image']['name'])){
+				$profile_image_file_name = $this->uploadImage('./uploadImage/lawyer_profile_image/',  $_FILES['profile_image'],'profile_image');
+				if(!empty($profile_image_file_name)){
+					$data['profile_image'] = $profile_image_file_name;
+				}
+				
+			}
+
+			if(!empty($_FILES['degree_image_1']['name'])){
+				$degree_image_file_name1 = $this->uploadImage('./uploadImage/degree/',$_FILES['degree_image_1'],'degree_image_1');
+				if(!empty($degree_image_file_name1)){
+					//$data['license_image'] = $driving_licence_image_file_name;
+					//insertOrUpdateDegree
+					$this->Api_user_model->insertOrUpdateDegree($id,'degree_image_1',$degree_image_file_name1);
+				}
+			}
+			if(!empty($_FILES['degree_image_2']['name'])){
+				$degree_image_file_name2 = $this->uploadImage('./uploadImage/degree/',$_FILES['degree_image_2'],'degree_image_2');
+				if(!empty($degree_image_file_name2)){
+					//$data['license_image'] = $driving_licence_image_file_name;
+					$this->Api_user_model->insertOrUpdateDegree($id,'degree_image_2',$degree_image_file_name2);
+				}
+			}
+			if(!empty($_FILES['degree_image_3']['name'])){
+				$degree_image_file_name3 = $this->uploadImage('./uploadImage/degree/',$_FILES['degree_image_3'],'degree_image_3');
+				if(!empty($degree_image_file_name3)){
+					//$data['license_image'] = $driving_licence_image_file_name;
+					$this->Api_user_model->insertOrUpdateDegree($id,'degree_image_3',$degree_image_file_name3);
 				}
 			}
 
@@ -378,6 +450,8 @@ class User extends REST_Controller {
 		}else{
 			$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 			$user_date = $this->Api_user_model->getUser($user_id);
+			$degree_image = $this->Api_user_model->getDegreeImage($user_id);
+			$user_date['degree_images'] = $degree_image;
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "login success";
@@ -413,6 +487,8 @@ class User extends REST_Controller {
 
 		$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 		$user_date = $this->Api_user_model->getUser($user_id);
+		$degree_image = $this->Api_user_model->getDegreeImage($user_id);
+			$user_date['degree_images'] = $degree_image;
 		$response['status'] = true;
 		$response['response'] = $user_date;
 		$response['message'] = "success";
@@ -451,6 +527,8 @@ class User extends REST_Controller {
 
 		$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 		$user_date = $this->Api_user_model->getUser($user_id);
+		$degree_image = $this->Api_user_model->getDegreeImage($user_id);
+			$user_date['degree_images'] = $degree_image;
 		$response['status'] = true;
 		$response['response'] = $user_date;
 		$response['message'] = "success";
@@ -607,6 +685,17 @@ public function validate_email_otp_post(){
 public function banners_post(){
 	$response = array();
 	$data = $this->Api_user_model->getBanners();
+
+	$response['status'] = true;
+	$response['response'] = $data;
+	$response['message'] = "success";
+	$this->response($response);
+}
+
+public function degree_image_post(){
+	$response = array();
+	$user_id = $this->input->post('user_id');
+	$data = $this->Api_user_model->getDegreeImage($user_id);
 
 	$response['status'] = true;
 	$response['response'] = $data;
