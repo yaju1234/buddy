@@ -103,6 +103,18 @@ class Api_user_model extends CI_Model
 		return $rows;
 	}
 	
+	public function getCaseListOfLawyer($lawyer_id){
+		$rows = array();
+		$rows= $this->db
+			->select('TCS.id, TCS.case_number, TCS.case_details, IF(TCS.case_front_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_front_img)) as case_front_img, IF(TCS.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_rear_img)) as case_rear_img, IF(TCS.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TCS.driving_license)) as driving_license, TCS.status, TCS.state, TCS.city, TCS.created_at, 0 as bid_count, TU.id as client_id, TU.first_name as client_first_name, TU.last_name as client_last_name, TU.email as client_email, TU.phone as client_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/client_profile_image/",TU.profile_image))) as client_profile_image')
+			->JOIN('traffic_case_notifications TCN', 'TCN.case_id = TCS.id', 'INNER')
+			->JOIN('traffic_users TU', 'TU.id = TCN.client_id', 'INNER')
+			->where("TCN.lawyer_id",$lawyer_id)
+			->get('traffic_cases TCS')
+			->result_array();
+		return $rows;
+	}
+	
 	public function getCaseList($user_id){
 		$rows = array();
 		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("user_id",$user_id)->get('traffic_cases')->result_array();
@@ -344,5 +356,9 @@ class Api_user_model extends CI_Model
         $res = $this->db->select('*')->where('user_id',$user_id)->get('traffic_degree')->result_array();
         return $res;
     }
+	
+	public function saveLawyerPushDtls($data) {
+		return $this->db->insert_batch('traffic_case_notifications', $data);
+	}
 }
 ?>

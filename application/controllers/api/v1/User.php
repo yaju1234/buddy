@@ -290,7 +290,7 @@ class User extends REST_Controller {
 			$user_id = $this->input->post('user_id');
 			$data['user_id'] = $user_id;
 			
-			$case_number = 'CASE'.rand(11111, 99999);
+			$case_number = 'CASE'.$user_id.rand(11111, 99999);
 			$data['case_number'] = $case_number;
 			
 			$case_details = $this->input->post('case_details');
@@ -330,6 +330,26 @@ class User extends REST_Controller {
 			$id = $this->Api_user_model->addCaseFile($data);
 			
 			$user_date = $this->Api_user_model->getCaseDetails($id);
+			
+			//to do push here
+			//if push success then save into traffic_case_notifications table
+			
+			//fetch laywers
+			$lawyers = $this->Admin_model->getLawyers();
+			
+			$pushNotificationData = array();
+			foreach ($lawyers as $lawyer) {
+				$pushNtfctn = array(
+					'case_id' => $user_date['id'],
+					'client_id' => $user_date['user_id'],
+					'lawyer_id' => $lawyer['id'],
+					'created_at' => date('Y-m-d H:i:s')
+				);
+				array_push($pushNotificationData, $pushNtfctn);
+			}
+			$push_save_status = $this->Api_user_model->saveLawyerPushDtls($pushNotificationData);
+			
+			
 			$response['status'] = true;
 			$response['response'] = $user_date;
 			$response['message'] = "Case filed successfully";
@@ -341,6 +361,25 @@ class User extends REST_Controller {
 			$this->response($response);
 		}
 		
+	}
+	
+	public function fetchCasesOflawyer_post(){
+		$response = array();
+		try {
+			$data = array();
+			$lawyer_id = $this->input->post('lawyer_id');
+			$data['lawyer_id'] = $lawyer_id;
+			$user_date = $this->Api_user_model->getCaseListOfLawyer($lawyer_id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "fetched successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
 	}
 	
 	public function getAllCases_post(){
