@@ -781,7 +781,7 @@ public function pushtest_post(){
 	$response = array();
 	$title = "New case file";
 	$message = "New case file";
-	$id = 50;
+	$id = 52;
 	$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
 
 	$response['status'] = true;
