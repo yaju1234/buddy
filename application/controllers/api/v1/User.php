@@ -336,6 +336,12 @@ class User extends REST_Controller {
 			
 			//fetch laywers
 			$lawyers = $this->Admin_model->getLawyers();
+
+			foreach ($lawyers as $lawyer) {
+				$title = "New case file";
+				$message = "New case file";
+				$this->Api_user_model->pushNotificationForlawyer($lawyer['id'],$title,$lawyer);
+			}
 			
 			$pushNotificationData = array();
 			foreach ($lawyers as $lawyer) {
