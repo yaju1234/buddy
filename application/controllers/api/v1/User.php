@@ -363,6 +363,25 @@ class User extends REST_Controller {
 		
 	}
 	
+	public function fetchCasesOflawyer_post(){
+		$response = array();
+		try {
+			$data = array();
+			$lawyer_id = $this->input->post('lawyer_id');
+			$data['lawyer_id'] = $lawyer_id;
+			$user_date = $this->Api_user_model->getCaseListOfLawyer($lawyer_id);
+			$response['status'] = true;
+			$response['response'] = $user_date;
+			$response['message'] = "fetched successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+	}
+	
 	public function getAllCases_post(){
 
 		$response = array();
