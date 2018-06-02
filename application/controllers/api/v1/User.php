@@ -140,7 +140,7 @@ class User extends REST_Controller {
 			$st = $this->Api_user_model->updateClientProfile($data,$id);
 			
 			$user_date = $this->Api_user_model->getUser($id);
-			$degree_image = $this->Api_user_model->getDegreeImage($last_inserted_id);
+			$degree_image = $this->Api_user_model->getDegreeImage($id);
 			$user_date['degree_images'] = $degree_image;
 			$response['status'] = true;
 			$response['response'] = $user_date;
@@ -354,7 +354,7 @@ class User extends REST_Controller {
 					'client_id' => $user_date['user_id'],
 					'lawyer_id' => $lawyer['id'],
 					'created_at' => date('Y-m-d H:i:s')
-				);
+					);
 				array_push($pushNotificationData, $pushNtfctn);
 			}
 			$push_save_status = $this->Api_user_model->saveLawyerPushDtls($pushNotificationData);
@@ -537,7 +537,7 @@ class User extends REST_Controller {
 		$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 		$user_date = $this->Api_user_model->getUser($user_id);
 		$degree_image = $this->Api_user_model->getDegreeImage($user_id);
-			$user_date['degree_images'] = $degree_image;
+		$user_date['degree_images'] = $degree_image;
 		$response['status'] = true;
 		$response['response'] = $user_date;
 		$response['message'] = "success";
@@ -577,7 +577,7 @@ class User extends REST_Controller {
 		$this->Api_user_model->insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type);
 		$user_date = $this->Api_user_model->getUser($user_id);
 		$degree_image = $this->Api_user_model->getDegreeImage($user_id);
-			$user_date['degree_images'] = $degree_image;
+		$user_date['degree_images'] = $degree_image;
 		$response['status'] = true;
 		$response['response'] = $user_date;
 		$response['message'] = "success";
@@ -775,5 +775,18 @@ public function uploadImage($upload_path, $file_arr, $key) {
 		return $data['file_name'];
 
 	}
+}
+
+public function pushtest_post(){
+	$response = array();
+	$title = "New case file";
+	$message = "New case file";
+	$id = 50;
+	$this->Api_user_model->pushNotificationForlawyer($id,$title,$lawyer);
+
+	$response['status'] = true;
+	$response['response'] = $data;
+	$response['message'] = "success";
+	$this->response($response);
 }
 }
