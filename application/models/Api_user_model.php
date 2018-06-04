@@ -330,7 +330,7 @@ class Api_user_model extends CI_Model
 
 	public function pushNotificationForclient($user_id, $title, $notification_message_body) {
        // $baseUrl = base_url(); 
-		$device_tokens = $this->db->select('token')->from('device_token')>where('user_id', $user_id)->get()->result_array();
+		$device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
 		$registration_ids = array();
 		if(!empty($device_tokens)){
 			foreach ($device_tokens as $key => $value) {
