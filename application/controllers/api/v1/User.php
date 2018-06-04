@@ -803,6 +803,11 @@ public function placebid_post(){
 	$last_inserted_id = $this->Api_user_model->placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text);
 
 	if($last_inserted_id>0){
+
+		$title = "New bid";
+		$message = "New bid";
+		$this->Api_user_model->pushNotificationForclient($client_id,$title,$message);
+		
 		$response['status'] = true;
 		$response['response'] = new stdClass();
 		$response['message'] = "success";
@@ -829,6 +834,9 @@ public function editbid_post(){
 	$last_inserted_id = $this->Api_user_model->editbid($id,$lawyer_id,$client_id,$case_id,$bid_amount,$bid_text);
 
 	if($last_inserted_id>0){
+		$title = "Edit bid";
+		$message = "Edit bid";
+		$this->Api_user_model->pushNotificationForclient($client_id,$title,$message);
 		$response['status'] = true;
 		$response['response'] = new stdClass();
 		$response['message'] = "success";
