@@ -474,7 +474,7 @@ class Api_user_model extends CI_Model
 		$data['is_accepted'] = '1';
 		$data['accepted_at'] = date("Y-m-d h:i:s");
 		
-		$this->db->where('id',$case_id)->update('traffic_bids',$data);
+		$this->db->where('id',$bid_id)->update('traffic_bids',$data);
 		return 1;
 
 
