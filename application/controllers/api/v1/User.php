@@ -789,4 +789,119 @@ public function pushtest_post(){
 	$response['message'] = "success";
 	$this->response($response);
 }
+
+public function placebid_post(){
+
+	$response = array();
+
+	$lawyer_id = $this->input->post('lawyer_id');
+	$client_id = $this->input->post('client_id');
+	$case_id	 = $this->input->post('case_id');
+	$bid_amount	 = $this->input->post('bid_amount');
+	$bid_text = $this->input->post('bid_text');
+
+	$last_inserted_id = $this->Api_user_model->placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text);
+
+	if($last_inserted_id>0){
+		$response['status'] = true;
+		$response['response'] = new stdClass();
+		$response['message'] = "success";
+	}else{
+		$response['status'] = false;
+		$response['response'] = new stdClass();
+		$response['message'] = "error";
+	}
+
+	$this->response($response);
+}
+
+
+public function editbid_post(){
+
+	$response = array();
+	$id = $this->input->post('id');
+	$lawyer_id = $this->input->post('lawyer_id');
+	$client_id = $this->input->post('client_id');
+	$case_id	 = $this->input->post('case_id');
+	$bid_amount	 = $this->input->post('bid_amount');
+	$bid_text = $this->input->post('bid_text');
+
+	$last_inserted_id = $this->Api_user_model->editbid($id,$lawyer_id,$client_id,$case_id,$bid_amount,$bid_text);
+
+	if($last_inserted_id>0){
+		$response['status'] = true;
+		$response['response'] = new stdClass();
+		$response['message'] = "success";
+	}else{
+		$response['status'] = false;
+		$response['response'] = new stdClass();
+		$response['message'] = "error";
+	}
+
+	$this->response($response);
+}
+
+
+public function getBids_post(){
+
+	$response = array();
+	$case_id = $this->input->post('case_id');
+	
+	$data = $this->Api_user_model->getBids($case_id);
+
+	if($last_inserted_id>0){
+		$response['status'] = true;
+		$response['response'] =$data;
+		$response['message'] = "success";
+	}else{
+		$response['status'] = false;
+		$response['response'] = new stdClass();
+		$response['message'] = "error";
+	}
+
+	$this->response($response);
+}
+
+public function getBidsByLawyer_post(){
+
+	$response = array();
+	$$case_id = $this->input->post('case_id');
+	$lawyer_id = $this->input->post('lawyer_id');
+	
+	$data = $this->Api_user_model->getBidsByLawyer($case_id,$lawyer_id);
+
+	if($last_inserted_id>0){
+		$response['status'] = true;
+		$response['response'] =$data;
+		$response['message'] = "success";
+	}else{
+		$response['status'] = false;
+		$response['response'] = new stdClass();
+		$response['message'] = "error";
+	}
+
+	$this->response($response);
+}
+
+
+public function acceptBid_post(){
+
+	$response = array();
+	$$case_id = $this->input->post('case_id');
+	//$lawyer_id = $this->input->post('lawyer_id');
+	$bid_id = $this->input->post('bid_id');
+	
+	$data = $this->Api_user_model->acceptCase($case_id);
+	$data = $this->Api_user_model->acceptBid($bid_id);
+
+	
+		$response['status'] = true;
+		$response['response'] =new stdClass();
+		$response['message'] = "success";
+	
+
+	$this->response($response);
+}
+
+
 }

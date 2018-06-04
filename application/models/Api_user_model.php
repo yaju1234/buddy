@@ -390,5 +390,88 @@ class Api_user_model extends CI_Model
 	public function saveLawyerPushDtls($data) {
 		return $this->db->insert_batch('traffic_case_notifications', $data);
 	}
+
+	public function placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text){
+		$data = array();
+		$data['lawyer_id'] = $lawyer_id;
+		$data['client_id'] = $client_id;
+		$data['case_id'] = $case_id;
+		$data['bid_amount'] = $bid_amount;
+		$data['bid_text'] = $bid_text;
+		$data['created_at'] = date("Y-m-d h:i:s");
+		
+		$this->db->insert('traffic_bids',$data);
+		$insert_id = $this->db->insert_id();
+		return $insert_id;
+
+
+	}
+
+	public function editbid($id,$lawyer_id,$client_id,$case_id,$bid_amount,$bid_text){
+		$data = array();
+		$data['lawyer_id'] = $lawyer_id;
+		$data['client_id'] = $client_id;
+		$data['case_id'] = $case_id;
+		$data['bid_amount'] = $bid_amount;
+		$data['bid_text'] = $bid_text;
+		$data['created_at'] = date("Y-m-d h:i:s");
+		
+		$this->db->where('id',$id)->update('traffic_bids',$data);
+		return 1;
+
+
+	}
+
+	public function getBids($case_id){
+		$rows = array();
+			$rows= $this->db
+			->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+			->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
+			->where("BIDS.case_id",$case_id)
+			->get('traffic_bids BIDS')
+			->result_array();
+		return $rows;
+
+
+	}
+
+
+	public function getBidsByLawyer($case_id,$lawyer_id){
+		$rows = array();
+			$rows= $this->db
+			->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+			->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
+			->where("BIDS.case_id",$case_id)
+			->where("BIDS.lawyer_id",$lawyer_id)
+			->get('traffic_bids BIDS')
+			->row_array();
+		return $rows;
+
+
+	}
+
+
+	public function acceptCase($case_id){
+		$data = array();
+		$data['status'] = 'ACCEPTED';
+		$data['accepted_at'] = date("Y-m-d h:i:s");
+		
+		$this->db->where('id',$case_id)->update('traffic_cases',$data);
+		return 1;
+
+
+	}
+
+	public function acceptBid($bid_id){
+		$data = array();
+		$data['status'] = 'CLOSED';
+		$data['is_accepted'] = '1';
+		$data['accepted_at'] = date("Y-m-d h:i:s");
+		
+		$this->db->where('id',$case_id)->update('traffic_bids',$data);
+		return 1;
+
+
+	}
 }
 ?>
