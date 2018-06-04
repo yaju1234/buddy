@@ -857,7 +857,7 @@ public function getBids_post(){
 	
 	$data = $this->Api_user_model->getBids($case_id);
 
-	if($last_inserted_id>0){
+	if(sizeof($data)>0){
 		$response['status'] = true;
 		$response['response'] =$data;
 		$response['message'] = "success";
