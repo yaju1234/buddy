@@ -814,7 +814,7 @@ public function placebid_post(){
 	}else{
 		$response['status'] = false;
 		$response['response'] = new stdClass();
-		$response['message'] = "error";
+		$response['message'] = "already place bid";
 	}
 
 	$this->response($response);
