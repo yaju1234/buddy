@@ -878,7 +878,7 @@ public function getBidsByLawyer_post(){
 	
 	$data = $this->Api_user_model->getBidsByLawyer($case_id,$lawyer_id);
 
-	if($sizeof($data)>0){
+	if(sizeof($data)>0){
 		$response['status'] = true;
 		$response['response'] =$data;
 		$response['message'] = "success";
