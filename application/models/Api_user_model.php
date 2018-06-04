@@ -395,7 +395,7 @@ class Api_user_model extends CI_Model
 
 		$rows = array();
 		$rows= $this->db->select('count(*) AS count')->where("lawyer_id",$lawyer_id)->where("case_id",$case_id)->get('traffic_bids')->row_array();
-		if($rows1['count'] == 0){
+		if($rows['count'] == 0){
 			$data = array();
 			$data['lawyer_id'] = $lawyer_id;
 			$data['client_id'] = $client_id;
