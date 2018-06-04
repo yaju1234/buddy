@@ -873,7 +873,7 @@ public function getBids_post(){
 public function getBidsByLawyer_post(){
 
 	$response = array();
-	$$case_id = $this->input->post('case_id');
+	$case_id = $this->input->post('case_id');
 	$lawyer_id = $this->input->post('lawyer_id');
 	
 	$data = $this->Api_user_model->getBidsByLawyer($case_id,$lawyer_id);
@@ -895,7 +895,7 @@ public function getBidsByLawyer_post(){
 public function acceptBid_post(){
 
 	$response = array();
-	$$case_id = $this->input->post('case_id');
+	$case_id = $this->input->post('case_id');
 	//$lawyer_id = $this->input->post('lawyer_id');
 	$bid_id = $this->input->post('bid_id');
 	
