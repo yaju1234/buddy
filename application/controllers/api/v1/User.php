@@ -786,10 +786,10 @@ public function pushtest_post(){
 	$id = $this->input->post('id');
 	if($user_type == "LAWYER"){
 		$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
-		$data['user_type'] = $user_type
+		$data['user_type'] = $user_type;
 	}else{
 		$this->Api_user_model->pushNotificationForclient($id,$title,$message);
-		$data['user_type'] = $user_type
+		$data['user_type'] = $user_type;
 	}
 	
 
