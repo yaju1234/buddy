@@ -123,5 +123,15 @@ class Clients extends CI_Controller {
         $this->load->view('admin/client_profile_edit_view', $data);
 		$this->load->view('template/footer.php');
     }
+    public function veriftemail() {
+        $data = array();
+        $data['title'] = 'Client Profile Edit';
+        //$data['client_list'] = $this->admin_model->getClients();
+		/*echo "<pre />";
+		print_r($data['client_list']);exit;*/
+		//$this->load->view('template/header.php', $data);
+        $this->load->view('admin/verify_email_view', $data);
+		//$this->load->view('template/footer.php');
+    }
 	
 }
