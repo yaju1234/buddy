@@ -89,7 +89,7 @@
 											</a>
                                         </div>
 									</td>
-                                    <td class="center"> <?=$list['is_active']==='0'?'Active':'Inactive'?> </td>
+                                    <td class="center"> <?=$list['status']==='1'?'Active':'Inactive'?> </td>
                                     <td class="center"> <?=$request_date?> </td>
                                     <td class="center" style="width: 100px !important;">
 										<div class="button-list1">

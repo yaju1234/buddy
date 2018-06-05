@@ -10,11 +10,15 @@ class Login extends MY_Controller {
 
 	public function index()
 	{
-	    $data = array();
-        $data['title']  = 'Login';
-		$this->load->view('template/header_outer.php', $data);
-		$this->load->view('login/index_view');
-		$this->load->view('template/footer_outer.php');
+		if($this->isLoggedIn()){
+			redirect('admin/clients', 'refresh');
+		} else {
+			$data = array();
+			$data['title']  = 'Login';
+			$this->load->view('template/header_outer.php', $data);
+			$this->load->view('login/index_view');
+			$this->load->view('template/footer_outer.php');
+		}
 	}
 	
     public function dologin(){

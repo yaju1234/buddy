@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Clients extends CI_Controller {
+class Clients extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
@@ -10,6 +10,9 @@ class Clients extends CI_Controller {
 	}
 	
 	public function index() {
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
         $data = array();
         $data['title'] = 'Client Management';
         $data['client_list'] = $this->admin_model->getClients();
@@ -21,6 +24,9 @@ class Clients extends CI_Controller {
     }
 	
 	public function updateClient(){
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
 
 		$response = array();
 		try {
@@ -100,6 +106,9 @@ class Clients extends CI_Controller {
 
 
 	public function details($client_id) {
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
         $data = array();
         $data['title'] = 'Client Management';
         $data['country_list'] = $this->Api_user_model->getCountry();
@@ -123,7 +132,8 @@ class Clients extends CI_Controller {
         $this->load->view('admin/client_profile_edit_view', $data);
 		$this->load->view('template/footer.php');
     }
-    public function veriftemail() {
+	
+    public function verifyemail() {
         $data = array();
         $data['title'] = 'Client Profile Edit';
         //$data['client_list'] = $this->admin_model->getClients();
@@ -133,5 +143,4 @@ class Clients extends CI_Controller {
         $this->load->view('admin/verify_email_view', $data);
 		//$this->load->view('template/footer.php');
     }
-	
 }
