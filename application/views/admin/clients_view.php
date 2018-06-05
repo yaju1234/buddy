@@ -71,15 +71,23 @@
                                     <td class="center">
 										<p>
 											<?=($list['email'])?$list['email']:''?>
-											<?=$list['is_email_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
+											<? if($list['email'] != ''){ ?>
+												<?=$list['is_email_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
+											<? } ?>
 										</p>
 										<p>
 											<?=($list['phone'])?$list['phone']:''?>
-											<?=$list['is_phone_verified'] == '1' ? '<i class="fa fa-check" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
+											<? if($list['phone'] != ''){ ?>
+												<?=$list['is_phone_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
+											<? } ?>
 										</p>
 									</td>
                                     <td class="center">
-										<p><?=($list['city'])?$list['city']:''?>,<?=($list['state'])?$list['state']:''?>,<?=($list['country'])?$list['country']:''?></p>
+										<p>
+											<?=($list['city'])?$list['city'].", ":''?>
+											<?=($list['state'])?$list['state'].", ":''?>
+											<?=($list['country'])?$list['country']:''?>
+										</p>
 									
 									</td>
                                     <td class="center">
