@@ -22,30 +22,19 @@
 		margin: 0px;
 	}
 	.email-verify {
-		background-color: #333;
+		background-color: #fff;
 		width: 100%;
 		height: 100%;
 		position: relative;
 	}
 	.block_verify {
-		max-width: 500px;
-		margin: 0 auto;
 	   	background-color: #fff;
 	   	padding: 0px 0px 30px;
-	   	border-radius: 5px;
 	   	position: relative;
-	   	top: 50%;
-	   	-webkit-transform: translateY(-50%);
-	   	-moz-transform: translateY(-50%);
-	   	-ms-transform: translateY(-50%);
-	   	-o-transform: translateY(-50%);
-	   	transform: translateY(-50%);
 	}
 	.block_verify .form-signin-heading {
-		padding: 35px 25px 70px;
+		padding: 15px;
 	    text-align: center;
-	    border-radius: 5px 5px 0 0;
-	    -webkit-border-radius: 5px 5px 0 0;
 	    color: #fff;
 	    font-size: 18px;
 	    text-transform: uppercase;
@@ -59,21 +48,16 @@
 	    background: linear-gradient(104deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
 	    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01406c', endColorstr='#1097f1', GradientType=1);
 	}
+	.block_verify .form-signin-heading img {
+		max-width: 80px;
+	}
 	.containt-wrap {
 		padding: 40px;
 		position: relative;
 		max-width: 90%;
-		margin: -25px auto 0px;
+		margin: 0px auto;
 		background-color: #fff;
-		border-radius: 5px;
-		text-align: center;
-		-webkit-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.2);
-		-moz-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.2);
-		-ms-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.2);
-		-o-box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.2); 
-		box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.2); 
-		z-index: 2;
-	}
+		text-align: center;	}
 	.containt-wrap h2 {
 		font-size: 36px;
 		line-height: 43px;
