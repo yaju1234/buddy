@@ -903,9 +903,35 @@ public function acceptBid_post(){
 	$data = $this->Api_user_model->acceptBid($bid_id);
 
 	
+	$response['status'] = true;
+	$response['response'] =new stdClass();
+	$response['message'] = "success";
+	
+
+	$this->response($response);
+}
+
+public function resetpassword_post(){
+
+	$response = array();
+	$user_id = $this->input->post('user_id');
+	$old_password = md5($this->input->post('old_password'));
+	$new_password = md5($this->input->post('new_password'));
+	
+	$status = $this->Api_user_model->resetpassword($user_id,$old_password,$new_password);
+	if($status){
 		$response['status'] = true;
 		$response['response'] =new stdClass();
 		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] =new stdClass();
+		$response['message'] = "error";
+	}
+	
+	
+
 	
 
 	$this->response($response);
