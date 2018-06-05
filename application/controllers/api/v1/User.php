@@ -276,7 +276,7 @@ class User extends REST_Controller {
 			$st = $this->Api_user_model->verifyLawyer($id);
 			$title = "Account verified";
 			$message = "Your account has been verified";
-			$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
+			$this->Api_user_model->pushNotificationForlawyer($id,$title,$message,"ACTIVITY_DEFAULT");
 			$response['status'] = true;
 			$response['response'] = new stdClass();
 			$response['message'] = "Verified successfully";
@@ -388,7 +388,7 @@ class User extends REST_Controller {
 			foreach ($lawyers as $lawyer) {
 				$title = "New case file";
 				$message = "New case file";
-				$this->Api_user_model->pushNotificationForlawyer($lawyer['id'],$title,$message);
+				$this->Api_user_model->pushNotificationForlawyer($lawyer['id'],$title,$message,"ACTIVITY_CASEFILE");
 			}
 			
 			$pushNotificationData = array();
@@ -829,10 +829,10 @@ public function pushtest_post(){
 	$user_type = $this->input->post('user_type');
 	$id = $this->input->post('id');
 	if($user_type == "LAWYER"){
-		$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
+		$this->Api_user_model->pushNotificationForlawyer($id,$title,$message,"ACTIVITY_TEST");
 		$data['user_type'] = $user_type;
 	}else{
-		$this->Api_user_model->pushNotificationForclient($id,$title,$message);
+		$this->Api_user_model->pushNotificationForclient($id,$title,$message,"ACTIVITY_TEST");
 		$data['user_type'] = $user_type;
 	}
 	
@@ -859,7 +859,7 @@ public function placebid_post(){
 
 		$title = "New bid";
 		$message = "New bid";
-		$this->Api_user_model->pushNotificationForclient($client_id,$title,$message);
+		$this->Api_user_model->pushNotificationForclient($client_id,$title,$message,"ACTIVITY_PLACEBID");
 		
 		$response['status'] = true;
 		$response['response'] = new stdClass();
@@ -889,7 +889,7 @@ public function editbid_post(){
 	if($last_inserted_id>0){
 		$title = "Edit bid";
 		$message = "Edit bid";
-		$this->Api_user_model->pushNotificationForclient($client_id,$title,$message);
+		$this->Api_user_model->pushNotificationForclient($client_id,$title,$message,"ACTIVITY_PLACEBID");
 		$response['status'] = true;
 		$response['response'] = new stdClass();
 		$response['message'] = "success";

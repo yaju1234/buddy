@@ -306,7 +306,7 @@ class Api_user_model extends CI_Model
 		
 	}
 
-	public function pushNotificationForlawyer($user_id, $title, $notification_message_body) {
+	public function pushNotificationForlawyer($user_id, $title, $notification_message_body,$click_action) {
         //$baseUrl = base_url(); 
 		$device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
 		$registration_ids = array();
@@ -321,7 +321,7 @@ class Api_user_model extends CI_Model
 					"title" => $title,
 					"icon" => "myicon",
 					"sound" => "default",
-					"click_action" => "ACTIVITY_XP1"
+					"click_action" => $click_action
                 )/*,
                 'data' => array (
                     "booking_date" => date('d-m-Y', strtotime($booking_date)),
@@ -336,7 +336,7 @@ class Api_user_model extends CI_Model
 	}
 
 
-	public function pushNotificationForclient($user_id, $title, $notification_message_body) {
+	public function pushNotificationForclient($user_id, $title, $notification_message_body,$click_action) {
        // $baseUrl = base_url(); 
 		$device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
 		$registration_ids = array();
@@ -351,7 +351,7 @@ class Api_user_model extends CI_Model
 					"title" => $title,
 					"icon" => "myicon",
 					"sound" => "default",
-					"click_action" => "ACTIVITY_XP1"
+					"click_action" => $click_action
                 )/*,
                 'data' => array (
                     "booking_date" => date('d-m-Y', strtotime($booking_date)),
