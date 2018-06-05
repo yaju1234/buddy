@@ -107,7 +107,8 @@ class Api_user_model extends CI_Model
 	
 	public function getCaseDetails($id){
 		$rows = array();
-		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("id",$id)->get('traffic_cases')->row_array();
+		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("id",$id)
+		->order_by("id", "DESC")->get('traffic_cases')->row_array();
 		return $rows;
 	}
 	
@@ -118,6 +119,7 @@ class Api_user_model extends CI_Model
 		->JOIN('traffic_case_notifications TCN', 'TCN.case_id = TCS.id', 'INNER')
 		->JOIN('traffic_users TU', 'TU.id = TCN.client_id', 'INNER')
 		->where("TCN.lawyer_id",$lawyer_id)
+		->order_by("TCS.id", "DESC")
 		->get('traffic_cases TCS')
 		->result_array();
 		return $rows;
@@ -442,6 +444,7 @@ class Api_user_model extends CI_Model
 		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,BIDS.created_at,BIDS.accepted_at,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
 		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
 		->where("BIDS.case_id",$case_id)
+		->order_by("BIDS.id", "DESC")
 		->get('traffic_bids BIDS')
 		->result_array();
 		return $rows;
@@ -457,6 +460,7 @@ class Api_user_model extends CI_Model
 		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
 		->where("BIDS.case_id",$case_id)
 		->where("BIDS.lawyer_id",$lawyer_id)
+		->order_by("BIDS.id", "DESC")
 		->get('traffic_bids BIDS')
 		->row_array();
 		return $rows;
