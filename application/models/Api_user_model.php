@@ -487,5 +487,20 @@ class Api_user_model extends CI_Model
 
 
 	}
+
+	public function resetpassword($user_id,$old_password,$new_password){
+		$rows = array();
+		$rows= $this->db->select('count(*) AS count')->where("id",$user_id)->where("password",$old_password)->get('traffic_users')->row_array();
+		if($rows['count'] == 0){
+			$data = array();
+			$data['password'] = $new_password;
+			
+			$this->db->where('id',$user_id)->update('traffic_users',$data);
+			return true;
+		}
+		return false;
+
+
+	}
 }
 ?>

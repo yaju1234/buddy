@@ -823,13 +823,22 @@ public function uploadImage($upload_path, $file_arr, $key) {
 
 public function pushtest_post(){
 	$response = array();
-	$title = "New case file";
-	$message = "New case file";
-	$id = 52;
-	$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
+	$data = array();
+	$title = "Test push";
+	$message = "Test push";
+	$user_type = $this->input->post('user_type');
+	$id = $this->input->post('id');
+	if($user_type == "LAWYER"){
+		$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
+		$data['user_type'] = $user_type;
+	}else{
+		$this->Api_user_model->pushNotificationForclient($id,$title,$message);
+		$data['user_type'] = $user_type;
+	}
+	
 
 	$response['status'] = true;
-	//$response['response'] = ;
+	$response['response'] = $data;
 	$response['message'] = "success";
 	$this->response($response);
 }
@@ -947,9 +956,35 @@ public function acceptBid_post(){
 	$data = $this->Api_user_model->acceptBid($bid_id);
 
 	
+	$response['status'] = true;
+	$response['response'] =new stdClass();
+	$response['message'] = "success";
+	
+
+	$this->response($response);
+}
+
+public function resetpassword_post(){
+
+	$response = array();
+	$user_id = $this->input->post('user_id');
+	$old_password = md5($this->input->post('old_password'));
+	$new_password = md5($this->input->post('new_password'));
+	
+	$status = $this->Api_user_model->resetpassword($user_id,$old_password,$new_password);
+	if($status){
 		$response['status'] = true;
 		$response['response'] =new stdClass();
 		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] =new stdClass();
+		$response['message'] = "error";
+	}
+	
+	
+
 	
 
 	$this->response($response);
