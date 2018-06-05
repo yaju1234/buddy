@@ -106,12 +106,12 @@ class Api_user_model extends CI_Model
 	public function getCaseListOfLawyer($lawyer_id){
 		$rows = array();
 		$rows= $this->db
-			->select('TCS.id, TCS.case_number, TCS.case_details, IF(TCS.case_front_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_front_img)) as case_front_img, IF(TCS.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_rear_img)) as case_rear_img, IF(TCS.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TCS.driving_license)) as driving_license, TCS.status, TCS.state, TCS.city, TCS.created_at, 0 as bid_count, TU.id as client_id, TU.first_name as client_first_name, TU.last_name as client_last_name, TU.email as client_email, TU.phone as client_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/client_profile_image/",TU.profile_image))) as client_profile_image')
-			->JOIN('traffic_case_notifications TCN', 'TCN.case_id = TCS.id', 'INNER')
-			->JOIN('traffic_users TU', 'TU.id = TCN.client_id', 'INNER')
-			->where("TCN.lawyer_id",$lawyer_id)
-			->get('traffic_cases TCS')
-			->result_array();
+		->select('TCS.id, TCS.case_number, TCS.case_details, IF(TCS.case_front_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_front_img)) as case_front_img, IF(TCS.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_rear_img)) as case_rear_img, IF(TCS.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TCS.driving_license)) as driving_license, TCS.status, TCS.state, TCS.city, TCS.created_at, 0 as bid_count, true as can_bid,TU.id as client_id, TU.first_name as client_first_name, TU.last_name as client_last_name, TU.email as client_email, TU.phone as client_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/client_profile_image/",TU.profile_image))) as client_profile_image')
+		->JOIN('traffic_case_notifications TCN', 'TCN.case_id = TCS.id', 'INNER')
+		->JOIN('traffic_users TU', 'TU.id = TCN.client_id', 'INNER')
+		->where("TCN.lawyer_id",$lawyer_id)
+		->get('traffic_cases TCS')
+		->result_array();
 		return $rows;
 	}
 	
@@ -300,20 +300,20 @@ class Api_user_model extends CI_Model
 
 	public function pushNotificationForlawyer($user_id, $title, $notification_message_body) {
         //$baseUrl = base_url(); 
-        $device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
-        $registration_ids = array();
-        if(!empty($device_tokens)){
-            foreach ($device_tokens as $key => $value) {
-                $registration_ids[] = $value['token'];
-            }
-            $fields = array (
-                'registration_ids' => $registration_ids,
-                'notification' => array (
-                    "body" => $notification_message_body,
-                    "title" => $title,
-                    "icon" => "myicon",
-                    "sound" => "default",
-                    "click_action" => "ACTIVITY_XP1"
+		$device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
+		$registration_ids = array();
+		if(!empty($device_tokens)){
+			foreach ($device_tokens as $key => $value) {
+				$registration_ids[] = $value['token'];
+			}
+			$fields = array (
+				'registration_ids' => $registration_ids,
+				'notification' => array (
+					"body" => $notification_message_body,
+					"title" => $title,
+					"icon" => "myicon",
+					"sound" => "default",
+					"click_action" => "ACTIVITY_XP1"
                 )/*,
                 'data' => array (
                     "booking_date" => date('d-m-Y', strtotime($booking_date)),
@@ -321,29 +321,29 @@ class Api_user_model extends CI_Model
                     'is_virtual' => $is_virtual,
                     'is_redirect_from_fcm' => "1",
                     'tab' => $tab
-                )*/
-            );
-            $this->fcm->send_fcm_notification_lawyer($fields);
-        }
-    }
+                    )*/
+                    );
+			$this->fcm->send_fcm_notification_lawyer($fields);
+		}
+	}
 
 
-    	public function pushNotificationForclient($user_id, $title, $notification_message_body) {
+	public function pushNotificationForclient($user_id, $title, $notification_message_body) {
        // $baseUrl = base_url(); 
-        $device_tokens = $this->db->select('token')->from('device_token')>where('user_id', $user_id)->get()->result_array();
-        $registration_ids = array();
-        if(!empty($device_tokens)){
-            foreach ($device_tokens as $key => $value) {
-                $registration_ids[] = $value['token'];
-            }
-            $fields = array (
-                'registration_ids' => $registration_ids,
-                'notification' => array (
-                    "body" => $notification_message_body,
-                    "title" => $title,
-                    "icon" => "myicon",
-                    "sound" => "default",
-                    "click_action" => "ACTIVITY_XP1"
+		$device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
+		$registration_ids = array();
+		if(!empty($device_tokens)){
+			foreach ($device_tokens as $key => $value) {
+				$registration_ids[] = $value['token'];
+			}
+			$fields = array (
+				'registration_ids' => $registration_ids,
+				'notification' => array (
+					"body" => $notification_message_body,
+					"title" => $title,
+					"icon" => "myicon",
+					"sound" => "default",
+					"click_action" => "ACTIVITY_XP1"
                 )/*,
                 'data' => array (
                     "booking_date" => date('d-m-Y', strtotime($booking_date)),
@@ -351,59 +351,65 @@ class Api_user_model extends CI_Model
                     'is_virtual' => $is_virtual,
                     'is_redirect_from_fcm' => "1",
                     'tab' => $tab
-                )*/
-            );
-            $this->fcm->send_fcm_notification_client($fields);
-        }
-    }
+                    )*/
+                    );
+			$this->fcm->send_fcm_notification_client($fields);
+		}
+	}
 	
 	public function getBanners(){
-        $res = $this->db->select('IF(banner_image = "", "", CONCAT("uploadImage/banner_image/",banner_image)) as banner_image, description, created')->get('traffic_banners')->result_array();
-        return $res;
-    }
+		$res = $this->db->select('IF(banner_image = "", "", CONCAT("uploadImage/banner_image/",banner_image)) as banner_image, description, created')->get('traffic_banners')->result_array();
+		return $res;
+	}
 
 
-    public function insertOrUpdateDegree($user_id,$image_type,$image){
-    	$rows = array();
-    	$rows= $this->db->select('count(*) AS count')->where("user_id",$user_id)->where("image_type",$image_type)->get('traffic_degree')->row_array();
-    	$data = array();
+	public function insertOrUpdateDegree($user_id,$image_type,$image){
+		$rows = array();
+		$rows= $this->db->select('count(*) AS count')->where("user_id",$user_id)->where("image_type",$image_type)->get('traffic_degree')->row_array();
+		$data = array();
 
-    	if($rows['count']>0){
-		$rows1 = array();
-    	$rows1= $this->db->select('id')->where("user_id",$user_id)->where("image_type",$image_type)->get('traffic_degree')->row_array();
-		$data['image'] = $image;
-    	$this->db->where('id',$rows1['id'])->update('traffic_degree',$data);
-    	}else{
-    		$data['user_id'] = $user_id;
-    		$data['image_type'] = $image_type;
-    		$data['image'] = $image;
+		if($rows['count']>0){
+			$rows1 = array();
+			$rows1= $this->db->select('id')->where("user_id",$user_id)->where("image_type",$image_type)->get('traffic_degree')->row_array();
+			$data['image'] = $image;
+			$this->db->where('id',$rows1['id'])->update('traffic_degree',$data);
+		}else{
+			$data['user_id'] = $user_id;
+			$data['image_type'] = $image_type;
+			$data['image'] = $image;
 			$this->db->insert('traffic_degree',$data);
-    	}
-    }
+		}
+	}
 
 
-    public function getDegreeImage($user_id){
-        $res = $this->db->select('*')->where('user_id',$user_id)->get('traffic_degree')->result_array();
-        return $res;
-    }
+	public function getDegreeImage($user_id){
+		$res = $this->db->select('*')->where('user_id',$user_id)->get('traffic_degree')->result_array();
+		return $res;
+	}
 	
 	public function saveLawyerPushDtls($data) {
 		return $this->db->insert_batch('traffic_case_notifications', $data);
 	}
 
 	public function placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text){
-		$data = array();
-		$data['lawyer_id'] = $lawyer_id;
-		$data['client_id'] = $client_id;
-		$data['case_id'] = $case_id;
-		$data['bid_amount'] = $bid_amount;
-		$data['bid_text'] = $bid_text;
-		$data['created_at'] = date("Y-m-d h:i:s");
-		
-		$this->db->insert('traffic_bids',$data);
-		$insert_id = $this->db->insert_id();
-		return $insert_id;
 
+		$rows = array();
+		$rows= $this->db->select('count(*) AS count')->where("lawyer_id",$lawyer_id)->where("case_id",$case_id)->get('traffic_bids')->row_array();
+		if($rows['count'] == 0){
+			$data = array();
+			$data['lawyer_id'] = $lawyer_id;
+			$data['client_id'] = $client_id;
+			$data['case_id'] = $case_id;
+			$data['bid_amount'] = $bid_amount;
+			$data['bid_text'] = $bid_text;
+			$data['created_at'] = date("Y-m-d h:i:s");
+
+			$this->db->insert('traffic_bids',$data);
+			$insert_id = $this->db->insert_id();
+			return $insert_id;
+		}
+
+		return 0;
 
 	}
 
@@ -424,12 +430,12 @@ class Api_user_model extends CI_Model
 
 	public function getBids($case_id){
 		$rows = array();
-			$rows= $this->db
-			->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
-			->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
-			->where("BIDS.case_id",$case_id)
-			->get('traffic_bids BIDS')
-			->result_array();
+		$rows= $this->db
+		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
+		->where("BIDS.case_id",$case_id)
+		->get('traffic_bids BIDS')
+		->result_array();
 		return $rows;
 
 
@@ -438,13 +444,13 @@ class Api_user_model extends CI_Model
 
 	public function getBidsByLawyer($case_id,$lawyer_id){
 		$rows = array();
-			$rows= $this->db
-			->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
-			->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
-			->where("BIDS.case_id",$case_id)
-			->where("BIDS.lawyer_id",$lawyer_id)
-			->get('traffic_bids BIDS')
-			->row_array();
+		$rows= $this->db
+		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
+		->where("BIDS.case_id",$case_id)
+		->where("BIDS.lawyer_id",$lawyer_id)
+		->get('traffic_bids BIDS')
+		->row_array();
 		return $rows;
 
 
@@ -468,7 +474,7 @@ class Api_user_model extends CI_Model
 		$data['is_accepted'] = '1';
 		$data['accepted_at'] = date("Y-m-d h:i:s");
 		
-		$this->db->where('id',$case_id)->update('traffic_bids',$data);
+		$this->db->where('id',$bid_id)->update('traffic_bids',$data);
 		return 1;
 
 

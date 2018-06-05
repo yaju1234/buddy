@@ -814,7 +814,7 @@ public function placebid_post(){
 	}else{
 		$response['status'] = false;
 		$response['response'] = new stdClass();
-		$response['message'] = "error";
+		$response['message'] = "already place bid";
 	}
 
 	$this->response($response);
@@ -857,7 +857,7 @@ public function getBids_post(){
 	
 	$data = $this->Api_user_model->getBids($case_id);
 
-	if($last_inserted_id>0){
+	if(sizeof($data)>0){
 		$response['status'] = true;
 		$response['response'] =$data;
 		$response['message'] = "success";
@@ -873,12 +873,12 @@ public function getBids_post(){
 public function getBidsByLawyer_post(){
 
 	$response = array();
-	$$case_id = $this->input->post('case_id');
+	$case_id = $this->input->post('case_id');
 	$lawyer_id = $this->input->post('lawyer_id');
 	
 	$data = $this->Api_user_model->getBidsByLawyer($case_id,$lawyer_id);
 
-	if($last_inserted_id>0){
+	if(sizeof($data)>0){
 		$response['status'] = true;
 		$response['response'] =$data;
 		$response['message'] = "success";
@@ -895,7 +895,7 @@ public function getBidsByLawyer_post(){
 public function acceptBid_post(){
 
 	$response = array();
-	$$case_id = $this->input->post('case_id');
+	$case_id = $this->input->post('case_id');
 	//$lawyer_id = $this->input->post('lawyer_id');
 	$bid_id = $this->input->post('bid_id');
 	
