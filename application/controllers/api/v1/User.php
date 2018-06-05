@@ -779,13 +779,22 @@ public function uploadImage($upload_path, $file_arr, $key) {
 
 public function pushtest_post(){
 	$response = array();
-	$title = "New case file";
-	$message = "New case file";
-	$id = 52;
-	$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
+	$data = array();
+	$title = "Test push";
+	$message = "Test push";
+	$user_type = $this->input->post('user_type');
+	$id = $this->input->post('id');
+	if($user_type == "LAWYER"){
+		$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
+		$data['user_type'] = $user_type
+	}else{
+		$this->Api_user_model->pushNotificationForclient($id,$title,$message);
+		$data['user_type'] = $user_type
+	}
+	
 
 	$response['status'] = true;
-	//$response['response'] = ;
+	$response['response'] = $data;
 	$response['message'] = "success";
 	$this->response($response);
 }
