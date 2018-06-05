@@ -1,11 +1,11 @@
 <!-- Bread crumb -->
 	<div class="row page-titles no-gap">
 		<div class="col-md-5 align-self-center">
-			<h3 class="text-primary">Client Details</h3> </div>
+			<h3 class="text-primary">Lawyer Details</h3> </div>
 		<div class="col-md-7 align-self-center">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Home</a></li>
-				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Clients</a></li>
+				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Lawyers</a></li>
 				<li class="breadcrumb-item active">Details</li>
 			</ol>
 		</div>
@@ -24,9 +24,7 @@
 				}
 			?>
 			<figure>
-				<a class="example-image-link" href="<?=$prfImg?>" data-fancybox="client-image-<?=$client_list['id']?>">
-					<img src="<?=$prfImg?>" alt="Profile Picture">
-				</a>
+				<img src="<?=$prfImg?>" alt="Profile Picture">
 			</figure>
 			<div class="details">
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
@@ -34,8 +32,12 @@
 				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
 			</div>
 			<label class="switch">
-				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
-				<span class="slider round"></span>
+				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true" title="Disable"':'title="Enable"'?> onChange="disableUser(<?=$client_list['id']?>);">
+				<span class="slider round" <?=$client_list['status']=='1'?'title="Disable the Lawyer"':'title="Enable the Lawyer"'?>></span>
+			</label>
+			<label class="switch" style="float: right; margin-right: 7px;">
+				<input class="vrfyUsr" type="checkbox" <?=$client_list['is_active']=='1'?'checked="true" title="Not Verify"':'title="Verify"'?> onChange="verifyUser(<?=$client_list['id']?>);">
+				<span class="slider round" <?=$client_list['is_active']=='1'?'title="Disprove the Lawyer"':'title="Verify the Lawyer"'?>></span>
 			</label>
 		</div>
 		<div class="his_cases">
@@ -127,25 +129,13 @@
 								<td><?=$list['city']?>, <?=$list['state']?></td>
 								<td><?=$list['case_details']?></td>
 								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$drvrImg?>" data-fancybox="driving-license-<?=$list['id']?>">
-											<img src="<?=$drvrImg?>" alt="Driving License">
-										</a>
-									</figure>
+									<figure><img src="<?=$drvrImg?>" alt="Driving License"></figure>
 								</td>
 								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cFrntImg?>" data-fancybox="case-front-image-<?=$list['id']?>">
-											<img src="<?=$cFrntImg?>" alt="Case Front Image">
-										</a>
-									</figure>
+									<figure><img src="<?=$cFrntImg?>" alt="Case Front Image"></figure>
 								</td>
 								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cRerImg?>" data-fancybox="case-rear-image-<?=$list['id']?>">
-											<img src="<?=$cRerImg?>" alt="Case Rear Image">
-										</a>
-									</figure>
+									<figure><img src="<?=$cRerImg?>" alt="Case Rear Image"></figure>
 								</td>
 								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
@@ -197,25 +187,13 @@
 								<td><?=$list['city']?>, <?=$list['state']?></td>
 								<td><?=$list['case_details']?></td>
 								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$drvrImg?>" data-fancybox="driving-license-<?=$list['id']?>">
-											<img src="<?=$drvrImg?>" alt="Driving License">
-										</a>
-									</figure>
+									<figure><img src="<?=$drvrImg?>" alt="Driving License"></figure>
 								</td>
 								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cFrntImg?>" data-fancybox="case-front-image-<?=$list['id']?>">
-											<img src="<?=$cFrntImg?>" alt="Case Front Image">
-										</a>
-									</figure>
+									<figure><img src="<?=$cFrntImg?>" alt="Case Front Image"></figure>
 								</td>
 								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cRerImg?>" data-fancybox="case-rear-image-<?=$list['id']?>">
-											<img src="<?=$cRerImg?>" alt="Case Rear Image">
-										</a>
-									</figure>
+									<figure><img src="<?=$cRerImg?>" alt="Case Rear Image"></figure>
 								</td>
 								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
@@ -330,9 +308,16 @@
 	var baseUrl = "<?=base_url()?>";
 	function disableUser(id){
 		if(!$('.dsbleUsr').is(':checked')){
-			deleteClient(id);
+			deleteLawyer(id);
 		} else {
-			enableClient(id);
+			enableLawyer(id);
+		}
+	}
+	function verifyUser(id){
+		if(!$('.vrfyUsr').is(':checked')){
+			unVerifyLawyer(id);
+		} else {
+			verifyLawyer(id);
 		}
 	}
 	
@@ -346,8 +331,8 @@
 		getCities(ste, '');
 	}
 	
-	function deleteClient(id){
-		if(confirm('Are you sure, you want to disable the user?')){
+	function deleteLawyer(id){
+		if(confirm('Are you sure, you want to disable the lawyer?')){
 			$(".preloader").show();
 			$.ajax({
 				type: "POST",
@@ -367,12 +352,50 @@
 		}
 	}
 	
-	function enableClient(id){
+	function enableLawyer(id){
 		$(".preloader").show();
 		$.ajax({
 			type: "POST",
 			dataType: "json",
 			url: baseUrl + "api/v1/user/enableClient",
+			data: {'id': id},
+			success: function(resp) {
+				$(".preloader").hide();
+			},
+			error : function(xhr, textStatus, errorThrown){
+				console.log(xhr);
+				$("#preloader").hide();
+			}
+		});
+	}
+	
+	function unVerifyLawyer(id){
+		if(confirm('Are you sure, you want to disprove the lawyer?')){
+			$(".preloader").show();
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: baseUrl + "api/v1/user/disproveLawyer",
+				data: {'id': id},
+				success: function(resp) {
+					$(".preloader").hide();
+				},
+				error : function(xhr, textStatus, errorThrown){
+					console.log(xhr);
+					$("#preloader").hide();
+				}
+			});
+		} else {
+			return false;
+		}
+	}
+	
+	function verifyLawyer(id){
+		$(".preloader").show();
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: baseUrl + "api/v1/user/verifyLawyer",
 			data: {'id': id},
 			success: function(resp) {
 				$(".preloader").hide();

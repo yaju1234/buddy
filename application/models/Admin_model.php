@@ -7,7 +7,7 @@ class Admin_model extends CI_Model{
     }
 	function getClientDetails($userid){
 		$rows = array();
-		$rows= $this->db->select('id,first_name, last_name, email, phone, IF(LOCATE("http", profile_image) > 0, profile_image, IF(profile_image = "", "", CONCAT("uploadImage/client_profile_image/",profile_image))) as profile_image, IF(license_image = "", "", CONCAT("uploadImage/client_license_image/",license_image)) as license_image, is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city, status')->where("id",$userid)->get('traffic_users')->row_array();
+		$rows= $this->db->select('id,first_name, last_name, email, phone, IF(LOCATE("http", profile_image) > 0, profile_image, IF(profile_image = "", "", IF(user_type = "CLIENT", CONCAT("uploadImage/client_profile_image/",profile_image), CONCAT("uploadImage/lawyer_profile_image/",profile_image)))) as profile_image, IF(license_image = "", "", CONCAT("uploadImage/client_license_image/",license_image)) as license_image, is_phone_verified, is_email_verified,is_active,admin_message, status,country, state, city, status')->where("id",$userid)->get('traffic_users')->row_array();
 		return $rows;
 	}
 	function getCaseList($user_id, $status='ALL'){
@@ -20,7 +20,10 @@ class Admin_model extends CI_Model{
 		return $rows;
 	}
 	function getLawyers(){
-        $res = $this->db->select('*')->where('user_type','LAWYER')->where('status','1')->get('traffic_users')->result_array();
+        $res = $this->db->select('*')->where('user_type','LAWYER')/*->where('status','1')*/->get('traffic_users')->result_array();
+		foreach($res as $ky=>$rslt){
+			$res[$ky]['degree'] = $this->db->select('*')->where('user_id',$rslt['id'])->get('traffic_degree')->result_array();
+		}
         return $res;
     }
 	function addNewBanner($data){

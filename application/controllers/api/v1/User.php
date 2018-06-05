@@ -246,6 +246,50 @@ class User extends REST_Controller {
 		}
 		
 	}
+	
+	public function disproveLawyer_post(){
+		
+		$response = array();
+		try {
+			$data = array();
+			$id = $this->input->post('id');
+			$st = $this->Api_user_model->disproveLawyer($id);
+			$response['status'] = true;
+			$response['response'] = new stdClass();
+			$response['message'] = "Disproved successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
+	}
+	
+	public function verifyLawyer_post(){
+		
+		$response = array();
+		try {
+			$data = array();
+			$id = $this->input->post('id');
+			$st = $this->Api_user_model->verifyLawyer($id);
+			$title = "Account verified";
+			$message = "Your account has been verified";
+			$this->Api_user_model->pushNotificationForlawyer($id,$title,$message);
+			$response['status'] = true;
+			$response['response'] = new stdClass();
+			$response['message'] = "Verified successfully";
+			$this->response($response);
+		} catch(Exception $e){
+			$response['status'] = false;
+			$response['response'] = new stdClass();
+			$response['message'] = "error";
+			$this->response($response);
+		}
+		
+	}
+	
 	public function enableClient_post(){
 		
 		$response = array();

@@ -34,7 +34,7 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">
+                    <a class="navbar-brand" href="<?=base_url()?>admin/clients/">
                         <!-- Logo icon -->
                         <b><img src="<?=base_url()?>images/logo_white.png" alt="homepage" class="dark-logo" height="60px"/></b>
                         <!--End Logo icon -->
