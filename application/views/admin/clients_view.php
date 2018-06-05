@@ -71,15 +71,15 @@
                                     <td class="center">
 										<p>
 											<?=($list['email'])?$list['email']:''?>
-											<? if($list['email'] != ''){ ?>
+											<?php if($list['email'] != ''){ ?>
 												<?=$list['is_email_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
-											<? } ?>
+											<?php } ?>
 										</p>
 										<p>
 											<?=($list['phone'])?$list['phone']:''?>
-											<? if($list['phone'] != ''){ ?>
+											<?php if($list['phone'] != ''){ ?>
 												<?=$list['is_phone_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
-											<? } ?>
+											<?php } ?>
 										</p>
 									</td>
                                     <td class="center">
