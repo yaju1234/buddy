@@ -456,13 +456,14 @@ class Api_user_model extends CI_Model
 	public function getBidsByLawyer($case_id,$lawyer_id){
 		$rows = array();
 		$rows= $this->db
-		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image, TC.case_number, TC.case_details, IF(TC.case_front_img = "", "", CONCAT("uploadImage/case_image/",TC.case_front_img)) as case_front_img, IF(TC.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TC.case_rear_img)) as case_rear_img, IF(TC.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TC.driving_license)) as driving_license, TC.status as case_status')
 		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
-		->where("BIDS.case_id",$case_id)
+		->JOIN('traffic_cases TC', 'TC.id = BIDS.case_id', 'INNER')
+		//->where("BIDS.case_id",$case_id)
 		->where("BIDS.lawyer_id",$lawyer_id)
 		->order_by("BIDS.id", "DESC")
 		->get('traffic_bids BIDS')
-		->row_array();
+		->result_array();
 		return $rows;
 
 
