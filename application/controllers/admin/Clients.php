@@ -134,12 +134,12 @@ class Clients extends MY_Controller {
     }
 	
     public function verifyemail() {
-    	$randomNum =  $this->uri->segment(3);
+    	$randomNum =  $this->uri->segment(4);
         $data = array();
         $data['number'] = $randomNum;
         if($this->Api_user_model->validateEmailOTP($randomNum )){
         	 $data['title'] = 'Thank you';
-        	
+
         	 $data['message'] = 'Thank you . Your email virified successfully.';
         }else{
         	 $data['title'] = 'Failure';
