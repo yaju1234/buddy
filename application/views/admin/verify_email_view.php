@@ -2,7 +2,8 @@
 	<div class="block_verify">
 		<div class="form-signin-heading"><img src="<?=base_url()?>/images/logo_white.png"/></div>
 		<div class="containt-wrap">
-			<h2><?=$title?></h2>
+			<p><?=$number?></p>
+			<p><?=$title?></p>
 			<p><?=$message?></p>
 		</div>
 	</div>
@@ -28,25 +29,25 @@
 		position: relative;
 	}
 	.block_verify {
-	   	background-color: #fff;
-	   	padding: 0px 0px 30px;
-	   	position: relative;
+		background-color: #fff;
+		padding: 0px 0px 30px;
+		position: relative;
 	}
 	.block_verify .form-signin-heading {
 		padding: 15px;
-	    text-align: center;
-	    color: #fff;
-	    font-size: 18px;
-	    text-transform: uppercase;
-	    font-weight: 300;
-	    font-family: 'Open Sans', sans-serif;
-	    background: -moz-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
-	    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(1, 64, 108, 1)), color-stop(100%, rgba(16, 151, 241, 1)));
-	    background: -webkit-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
-	    background: -o-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
-	    background: -ms-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
-	    background: linear-gradient(104deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
-	    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01406c', endColorstr='#1097f1', GradientType=1);
+		text-align: center;
+		color: #fff;
+		font-size: 18px;
+		text-transform: uppercase;
+		font-weight: 300;
+		font-family: 'Open Sans', sans-serif;
+		background: -moz-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
+		background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(1, 64, 108, 1)), color-stop(100%, rgba(16, 151, 241, 1)));
+		background: -webkit-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
+		background: -o-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
+		background: -ms-linear-gradient(346deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
+		background: linear-gradient(104deg, rgba(1, 64, 108, 1) 0%, rgba(16, 151, 241, 1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#01406c', endColorstr='#1097f1', GradientType=1);
 	}
 	.block_verify .form-signin-heading img {
 		max-width: 80px;
@@ -58,16 +59,16 @@
 		margin: 0px auto;
 		background-color: #fff;
 		text-align: center;	}
-	.containt-wrap h2 {
-		font-size: 36px;
-		line-height: 43px;
-		color: #0f8fe5;
-		text-transform: uppercase;
-		font-weight: 700;
-	}
-	.containt-wrap p {
-		font-size: 20px;
-		line-height: 26px;
-		color: #333;
-	}
-</style>
+		.containt-wrap h2 {
+			font-size: 36px;
+			line-height: 43px;
+			color: #0f8fe5;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+		.containt-wrap p {
+			font-size: 20px;
+			line-height: 26px;
+			color: #333;
+		}
+	</style>
