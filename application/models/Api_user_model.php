@@ -183,10 +183,13 @@ class Api_user_model extends CI_Model
 			return true;
 	}
 	
-	public function sendEmailOTP($email,$otp,$user_id){
+	public function sendEmailOTP($user_id,$randNum,$milliseconds){
 
-		$data  = array();
-		$data['email_otp']= $otp;
+		
+		$data = array();
+		$data['email_otp_validation_time'] = $milliseconds;
+		$data['email_otp'] = $randNum;
+
 		$this->db->where('id',$user_id)->update('traffic_users',$data);
 		return true;
 		
@@ -227,25 +230,25 @@ class Api_user_model extends CI_Model
 		return $rows['count']>0 ? true :$flag;
 	}
 
-	public function validateEmailOTP($user_id,$otp){
+	public function validateEmailOTP($otp){
 
 		$rows = array();
-		$rows= $this->db->select('count(*) AS count')->where('id',$user_id)->where("email_otp",$otp)->get('traffic_users')->row_array();
+		$rows= $this->db->select('count(*) AS count')->where("email_otp",$otp)->get('traffic_users')->row_array();
 		if($rows['count']>0){
+
+		$rows1 = array();
+		$rows1= $this->db->select('user_id,email_otp_validation_time')->where("email_otp",$otp)->get('traffic_users')->row_array();
+		$milliseconds = round(microtime(true) * 1000);
+		$diff = $rows1['email_otp_validation_time'] - $milliseconds;
+		if($diff>0){
 			$data  = array();
 			$data['is_email_verified']= '1';
-			$this->db->where('id',$user_id)->update('traffic_users',$data);
+			$this->db->where('id',$rows1['user_id'])->update('traffic_users',$data);
+			return true;
+		}
 
 		}
-		$flag = false;
-		if($otp == "0000"){
-
-			$flag = true;
-			$data  = array();
-			$data['is_email_verified']= '1';
-			$this->db->where('id',$user_id)->update('traffic_users',$data);
-		}
-		return $rows['count']>0 ? true :$flag;
+		return false;
 	}
 	
 	public function getUser($userid){
@@ -506,5 +509,7 @@ class Api_user_model extends CI_Model
 
 
 	}
+
+
 }
 ?>

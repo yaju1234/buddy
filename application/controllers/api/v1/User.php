@@ -714,8 +714,15 @@ class User extends REST_Controller {
 		//$user_id = $this->input->post('user_id');
 		$email = $this->input->post('email');
 		$user_id = $this->input->post('user_id');
+
+
+		$milliseconds = round(microtime(true) * 1000);
+		$milliseconds = $milliseconds+1000*60*60*12;
+		$randNum = md5(uniqid(rand(), true));
+
+
 		$otp = rand ( 1000 , 9999 );
-		if($this->Api_user_model->sendEmailOTP($email, $otp,$user_id)){
+		if($this->Api_user_model->sendEmailOTP($user_id,$randNum,$milliseconds)){
 			$this->load->library('email');
 			$config['protocol']    = 'smtp';
 			$config['smtp_host']    = 'ssl://smtp.gmail.com';
@@ -733,7 +740,9 @@ class User extends REST_Controller {
 		$this->email->from('buddytraffic@gmail.com', 'Traffic Buddy');
 		$this->email->to($email); 
 
-		$message = 'Your verification code is '.$otp;
+		$urllink = base_url().'/clients/verifyemail/'.$randNum;
+
+		$message = $urllink;
 		$this->email->subject('Trafic Buddy OTP Validation');
 
 		$this->email->message($message);  

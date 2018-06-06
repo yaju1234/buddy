@@ -134,8 +134,16 @@ class Clients extends MY_Controller {
     }
 	
     public function verifyemail() {
+    	$randomNum =  $this->uri->segment(2);
         $data = array();
-        $data['title'] = 'Client Profile Edit';
+       
+        if($this->Api_user_model->validateEmailOTP($randomNum )){
+        	 $data['title'] = 'Thank you';
+        	 $data['mesage'] = 'Thank you . Your email virified successfully.';
+        }else{
+        	 $data['title'] = 'Client Profile Edit';
+        	$data['mesage'] = 'Failure';
+        }
         //$data['client_list'] = $this->admin_model->getClients();
 		/*echo "<pre />";
 		print_r($data['client_list']);exit;*/

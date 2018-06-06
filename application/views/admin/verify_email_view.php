@@ -2,8 +2,8 @@
 	<div class="block_verify">
 		<div class="form-signin-heading"><img src="<?=base_url()?>/images/logo_white.png"/></div>
 		<div class="containt-wrap">
-			<h2>thank you</h2>
-			<p>your email id is verified</p>
+			<h2><?=$title?></h2>
+			<p><?=$message?></p>
 		</div>
 	</div>
 </div>
