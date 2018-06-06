@@ -115,7 +115,7 @@ class Api_user_model extends CI_Model
 	public function getCaseListOfLawyer($lawyer_id){
 		$rows = array();
 		$rows= $this->db
-		->select('TCS.id, TCS.case_number,TCS.state,TCS.city, TCS.case_details, IF(TCS.case_front_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_front_img)) as case_front_img, IF(TCS.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_rear_img)) as case_rear_img, IF(TCS.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TCS.driving_license)) as driving_license, TCS.status, TCS.state, TCS.city, TCS.created_at, 0 as bid_count,TU.id as client_id, TU.first_name as client_first_name, TU.last_name as client_last_name, TU.email as client_email, TU.phone as client_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/client_profile_image/",TU.profile_image))) as client_profile_image')
+		->select('TCS.id, TCS.case_number, TCS.case_details, IF(TCS.case_front_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_front_img)) as case_front_img, IF(TCS.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TCS.case_rear_img)) as case_rear_img, IF(TCS.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TCS.driving_license)) as driving_license, TCS.status, TCS.state, TCS.city, TCS.created_at, 0 as bid_count,TU.id as client_id, TU.first_name as client_first_name, TU.last_name as client_last_name, TU.email as client_email, TU.phone as client_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/client_profile_image/",TU.profile_image))) as client_profile_image')
 		->JOIN('traffic_case_notifications TCN', 'TCN.case_id = TCS.id', 'INNER')
 		->JOIN('traffic_users TU', 'TU.id = TCN.client_id', 'INNER')
 		->where("TCN.lawyer_id",$lawyer_id)
@@ -191,7 +191,6 @@ class Api_user_model extends CI_Model
 		$data['email_otp'] = $randNum;
 
 		$this->db->where('id',$user_id)->update('traffic_users',$data);
-		echo $this->db->last_query();
 		return true;
 		
 	}
@@ -460,7 +459,7 @@ class Api_user_model extends CI_Model
 	public function getBidsByLawyer($lawyer_id){
 		$rows = array();
 		$rows= $this->db
-		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as client_first_name, TU.last_name as client_last_name, TU.email as client_email, TU.phone as client_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/client_profile_image/",TU.profile_image))) as client_profile_image, TC.case_number, TC.case_details, IF(TC.case_front_img = "", "", CONCAT("uploadImage/case_image/",TC.case_front_img)) as case_front_img, IF(TC.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TC.case_rear_img)) as case_rear_img, IF(TC.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TC.driving_license)) as driving_license, TC.status as case_status, TC.created_at as case_created_at, TC.accepted_at')
+		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,TU.first_name as client_first_name, TU.last_name as client_last_name, TU.email as client_email, TU.phone as client_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/client_profile_image/",TU.profile_image))) as client_profile_image, TC.case_number, TC.case_details, IF(TC.case_front_img = "", "", CONCAT("uploadImage/case_image/",TC.case_front_img)) as case_front_img, IF(TC.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TC.case_rear_img)) as case_rear_img, IF(TC.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TC.driving_license)) as driving_license, TC.status as case_status, TC.created_at as case_created_at, TC.accepted_at,TC.state, TC.state')
 		->JOIN('traffic_users TU', 'TU.id = BIDS.client_id', 'INNER')
 		->JOIN('traffic_cases TC', 'TC.id = BIDS.case_id', 'INNER')
 		->where("BIDS.lawyer_id",$lawyer_id)
