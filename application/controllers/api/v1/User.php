@@ -740,7 +740,7 @@ class User extends REST_Controller {
 		$this->email->from('buddytraffic@gmail.com', 'Traffic Buddy');
 		$this->email->to($email); 
 
-		$urllink = base_url().'/clients/verifyemail/'.$randNum;
+		$urllink = base_url().'admin/clients/verifyemail/'.$randNum;
 
 		$message = $urllink;
 		$this->email->subject('Trafic Buddy OTP Validation');
