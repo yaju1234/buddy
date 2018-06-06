@@ -751,6 +751,7 @@ class User extends REST_Controller {
 
 		$response['status'] = true;
 		$response['response'] = new stdClass();
+		$response['expire'] = $milliseconds;
 		$response['message'] = "success";
 	}else{
 		$response['status'] = false;
