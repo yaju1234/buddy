@@ -191,6 +191,7 @@ class Api_user_model extends CI_Model
 		$data['email_otp'] = $randNum;
 
 		$this->db->where('id',$user_id)->update('traffic_users',$data);
+		echo $this->db->last_query();
 		return true;
 		
 	}
