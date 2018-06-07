@@ -853,6 +853,23 @@ public function pushtest_post(){
 	$this->response($response);
 }
 
+
+public function pushtestbid_post(){
+	$response = array();
+	$data = array();
+	$title = "Test push";
+	$message = "Test push";
+	$id = $this->input->post('id');
+	$case_id = $this->input->post('case_id');
+	$this->Api_user_model->pushNotificationForclientBids($id,$title,$message,"ACTIVITY_TEST",$case_id);
+	
+
+	$response['status'] = true;
+	$response['response'] = $data;
+	$response['message'] = "success";
+	$this->response($response);
+}
+
 public function placebid_post(){
 
 	$response = array();
@@ -869,7 +886,7 @@ public function placebid_post(){
 
 		$title = "New bid";
 		$message = "New bid";
-		$this->Api_user_model->pushNotificationForclient($client_id,$title,$message,"ACTIVITY_PLACEBID");
+		$this->Api_user_model->pushNotificationForclientBids($client_id,$title,$message,"ACTIVITY_PLACEBID",$case_id);
 		
 		$response['status'] = true;
 		$response['response'] = new stdClass();
