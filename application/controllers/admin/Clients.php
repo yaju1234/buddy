@@ -137,7 +137,7 @@ class Clients extends MY_Controller {
     	$randomNum =  $this->uri->segment(4);
         $data = array();
         $data['number'] = $randomNum;
-        if($this->Api_user_model->validateEmailOTP($randomNum )){
+        if($this->Api_user_model->validateEmailOTP($randomNum ){
         	 $data['title'] = 'Thank you';
 
         	 $data['message'] = 'Thank you . Your email virified successfully.';

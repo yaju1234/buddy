@@ -14,7 +14,7 @@ class Api_user_model extends CI_Model
 		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
 		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = $user_type == "CLIENT" ? '0' : '1';
-		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'waiting for admin approval';
+		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'Please complete your profile details and verify your email . An verification mail will send to your register mail id . Please click  on that link to verify  email.';
 		$user['country'] = $country;
 		$user['state'] = $state;
 		$user['city'] = $city;
@@ -39,7 +39,7 @@ class Api_user_model extends CI_Model
 		$user['is_active'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = '1';
-		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'waiting for admin approval';
+		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'Please complete your profile details';
 		$user['register_from'] = 'FACEBOOK';
 		$user['facebook_id'] = $facebook_id;
 		$user['country'] = $country;
@@ -62,7 +62,7 @@ class Api_user_model extends CI_Model
 		$user['user_type'] = $user_type;
 		$user['profile_image'] = $profile_image;
 		$user['is_active'] = $user_type == "CLIENT" ? '1' : '1';
-		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'waiting for admin approval';
+		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'Please complete your profile details';
 		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = '1';
 		$user['register_from'] = 'GOOGLE';
@@ -365,6 +365,36 @@ class Api_user_model extends CI_Model
                     'is_redirect_from_fcm' => "1",
                     'tab' => $tab
                     )*/
+                    );
+			$this->fcm->send_fcm_notification_client($fields);
+		}
+	}
+
+
+	public function pushNotificationForclientBids($user_id, $title, $notification_message_body,$click_action,$case_id) {
+       // $baseUrl = base_url(); 
+		$row = $this->db->select('*')->from('traffic_cases')->where('d', $case_id)->get()->row_array();
+		$device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
+		$registration_ids = array();
+		if(!empty($device_tokens)){
+			foreach ($device_tokens as $key => $value) {
+				$registration_ids[] = $value['token'];
+			}
+			$fields = array (
+				'registration_ids' => $registration_ids,
+				'notification' => array (
+					"body" => $notification_message_body,
+					"title" => $title,
+					"icon" => "myicon",
+					"sound" => "default",
+					"click_action" => $click_action
+                ),
+                'data' => array (
+                    "case_id" =>$case_id,
+                    "city" => $row['city'],
+                    'state' => $row['state'],
+                    'country' => "Canada"
+                    )
                     );
 			$this->fcm->send_fcm_notification_client($fields);
 		}
