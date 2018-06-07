@@ -237,13 +237,13 @@ class Api_user_model extends CI_Model
 		if($rows['count']>0){
 
 		$rows1 = array();
-		$rows1= $this->db->select('user_id,email_otp_validation_time')->where("email_otp",$otp)->get('traffic_users')->row_array();
+		$rows1= $this->db->select('id,email_otp_validation_time')->where("email_otp",$otp)->get('traffic_users')->row_array();
 		$milliseconds = round(microtime(true) * 1000);
 		$diff = (int)$rows1['email_otp_validation_time'] - $milliseconds;
 		if($diff>0){
 			$data  = array();
 			$data['is_email_verified']= '1';
-			$this->db->where('id',$rows1['user_id'])->update('traffic_users',$data);
+			$this->db->where('id',$rows1['id'])->update('traffic_users',$data);
 			return true;
 		}
 
