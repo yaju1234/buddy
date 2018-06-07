@@ -41,6 +41,11 @@
 			</label>
 		</div>
 		<div class="his_cases">
+			<div class="input-field">
+				<p>message to lawyer</p>
+				<textarea name="" id="" cols="" rows="" placeholder="Lorem ipsum dolor sit amet"></textarea>
+				<input type="submit" value="submit">
+			</div>
 			<div class="block">
 				<span><?=count($all_case_list)?></span>
 				<h3>total cases</h3>
