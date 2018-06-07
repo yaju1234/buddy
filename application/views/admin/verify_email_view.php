@@ -2,7 +2,6 @@
 	<div class="block_verify">
 		<div class="form-signin-heading"><img src="<?=base_url()?>/images/logo_white.png"/></div>
 		<div class="containt-wrap">
-			<p><?=$number?></p>
 			<p><?=$title?></p>
 			<p><?=$message?></p>
 		</div>
