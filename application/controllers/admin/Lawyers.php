@@ -120,4 +120,19 @@ class Lawyers extends MY_Controller {
         $this->load->view('admin/lawyer_details_view', $data);
 		$this->load->view('template/footer.php');
     }
+	
+	public function saveLawyerMsg() {
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
+        $data = array();
+        $data['admin_message'] = $this->input->post('admin_message');
+        $user_id = $this->input->post('user_id');
+		
+		$st = $this->admin_model->updateLawyerMsg($data, $user_id);
+		
+		if($st){
+			redirect('admin/lawyers/details/'.$user_id, 'refresh');
+		}
+    }
 }

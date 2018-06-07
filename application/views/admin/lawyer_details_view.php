@@ -42,9 +42,12 @@
 		</div>
 		<div class="his_cases">
 			<div class="input-field">
-				<p>message to lawyer</p>
-				<textarea name="" id="" cols="" rows="" placeholder="Lorem ipsum dolor sit amet"></textarea>
-				<input type="submit" value="submit">
+				<form name="lawyermsg" method="post" action="<?=base_url()?>admin/lawyers/saveLawyerMsg">
+					<p>Message to Lawyer</p>
+					<textarea name="admin_message" id="" cols="" rows="" required="true"><?=$client_list['admin_message']?></textarea>
+					<input type="submit" value="submit">
+					<input type="hidden" value="<?=$client_list['id']?>" name="user_id">
+				</form>
 			</div>
 			<div class="block">
 				<span><?=count($all_case_list)?></span>

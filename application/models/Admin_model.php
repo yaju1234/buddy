@@ -30,6 +30,10 @@ class Admin_model extends CI_Model{
         $res = $this->db->insert('traffic_banners', $data);
         return $res;
     }
+	function updateLawyerMsg($data, $user_id){
+        $res = $this->db->where('id', $user_id)->update('traffic_users', $data);
+        return $res;
+    }
 	function updateBanner($data, $id){
         $res = $this->db->where('id', $id)->update('traffic_banners', $data);
         return $res;
