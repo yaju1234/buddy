@@ -250,7 +250,7 @@
 	  <div class="modal-content">
 			<form action="<?=base_url()?>admin/clients/updateClient" method="post" >
 				<div class="modal-header">
-				<h4 class="modal-title">Edit Client</h4>
+				<h4 class="modal-title">Edit Lawyer</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:0; padding:0; font-size:25px;">
 					<span aria-hidden="true">&times;</span>
 				</button>
