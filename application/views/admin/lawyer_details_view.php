@@ -24,7 +24,9 @@
 				}
 			?>
 			<figure>
-				<img src="<?=$prfImg?>" alt="Profile Picture">
+				<a class="example-image-link" href="<?=$prfImg?>" data-fancybox="lawyer-image-<?=$client_list['id']?>">
+					<img src="<?=$prfImg?>" alt="Profile Picture">
+				</a>
 			</figure>
 			<div class="details">
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
@@ -137,13 +139,25 @@
 								<td><?=$list['city']?>, <?=$list['state']?></td>
 								<td><?=$list['case_details']?></td>
 								<td>
-									<figure><img src="<?=$drvrImg?>" alt="Driving License"></figure>
+									<figure>
+										<a class="example-image-link" href="<?=$drvrImg?>" data-fancybox="driving-license-<?=$list['id']?>">
+											<img src="<?=$drvrImg?>" alt="Driving License">
+										</a>
+									</figure>
 								</td>
 								<td>
-									<figure><img src="<?=$cFrntImg?>" alt="Case Front Image"></figure>
+									<figure>
+										<a class="example-image-link" href="<?=$cFrntImg?>" data-fancybox="case-front-image-<?=$list['id']?>">
+											<img src="<?=$cFrntImg?>" alt="Case Front Image">
+										</a>
+									</figure>
 								</td>
 								<td>
-									<figure><img src="<?=$cRerImg?>" alt="Case Rear Image"></figure>
+									<figure>
+										<a class="example-image-link" href="<?=$cRerImg?>" data-fancybox="case-rear-image-<?=$list['id']?>">
+											<img src="<?=$cRerImg?>" alt="Case Rear Image">
+										</a>
+									</figure>
 								</td>
 								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
@@ -195,13 +209,25 @@
 								<td><?=$list['city']?>, <?=$list['state']?></td>
 								<td><?=$list['case_details']?></td>
 								<td>
-									<figure><img src="<?=$drvrImg?>" alt="Driving License"></figure>
+									<figure>
+										<a class="example-image-link" href="<?=$drvrImg?>" data-fancybox="driving-license-<?=$list['id']?>">
+											<img src="<?=$drvrImg?>" alt="Driving License">
+										</a>
+									</figure>
 								</td>
 								<td>
-									<figure><img src="<?=$cFrntImg?>" alt="Case Front Image"></figure>
+									<figure>
+										<a class="example-image-link" href="<?=$cFrntImg?>" data-fancybox="case-front-image-<?=$list['id']?>">
+											<img src="<?=$cFrntImg?>" alt="Case Front Image">
+										</a>
+									</figure>
 								</td>
 								<td>
-									<figure><img src="<?=$cRerImg?>" alt="Case Rear Image"></figure>
+									<figure>
+										<a class="example-image-link" href="<?=$cRerImg?>" data-fancybox="case-rear-image-<?=$list['id']?>">
+											<img src="<?=$cRerImg?>" alt="Case Rear Image">
+										</a>
+									</figure>
 								</td>
 								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
