@@ -112,8 +112,8 @@ class Lawyers extends MY_Controller {
         $data['title'] = 'Lawyer Management';
         $data['country_list'] = $this->Api_user_model->getCountry();
         $data['client_list'] = $this->admin_model->getClientDetails($client_id);
-        $data['all_case_list'] = $this->admin_model->getCaseList($client_id, 'ALL');
-        $data['open_case_list'] = $this->admin_model->getCaseList($client_id, 'PENDING');
+        $data['all_case_list'] = $this->admin_model->getCaseListOfLawyer($client_id, 'ALL');
+        $data['open_case_list'] = $this->admin_model->getCaseListOfLawyer($client_id, 'PENDING');
 		/*echo "<pre />";
 		print_r($data);exit;*/
 		$this->load->view('template/header.php', $data);
