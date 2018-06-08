@@ -396,6 +396,7 @@ class Api_user_model extends CI_Model
                     'country' => "Canada"
                     )
                     );
+			print_r($fields);
 			$this->fcm->send_fcm_notification_client($fields);
 		}
 	}
