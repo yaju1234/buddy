@@ -373,7 +373,7 @@ class Api_user_model extends CI_Model
 
 	public function pushNotificationForclientBids($user_id, $title, $notification_message_body,$click_action,$case_id) {
        // $baseUrl = base_url(); 
-		$row = $this->db->select('*')->from('traffic_cases')->where('d', $case_id)->get()->row_array();
+		$row = $this->db->select('*')->from('traffic_cases')->where('id', $case_id)->get()->row_array();
 		$device_tokens = $this->db->select('token')->from('device_token')->where('user_id', $user_id)->get()->result_array();
 		$registration_ids = array();
 		if(!empty($device_tokens)){
