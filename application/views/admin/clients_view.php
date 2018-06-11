@@ -28,7 +28,7 @@
 									<th>Image</th>
 									<th>Name</th>
 									<th>Email &amp; Phone</th>
-									<th>Address</th>
+									<th>City & Province</th>
 									<th>License</th>
 									<th>Status</th>
 									<th>Joined</th>
@@ -84,8 +84,9 @@
 									</td>
                                     <td class="center">
 										<p>
-											<?=($list['city'])?$list['city'].", ":''?>
-											<?=($list['state'])?$list['state'].", ":''?>
+											<?=($list['city'])?$list['city']:''?>
+										</p>
+										<p>
 											<?=($list['country'])?$list['country']:''?>
 										</p>
 									
