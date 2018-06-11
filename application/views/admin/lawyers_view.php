@@ -83,7 +83,7 @@
 											<?=($list['city'])?$list['city']:''?>
 										</p>
 										<p>
-											<?=($list['country'])?$list['country']:''?>
+											<?=($list['state'])?$list['state']:''?>
 										</p>
 									
 									</td>
