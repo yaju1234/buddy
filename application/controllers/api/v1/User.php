@@ -552,6 +552,23 @@ class User extends REST_Controller {
 		$this->response($response);
 	}
 
+	public function getuser_post(){
+		$response = array();
+
+
+		$user_id = $this->input->post('user_id');
+		
+		$user_date = $this->Api_user_model->getUser($user_id);
+		$degree_image = $this->Api_user_model->getDegreeImage($user_id);
+		$user_date['degree_images'] = $degree_image;
+		$response['status'] = true;
+		$response['response'] = $user_date;
+		$response['message'] = "login success";
+		
+		$this->response($response);
+	}
+
+
 	public function register_facebook_post(){
 
 		$response = array();

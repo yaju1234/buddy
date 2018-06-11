@@ -13,7 +13,7 @@ class Api_user_model extends CI_Model
 		$user['otp'] = $otp;
 		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
 		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
-		$user['is_email_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		$user['is_email_verified'] = $user_type == "CLIENT" ? '0' : '0';
 		$user['admin_message'] = $user_type == 'CLIENT' ? '' : 'Please complete your profile details and verify your email . An verification mail will send to your register mail id . Please click  on that link to verify  email.';
 		$user['country'] = $country;
 		$user['state'] = $state;
