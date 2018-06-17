@@ -1,4 +1,7 @@
 $(document).ready(function() {
+		$('#clientTable').DataTable({
+			bSort:false
+		});
         $('#myTable').DataTable();
         $(document).ready(function() {
             var table = $('#example').DataTable({

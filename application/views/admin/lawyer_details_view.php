@@ -74,7 +74,6 @@
 			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
 					<table id="" class="table table-bordered table-striped">
 						<thead>
 							<tr>
@@ -159,7 +158,7 @@
 										</a>
 									</figure>
 								</td>
-								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
+								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 								<?php
@@ -229,7 +228,7 @@
 										</a>
 									</figure>
 								</td>
-								<td><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></td>
+								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 								<?php

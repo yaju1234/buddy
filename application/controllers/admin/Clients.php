@@ -104,7 +104,6 @@ class Clients extends MY_Controller {
 		}
 	}
 
-
 	public function details($client_id) {
 		if(!$this->isLoggedIn()){
 			redirect('login/logout', 'refresh');
@@ -119,6 +118,24 @@ class Clients extends MY_Controller {
 		print_r($data);exit;*/
 		$this->load->view('template/header.php', $data);
         $this->load->view('admin/client_details_view', $data);
+		$this->load->view('template/footer.php');
+    }
+	
+	public function casedetails($client_id, $case_id) {
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
+        $data = array();
+        $data['title'] = 'Case Management';
+        $data['client_id'] = $client_id;
+        $data['case_id'] = $case_id;
+        $data['client_list'] = $this->admin_model->getClientDetails($client_id);
+        $data['case_list'] = $this->admin_model->getCaseDetails($client_id, $case_id);
+        $data['bid_list'] = $this->admin_model->getBids($case_id);
+		/*echo "<pre />";
+		print_r($data);exit;*/
+		$this->load->view('template/header.php', $data);
+        $this->load->view('admin/client_bid_details_view', $data);
 		$this->load->view('template/footer.php');
     }
 

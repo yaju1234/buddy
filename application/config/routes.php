@@ -56,3 +56,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['resetmypassword/(:any)'] = 'api/v1/resetpassword';
 $route['resetpassword/checkoldpassword'] = 'api/v1/resetpassword/checkoldpassword';
 $route['email_validation/(:any)/(:any)'] = 'api/v1/resetpassword/validate_email/$1/$2';
+$route['admin/clients/details/(:any)/case-details/(:any)'] = 'admin/clients/casedetails/$1/$2';

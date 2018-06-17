@@ -1,12 +1,13 @@
 <!-- Bread crumb -->
 	<div class="row page-titles no-gap">
 		<div class="col-md-5 align-self-center">
-			<h3 class="text-primary">Client Details</h3> </div>
+			<h3 class="text-primary">Case Details</h3> </div>
 		<div class="col-md-7 align-self-center">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Home</a></li>
 				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients">Clients</a></li>
-				<li class="breadcrumb-item active">Details</li>
+				<li class="breadcrumb-item"><a href="<?=base_url()?>admin/clients/details/<?=$client_id?>">Details</a></li>
+				<li class="breadcrumb-item active">Case Details</li>
 			</ol>
 		</div>
 	</div>
@@ -15,214 +16,74 @@
 	<div class="container-fluid no-padding">
 		<!-- Start Page Content -->
 		<div class="user-details">
-			<?php 
-				$prfImg = base_url()."images/no-image.png";
-				if( $client_list['profile_image'] != '' && (strpos($client_list['profile_image'], 'http://') !== false || strpos($client_list['profile_image'], 'https://') !== false) ){
-					$prfImg = $client_list['profile_image'];
-				} else if ($client_list['profile_image'] != '') {
-					$prfImg = base_url().$client_list['profile_image'];
-				}
-			?>
-			<figure>
-				<a class="example-image-link" href="<?=$prfImg?>" data-fancybox="client-image-<?=$client_list['id']?>">
-					<img src="<?=$prfImg?>" alt="Profile Picture">
-				</a>
-			</figure>
 			<div class="details">
+			<div class="col-md-6">
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
 				<p><i class="fa fa-map-marker"></i><?=$client_list['city']?></p>
 				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
+				<p>Case No: <?=$case_list['case_number']?></p>
 			</div>
-			<label class="switch">
-				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
-				<span class="slider round"></span>
-			</label>
+			<div class="col-md-6">
+				<p>Location: <?=$case_list['city']?>, <?=$case_list['state']?></p>
+				<p>Description: <?=$case_list['case_details']?></p>
+				<p>Status: <?=$case_list['status']?></p>
+				<!--<p>Total Bid(s): <?//=$case_list['bid_count']?></p>-->
+			</div>
+			</div>
 		</div>
 		<div class="his_cases">
 			<div class="block">
-				<span><?=count($all_case_list)?></span>
-				<h3>total cases</h3>
-			</div>
-			<div class="block">
-				<span><?=count($open_case_list)?></span>
-				<h3>open cases</h3>
+				<span><?=count($bid_list)?></span>
+				<h3>total bids</h3>
 			</div>
 		</div>
+		
 		<div class="tab-area">
-			<ul class="nav nav-tabs details-nav" id="myTab" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><i class="fa fa-user"></i>profile</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="open-cases-tab" data-toggle="tab" href="#open-cases" role="tab" aria-controls="open-cases" aria-selected="false"><i class="fa fa-folder-open"></i>open cases</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="all-cases-tab" data-toggle="tab" href="#all-cases" role="tab" aria-controls="all-cases" aria-selected="false"><i class="fa fa-reply-all"></i>all cases</a>
-				</li>
-			</ul>
 			<div class="tab-content" id="myTabContent">
 				<div class="tab-pane show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-
 					<table id="" class="table table-bordered table-striped">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>email ID</th>
-								<th>phone no</th>
-								<th>location</th>
-								<th>edit</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><?=$client_list['first_name']." ".$client_list['last_name']?></td>
-								<td><?=$client_list['email']?></td>
-								<td><?=$client_list['phone']?></td>
-								<td><?=$client_list['city']?>, <?=$client_list['state']?>, <?=$client_list['country']?></td>
-								<td>
-									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$client_list['id']?>)"><i class="fa fa-pencil"></i></button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="tab-pane" id="open-cases" role="tabpanel" aria-labelledby="open-cases-tab">
-					<table id="myTableone" class="table table-bordered table-striped">
-						<thead>
-							<tr>
 								<th>Sl No.</th>
-								<th>case no</th>
-								<th>location</th>
-								<th>description</th>
-								<th>driving licence</th>
-								<th>front image</th>
-								<th>rare image</th>
-								<th>status</th>
-								<th>details</th>
+								<th>Lawyer Image</th>
+								<th>Lawyer Name</th>
+								<th>Lawyer Email & Phone</th>
+								<th>Bid Amount</th>
+								<th>Bid Text</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php 
-									$i = 0;
-                                    foreach($open_case_list as $key => $list) {
-                                        $request_date = date('m-d-Y', strtotime($list['created_at']));
-										
-										$cFrntImg = base_url()."images/no-image.png";
-										if ($list['case_front_img'] != '') {
-											$cFrntImg = base_url().$list['case_front_img'];
-										}
-										$cRerImg = base_url()."images/no-image.png";
-										if ($list['case_rear_img'] != '') {
-											$cRerImg = base_url().$list['case_rear_img'];
-										}
-										$drvrImg = base_url()."images/no-image.png";
-										if ($list['driving_license'] != '') {
-											$drvrImg = base_url().$list['driving_license'];
-										}
-										$i ++;
-                                ?>
-							<tr>
-								<td><?=$i?></td>
-								<td>#<?=$list['case_number']?></td>
-								<td><?=$list['city']?>, <?=$list['state']?></td>
-								<td><?=$list['case_details']?></td>
-								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$drvrImg?>" data-fancybox="driving-license-<?=$list['id']?>">
-											<img src="<?=$drvrImg?>" alt="Driving License">
-										</a>
-									</figure>
-								</td>
-								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cFrntImg?>" data-fancybox="case-front-image-<?=$list['id']?>">
-											<img src="<?=$cFrntImg?>" alt="Case Front Image">
-										</a>
-									</figure>
-								</td>
-								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cRerImg?>" data-fancybox="case-rear-image-<?=$list['id']?>">
-											<img src="<?=$cRerImg?>" alt="Case Rear Image">
-										</a>
-									</figure>
-								</td>
-								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
-								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
-							</tr>
-								<?php
+								$i = 0;
+								foreach($bid_list as $key => $list) {
+									$request_date = date('m-d-Y', strtotime($list['created_at']));
+									
+									$prfImg = base_url()."images/no-image.png";
+									if( $list['lawyer_profile_image'] != '' && (strpos($list['lawyer_profile_image'], 'http://') !== false || strpos($list['lawyer_profile_image'], 'https://') !== false) ){
+										$prfImg = $list['lawyer_profile_image'];
+									} else if ($list['lawyer_profile_image'] != '') {
+										$prfImg = base_url().$list['lawyer_profile_image'];
 									}
-								?>
-						</tbody>
-					</table>
-				</div>
-				<div class="tab-pane" id="all-cases" role="tabpanel" aria-labelledby="all-cases-tab">
-					<table id="myTable" class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>Sl No.</th>
-								<th>case no</th>
-								<th>location</th>
-								<th>description</th>
-								<th>driving licence</th>
-								<th>front image</th>
-								<th>rare image</th>
-								<th>status</th>
-								<th>details</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php 
-									$i = 0;
-                                    foreach($all_case_list as $key => $list) {
-                                        $request_date = date('m-d-Y', strtotime($list['created_at']));
-										
-										$cFrntImg = base_url()."images/no-image.png";
-										if ($list['case_front_img'] != '') {
-											$cFrntImg = base_url().$list['case_front_img'];
-										}
-										$cRerImg = base_url()."images/no-image.png";
-										if ($list['case_rear_img'] != '') {
-											$cRerImg = base_url().$list['case_rear_img'];
-										}
-										$drvrImg = base_url()."images/no-image.png";
-										if ($list['driving_license'] != '') {
-											$drvrImg = base_url().$list['driving_license'];
-										}
-										$i ++;
-                                ?>
+									$i ++;
+                            ?>
 							<tr>
 								<td><?=$i?></td>
-								<td>#<?=$list['case_number']?></td>
-								<td><?=$list['city']?>, <?=$list['state']?></td>
-								<td><?=$list['case_details']?></td>
 								<td>
 									<figure>
-										<a class="example-image-link" href="<?=$drvrImg?>" data-fancybox="driving-license-<?=$list['id']?>">
-											<img src="<?=$drvrImg?>" alt="Driving License">
+										<a class="example-image-link" href="<?=$prfImg?>" data-fancybox="lawyer-image-<?=$list['id']?>">
+											<img src="<?=$prfImg?>" alt="lLawyer Image">
 										</a>
 									</figure>
 								</td>
+								<td><?=$list['lawyer_first_name']?> <?=$list['lawyer_last_name']?></td>
 								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cFrntImg?>" data-fancybox="case-front-image-<?=$list['id']?>">
-											<img src="<?=$cFrntImg?>" alt="Case Front Image">
-										</a>
-									</figure>
+									<p><?=$list['lawyer_email']?></p>
+									<p><?=$list['lawyer_phone']?></p>
 								</td>
-								<td>
-									<figure>
-										<a class="example-image-link" href="<?=$cRerImg?>" data-fancybox="case-rear-image-<?=$list['id']?>">
-											<img src="<?=$cRerImg?>" alt="Case Rear Image">
-										</a>
-									</figure>
-								</td>
-								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
-								<td>
-									<a class="btn btn-info" href="<?=base_url()?>admin/clients/details/<?=$client_list['id']?>/case-details/<?=$list['id']?>">
-										<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
-									</a>
-								</td>
+								<td><?=$list['bid_amount']?></td>
+								<td><?=$list['bid_text']?></td>
+								<td><p style="<?=$list['status'] == 'CLOSED' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'CLOSED' ? 'Closed' : 'Open'?></p></td>
 							</tr>
 								<?php
 									}

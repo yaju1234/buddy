@@ -20,7 +20,7 @@
 					<h4 class="card-title">Clients List</h4>
 					<!--<h6 class="card-subtitle">Data table example</h6>-->
 					<div class="table-responsive m-t-40">
-						<table id="myTable" class="table table-bordered table-striped">
+						<table id="clientTable" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th style="display: none;">tab22_id</th>
@@ -29,7 +29,7 @@
 									<th>Name</th>
 									<th>Email &amp; Phone</th>
 									<th>City & Province</th>
-									<th>License</th>
+									<!--<th>License</th>-->
 									<th>Status</th>
 									<th>Joined</th>
 									<th>Action</th>
@@ -49,14 +49,14 @@
 											$prfImg = base_url()."uploadImage/client_profile_image/".$list['profile_image'];
 										}
 										
-										$licnseImg = base_url()."images/no-image.png";
+										/*$licnseImg = base_url()."images/no-image.png";
 										if ($list['license_image'] != '') {
 											$licnseImg = base_url()."uploadImage/client_license_image/".$list['license_image'];
-										}
+										}*/
 										$i ++;
                                 ?>
                                 <tr class="" id="request_tr_<?=$list['id']?>">
-									<td style="display: none;"><?=$list['id']?></td>
+									<td style="display: none;"><?=$list['created']?></td>
 									<td><?=$i?></td>
                                     <td class="center">
 										<div class="avatar">
@@ -91,13 +91,13 @@
 										</p>
 									
 									</td>
-                                    <td class="center">
+                                    <!--<td class="center">
 										<div class="avatar">
-											<a class="example-image-link" href="<?=$licnseImg?>" data-fancybox="client-license-<?=$list['id']?>">
-												<img src="<?=$licnseImg?>">
+											<a class="example-image-link" href="<?//=$licnseImg?>" data-fancybox="client-license-<?//=$list['id']?>">
+												<img src="<?//=$licnseImg?>">
 											</a>
                                         </div>
-									</td>
+									</td>-->
                                     <td class="center"> <?=$list['status']==='1'?'Active':'Inactive'?> </td>
                                     <td class="center"> <?=$request_date?> </td>
                                     <td class="center" style="width: 100px !important;">

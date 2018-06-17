@@ -2,7 +2,7 @@
 
 class Admin_model extends CI_Model{
 	function getClients(){
-        $res = $this->db->select('*')->where('user_type','CLIENT')/*->where('status','1')*/->get('traffic_users')->result_array();
+        $res = $this->db->select('*')->where('user_type','CLIENT')/*->where('status','1')*/->order_by('created','desc')->get('traffic_users')->result_array();
         return $res;
     }
 	function getClientDetails($userid){
@@ -19,8 +19,14 @@ class Admin_model extends CI_Model{
 		$rows = $query->get('traffic_cases')->result_array();
 		return $rows;
 	}
+	function getCaseDetails($user_id, $case_id){
+		$rows = array();
+		$query = $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("user_id",$user_id)->where("id",$case_id);
+		$rows = $query->get('traffic_cases')->row_array();
+		return $rows;
+	}
 	function getLawyers(){
-        $res = $this->db->select('*')->where('user_type','LAWYER')/*->where('status','1')*/->get('traffic_users')->result_array();
+        $res = $this->db->select('*')->where('user_type','LAWYER')/*->where('status','1')*/->order_by('created','desc')->get('traffic_users')->result_array();
 		foreach($res as $ky=>$rslt){
 			$res[$ky]['degree'] = $this->db->select('*')->where('user_id',$rslt['id'])->get('traffic_degree')->result_array();
 		}
@@ -53,4 +59,17 @@ class Admin_model extends CI_Model{
         $res = $this->db->select('*')->get('traffic_banners')->result_array();
         return $res;
     }
+	function getBids($case_id){
+		$rows = array();
+		$rows= $this->db
+		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,BIDS.created_at,BIDS.accepted_at,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
+		->where("BIDS.case_id",$case_id)
+		->order_by("BIDS.id", "DESC")
+		->get('traffic_bids BIDS')
+		->result_array();
+		return $rows;
+
+
+	}
 }
