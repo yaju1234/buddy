@@ -1001,7 +1001,7 @@ public function acceptBid_post(){
 		$title = "Accepted";
 		$message = "That your bid has been accepted";
 		$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
-		echo $data1['lawyer_id'];
+		//echo $data1['lawyer_id'];
 		$this->Api_user_model->pushNotificationForlawyer($data1['lawyer_id'],$title,$message,"ACTIVITY_BID_ACCEPTED");
 	
 	$response['status'] = true;
