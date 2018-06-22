@@ -543,7 +543,7 @@ class Api_user_model extends CI_Model
 
 	public function getBidsByBidId($bid_id){
 		$rows = array();
-		$rows= $this->db->select('*')->get('traffic_bids')->where("id",$bid_id)->row_array();
+		$rows= $this->db->select('*')->where("id",$bid_id)->get('traffic_bids')->row_array();
 		return $rows;
 	}
 
