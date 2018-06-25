@@ -36,8 +36,8 @@ class Api_user_model extends CI_Model
 		$user['phone'] = $phone;
 		$user['user_type'] = $user_type;
 		$user['profile_image'] = $profile_image;
-		$user['is_active'] = $user_type == "CLIENT" ? '0' : '1';
-		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
+		//$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = '1';
 		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'Please complete your profile details';
 		$user['register_from'] = 'FACEBOOK';
@@ -61,9 +61,9 @@ class Api_user_model extends CI_Model
 		$user['phone'] = $phone;
 		$user['user_type'] = $user_type;
 		$user['profile_image'] = $profile_image;
-		$user['is_active'] = $user_type == "CLIENT" ? '1' : '1';
+		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
 		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'Please complete your profile details';
-		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		//$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = '1';
 		$user['register_from'] = 'GOOGLE';
 		$user['google_id'] = $google_id;
@@ -135,7 +135,7 @@ class Api_user_model extends CI_Model
 	
 	public function getCaseList($user_id){
 		$rows = array();
-		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("user_id",$user_id)->get('traffic_cases')->result_array();
+		$rows= $this->db->select('id, user_id, case_number, case_details, IF(case_front_img = "", "", CONCAT("uploadImage/case_image/",case_front_img)) as case_front_img, IF(case_rear_img = "", "", CONCAT("uploadImage/case_image/",case_rear_img)) as case_rear_img, IF(driving_license = "", "", CONCAT("uploadImage/client_license_image/",driving_license)) as driving_license, status, state, city, created_at, 0 as bid_count')->where("user_id",$user_id)->order_by("id", "DESC")->get('traffic_cases')->result_array();
 		foreach($rows as $k=>$v){
 			$reslt = $this->db->select('count(TB.id) as bid_count')
 			->where("TB.case_id",$v['id'])
@@ -553,6 +553,13 @@ class Api_user_model extends CI_Model
 		return false;
 
 
+	}
+
+	public function getBidsByBidId($bid_id){
+		$rows = array();
+		$rows= $this->db->select('*')->where("id",$bid_id)->get('traffic_bids')->row_array();
+		//echo $this->db->last_query();
+		return $rows;
 	}
 
 
