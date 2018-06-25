@@ -36,8 +36,8 @@ class Api_user_model extends CI_Model
 		$user['phone'] = $phone;
 		$user['user_type'] = $user_type;
 		$user['profile_image'] = $profile_image;
-		$user['is_active'] = $user_type == "CLIENT" ? '0' : '1';
-		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
+		//$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = '1';
 		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'Please complete your profile details';
 		$user['register_from'] = 'FACEBOOK';
@@ -61,9 +61,9 @@ class Api_user_model extends CI_Model
 		$user['phone'] = $phone;
 		$user['user_type'] = $user_type;
 		$user['profile_image'] = $profile_image;
-		$user['is_active'] = $user_type == "CLIENT" ? '1' : '1';
+		$user['is_active'] = $user_type == "CLIENT" ? '1' : '0';
 		$user['admin_message'] = $user_type == "CLIENT" ? '' : 'Please complete your profile details';
-		$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
+		//$user['is_phone_verified'] = $user_type == "CLIENT" ? '0' : '1';
 		$user['is_email_verified'] = '1';
 		$user['register_from'] = 'GOOGLE';
 		$user['google_id'] = $google_id;
