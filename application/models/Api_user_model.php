@@ -577,7 +577,7 @@ class Api_user_model extends CI_Model
 		$data['case_id'] = $case_id;
 		$data['is_view'] = '1';
 		
-		$this->db->insert('is_view',$user);
+		$this->db->insert('is_view',$data);
 		}
 		//echo $this->db->last_query();
 		return true;
