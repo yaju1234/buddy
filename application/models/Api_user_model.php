@@ -124,11 +124,17 @@ class Api_user_model extends CI_Model
 		->result_array();
 		
 		foreach($rows as $k=>$v){
+
 			$reslt = $this->db->select('count(TB.id) as bid_count, IF(TB.is_accepted = "1", TB.lawyer_id, 0) as accepted_lawyer_id')
 			->where("TB.case_id",$v['id'])
 			->get('traffic_bids TB')->row_array();
+
+			$reslt1= $this->db->select('count(*) AS count')->where('lawyer_id',$lawyer_id)->where("case_id",$v['id'])->get('is_view')->row_array();
+
+
 			$rows[$k]['bid_count'] = $reslt['bid_count'];
 			$rows[$k]['accepted_lawyer_id'] = $reslt['accepted_lawyer_id'];
+			$rows[$k]['is_view'] = $reslt1['count'];
 		}
 		return $rows;
 	}
@@ -560,6 +566,21 @@ class Api_user_model extends CI_Model
 		$rows= $this->db->select('*')->where("id",$bid_id)->get('traffic_bids')->row_array();
 		//echo $this->db->last_query();
 		return $rows;
+	}
+
+	public function setViewed($user_id,$case_id){
+		$rows = array();
+		$rows= $this->db->select('count(*) AS count')->where('lawyer_id',$$user_id)->where("case_id",$case_id)->get('is_view')->row_array();
+		if($rows['count'] == 0){
+		$data = array();
+		$data['lawyer_id'] = $user_id;
+		$data['case_id'] = $case_id;
+		$data['is_view'] = '1';
+		
+		$this->db->insert('is_view',$user);
+		}
+		//echo $this->db->last_query();
+		return true;
 	}
 
 

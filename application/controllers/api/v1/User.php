@@ -1039,4 +1039,30 @@ public function resetpassword_post(){
 }
 
 
+public function setViewed_post(){
+
+	$response = array();
+	$user_id = $this->input->post('user_id');
+	$case_id = $this->input->post('case_id');
+	
+	$status = $this->Api_user_model->setViewed($user_id,$case_id);
+	if($status){
+		$response['status'] = true;
+		$response['response'] =new stdClass();
+		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] =new stdClass();
+		$response['message'] = "error";
+	}
+	
+	
+
+	
+
+	$this->response($response);
+}
+
+
 }
