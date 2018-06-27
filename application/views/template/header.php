@@ -191,6 +191,11 @@
                                 <li><a href="<?=base_url()?>admin/banners">List </a></li>
                             </ul>
                         </li>
+                        <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-file-excel-o"></i><span class="hide-menu">Download Excel</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="<?=base_url()?>admin/downloadexcel">List </a></li>
+                            </ul>
+                        </li>
 						
                         <!-- 
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Charts</span></a>
