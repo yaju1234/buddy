@@ -16,7 +16,17 @@
 		<div class="row">
 			<div class="col-12">
 			<div class="card">
-				<div class="card-body">
+				<div class="generate-excel">
+					
+						<label for="">From</label>
+						<input type="text" name="" id="">
+				
+					
+						<label for="">To</label>
+						<input type="text" name="" id="">
+					
+					
+						<input type="button" value="generate">
 					
 				</div>
 			</div>
