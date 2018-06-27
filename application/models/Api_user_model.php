@@ -570,7 +570,7 @@ class Api_user_model extends CI_Model
 
 	public function setViewed($user_id,$case_id){
 		$rows = array();
-		$rows= $this->db->select('count(*) AS count')->where('lawyer_id',$$user_id)->where("case_id",$case_id)->get('is_view')->row_array();
+		$rows= $this->db->select('count(*) AS count')->where('lawyer_id',$user_id)->where("case_id",$case_id)->get('is_view')->row_array();
 		if($rows['count'] == 0){
 		$data = array();
 		$data['lawyer_id'] = $user_id;
