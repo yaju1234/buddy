@@ -5,8 +5,11 @@ class Clients extends MY_Controller {
 	
 	public function __construct() {
 		parent::__construct();
-		$this->load->model(array('admin_model','Api_user_model'));
 		$this->load->helper(array('url', 'form'));
+		$this->load->library('twilio');
+		$this->load->library('email');
+		$this->load->library('fcm');
+		$this->load->model(array('admin_model','Api_user_model'));
 	}
 	
 	public function index() {
@@ -132,12 +135,34 @@ class Clients extends MY_Controller {
         $data['client_list'] = $this->admin_model->getClientDetails($client_id);
         $data['case_list'] = $this->admin_model->getCaseDetails($client_id, $case_id);
         $data['bid_list'] = $this->admin_model->getBids($case_id);
+        $data['lawyer_list'] = $this->admin_model->getLawyers();
 		/*echo "<pre />";
 		print_r($data);exit;*/
 		$this->load->view('template/header.php', $data);
         $this->load->view('admin/client_bid_details_view', $data);
 		$this->load->view('template/footer.php');
     }
+	
+	public function assignLawyer(){
+		
+		$response = array();
+		$lawyer_id = $this->input->post('lawyer_id');
+		$client_id = $this->input->post('client_id');
+		$case_id	 = $this->input->post('case_id');
+		$bid_amount	 = $this->input->post('bid_amount');
+		$bid_text = $this->input->post('bid_text');
+		$bid_by = 'ADMIN';
+
+		$last_inserted_id = $this->Api_user_model->placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text,$bid_by);
+
+		if($last_inserted_id>0){
+			$title = "New bid";
+			$message = "New bid";
+			$this->Api_user_model->pushNotificationForclientBids($client_id,$title,$message,"ACTIVITY_PLACEBID",$case_id);	
+		}
+		redirect('admin/clients/details/'.$client_id.'/case-details/'.$case_id, 'refresh');
+		$this->response($response);
+	}
 
     public function editprofile() {
         $data = array();

@@ -32,10 +32,15 @@
 			</div>
 		</div>
 		<div class="his_cases">
-			<div class="block">
+			<div class="block col-md-6 float-left">
 				<span><?=count($bid_list)?></span>
 				<h3>total bids</h3>
 			</div>
+			<?php if($case_list['status'] == 'PENDING'){?>
+			<div class="block col-md-6 float-left">
+				<a href="javascript:void(0);" class="btn btn-primary" style="background-color: #01406c;" data-toggle="modal" data-target="#assignLawyerModal" data-backdrop="static" keyboard="false">ASSIGN LAWYER</a>
+			</div>
+			<?php } ?>			
 		</div>
 		
 		<div class="tab-area">
@@ -67,7 +72,7 @@
 									}
 									$i ++;
                             ?>
-							<tr>
+							<tr style="<?=$list['status'] == 'ACCEPTED' ? 'background-color: #bde5bd;' : ''?>">
 								<td><?=$i?></td>
 								<td>
 									<figure>
@@ -83,7 +88,8 @@
 								</td>
 								<td><?=$list['bid_amount']?></td>
 								<td><?=$list['bid_text']?></td>
-								<td><p style="<?=$list['status'] == 'CLOSED' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'CLOSED' ? 'Closed' : 'Open'?></p></td>
+								<td><?=$list['status']?></td>
+								<!--<td><p style="<?//=$list['status'] == 'CLOSED' ? 'color:red' : 'color:green'?>"><?//=$list['status'] == 'CLOSED' ? 'Closed' : 'Open'?></p></td>-->
 							</tr>
 								<?php
 									}
@@ -190,6 +196,71 @@
 	  </div>
 	</div>
 </div>
+
+<div class="modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="assignLawyerModal">
+	<div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-content">
+			<form action="<?=base_url()?>admin/clients/assignLawyer" method="post" >
+				<div class="modal-header">
+				<h4 class="modal-title">Assign Lawyer</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:0; padding:0; font-size:25px;">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+					<div class="col-md-12">
+						<div class="form-group col-md-12 float-left">
+							<label for="fname">
+								CASE NO: <?=$case_list['case_number']?>
+							</label>
+							<input type="hidden" class="form-control" name="case_id" value="<?=$case_list['id']?>"/>
+							<input type="hidden" class="form-control" name="client_id" value="<?=$client_list['id']?>"/>
+						</div>
+						
+						<div class="form-group col-md-12 float-left">
+							<label for="lawyer">
+								Select Lawyer
+							</label>
+							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="lawyer_id">
+							<?php foreach($lawyer_list as $lawyer) { ?>
+								<option value="<?=$lawyer['id']?>"><?=$lawyer['first_name']?> <?=$lawyer['last_name']?></option>
+							<?php } ?>
+							</select>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="lawyer" data-valmsg-replace="true"></span>
+						</div>
+						
+						<div class="form-group col-md-12 float-left">
+							<label for="lawyer">
+								Bid Amount
+							</label>
+							<input type="text" name="bid_amount" class="form-control" placeholder="Enter bid Amount">
+							<span class="field-validation-valid text-danger"  data-valmsg-for="bid_amount" data-valmsg-replace="true"></span>
+						</div>
+						
+						<div class="form-group col-md-12 float-left">
+							<label for="lawyer">
+								Bid Text
+							</label>
+							<textarea name="bid_text" class="form-control" placeholder="Enter bid text"></textarea>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="bid_text" data-valmsg-replace="true"></span>
+						</div>
+						
+						<div class="form-group col-md-12 float-left">
+							&nbsp;
+						</div>
+						
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+	  </div>
+	</div>
+</div>
+
 
 <script type="text/javascript">
 	var baseUrl = "<?=base_url()?>";

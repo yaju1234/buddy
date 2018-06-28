@@ -456,7 +456,7 @@ class Api_user_model extends CI_Model
 		return $this->db->insert_batch('traffic_case_notifications', $data);
 	}
 
-	public function placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text){
+	public function placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text,$bid_by="LAWYER"){
 
 		$rows = array();
 		$rows= $this->db->select('count(*) AS count')->where("lawyer_id",$lawyer_id)->where("case_id",$case_id)->get('traffic_bids')->row_array();
@@ -467,6 +467,7 @@ class Api_user_model extends CI_Model
 			$data['case_id'] = $case_id;
 			$data['bid_amount'] = $bid_amount;
 			$data['bid_text'] = $bid_text;
+			$data['bid_by'] = $bid_by;
 			$data['created_at'] = date("Y-m-d h:i:s");
 
 			$this->db->insert('traffic_bids',$data);
