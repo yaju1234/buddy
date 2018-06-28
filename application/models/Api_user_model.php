@@ -600,7 +600,7 @@ class Api_user_model extends CI_Model
 
 
 		$data1 = array();
-		$data1['is_rate'] = $new_password;
+		$data1['is_rate'] = '1';
 			
 		$this->db->where('id',$bid_id)->update('traffic_bids',$data1);
 
