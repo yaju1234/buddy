@@ -584,7 +584,7 @@ class Api_user_model extends CI_Model
 	}
 
 
-	public function rate($lawyer_id,$case_id,$bid_id,$rating,$description){
+	public function rate($lawyer_id,$case_id,$bid_id,$rating,$description,$user_id ){
 
 		
 		$data = array();
@@ -593,6 +593,7 @@ class Api_user_model extends CI_Model
 		$data['bid_id'] = $bid_id;
 		$data['rating'] = $rating;
 		$data['description'] = $description;
+		$data['user_id'] = $user_id;
 		
 		$this->db->insert('traffic_rating',$data);
 

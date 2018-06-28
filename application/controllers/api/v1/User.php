@@ -1070,8 +1070,9 @@ public function rate_post(){
 	$bid_id = $this->input->post('bid_id');
 	$rating = $this->input->post('rating');
 	$description = $this->input->post('description');
+	$user_id = $this->input->post('lawyer_id');
 	
-	$status = $this->Api_user_model->rate($lawyer_id,$case_id,$bid_id,$rating,$description);
+	$status = $this->Api_user_model->rate($lawyer_id,$case_id,$bid_id,$rating,$description,$user_id );
 	if($status){
 		$response['status'] = true;
 		$response['response'] =new stdClass();
