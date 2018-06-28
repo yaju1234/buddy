@@ -607,6 +607,13 @@ class Api_user_model extends CI_Model
 		return true;
 	}
 
+	public function getcasedetails($case_id){
+		$rows = array();
+		$rows= $this->db->select('*')->where("id",$case_id)->get('traffic_cases')->row_array();
+		//echo $this->db->last_query();
+		return $rows;
+	}
+
 
 }
 ?>
