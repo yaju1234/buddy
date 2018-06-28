@@ -413,7 +413,8 @@ class Api_user_model extends CI_Model
                     "case_id" =>$case_id,
                     "city" => $row['city'],
                     'state' => $row['state'],
-                    'country' => "Canada"
+                    'country' => "Canada",
+                    'status' => $row['status']
                     )
                     );
 			//print_r($fields);
