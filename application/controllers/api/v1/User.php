@@ -998,7 +998,7 @@ public function acceptBid_post(){
 	
 	$data = $this->Api_user_model->acceptCase($case_id);
 	$data = $this->Api_user_model->acceptBid($bid_id);
-	$data1 = $this->Api_user_model->getcasedetails($case_id);
+	$data1 = $this->Api_user_model->getcasedetailsById($case_id);
 		$title = "Accepted";
 		$message = "your bid has been accepted. Case No . ".$data1['case_number'];
 		$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
