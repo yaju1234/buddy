@@ -1057,8 +1057,31 @@ public function setViewed_post(){
 		$response['message'] = "error";
 	}
 	
-	
 
+	$this->response($response);
+}
+
+
+public function rate_post(){
+
+	$response = array();
+	$lawyer_id = $this->input->post('lawyer_id');
+	$case_id = $this->input->post('case_id');
+	$bid_id = $this->input->post('bid_id');
+	$rating = $this->input->post('rating');
+	$description = $this->input->post('description');
+	
+	$status = $this->Api_user_model->rate($lawyer_id,$case_id,$bid_id,$rating,$description);
+	if($status){
+		$response['status'] = true;
+		$response['response'] =new stdClass();
+		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] =new stdClass();
+		$response['message'] = "error";
+	}
 	
 
 	$this->response($response);
