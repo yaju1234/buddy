@@ -601,11 +601,18 @@ class Api_user_model extends CI_Model
 
 
 		$data1 = array();
-		$data1['is_rate'] = $new_password;
+		$data1['is_rate'] = '1';
 			
 		$this->db->where('id',$bid_id)->update('traffic_bids',$data1);
 
 		return true;
+	}
+
+	public function getcasedetailsById($case_id){
+		$rows = array();
+		$rows= $this->db->select('*')->where("id",$case_id)->get('traffic_cases')->row_array();
+		//echo $this->db->last_query();
+		return $rows;
 	}
 
 
