@@ -18,7 +18,7 @@ require_once('stripe-php-6.9.0/init.php');
       "description" => $description
       ));
     $chargeID = $charge['id'];
-    echo '{"status":true}'
+    echo '{"status":true}';
    // print("\n" . 'Successfuly created charge with ID: <a target="_blank" href="https://dashboard.stripe.com/test/payments/' . $chargeID . '">' . $chargeID . '</a>' . "\n");
   } catch(\Stripe\Error\Card $e) {
     // Since it's a decline, \Stripe\Error\Card will be caught
@@ -30,26 +30,26 @@ require_once('stripe-php-6.9.0/init.php');
     // param is '' in this case
     print('Param is:' . $err['param'] . "\n");
     print('Message is:' . $err['message'] . "\n");*/
-    echo '{"status":false}'
+    echo '{"status":false}';
   } catch (\Stripe\Error\RateLimit $e) {
-    echo '{"status":false}'
+    echo '{"status":false}';
     // Too many requests made to the API too quickly
   } catch (\Stripe\Error\InvalidRequest $e) {
-    echo '{"status":false}'
+    echo '{"status":false}';
     // Invalid parameters were supplied to Stripe's API
   } catch (\Stripe\Error\Authentication $e) {
-   echo '{"status":false}'
+   echo '{"status":false}';
     // Authentication with Stripe's API failed
     // (maybe you changed API keys recently)
   } catch (\Stripe\Error\ApiConnection $e) {
-   echo '{"status":false}'
+   echo '{"status":false}';
     // Network communication with Stripe failed
   } catch (\Stripe\Error\Base $e) {
-    echo '{"status":false}'
+    echo '{"status":false}';
     // Display a very generic error to the user, and maybe send
     // yourself an email
   } catch (Exception $e) {
-    echo '{"status":false}'
+    echo '{"status":false}';
     // Something else happened, completely unrelated to Stripe
   }
 //}
