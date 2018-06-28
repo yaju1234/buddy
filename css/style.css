@@ -102,7 +102,9 @@ h6 { line-height: 16px; font-size: 14px; font-weight: 400; }
 .boxed #main-wrapper .sidebar-footer { position: absolute; }
 .boxed #main-wrapper .footer { display: none; }
 .page-wrapper { background: #fafafa; padding-bottom: 60px; }
-.container-fluid { padding: 0 30px 25px; }
+/* .container-fluid { padding: 0 30px 25px; } */
+.container-fluid { padding: 0px; }
+
 @media (min-width:1024px) {
   .page-wrapper { margin-left: 240px; }
   .footer { left: 240px; }
@@ -566,7 +568,7 @@ textarea { resize: none; }
 .label-light-primary { background-color: #f1effd; color: #5c4ac7; }
 .label-light-inverse { background-color: #f6f6f6; color: #2f3d4a; }
 .breadcrumb { margin-bottom: 0; }
-.page-titles { background: #ffffff; margin: 0 0 30px; padding: 15px 10px; position: relative; z-index: 10; -webkit-box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); }
+.page-titles { background: #ffffff; margin: 0px; padding: 15px 10px; position: relative; z-index: 10; -webkit-box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); }
 .page-titles h3 { margin-bottom: 0; margin-top: 0; }
 .page-titles .breadcrumb { padding: 0; background: transparent; font-size: 14px; }
 .page-titles .breadcrumb li { margin-top: 0; margin-bottom: 0; }
@@ -1370,7 +1372,7 @@ thead tr th:last-child { text-align: right; }
 tbody tr th { color: #455a64; font-family: 'Poppins', sans-serif; font-weight: normal; }
 tbody tr td { font-family: 'Poppins', sans-serif; color: #99abb4; }
 tbody tr td:last-child { text-align: center; }
-.table > thead > tr > th { border-bottom: 1px solid #e7e7e7; font-weight: 600; font-size: 12px; line-height: 20px; color: #222; text-transform: uppercase; text-align: center; vertical-align: middle; }
+.table > thead > tr > th { border-bottom: 1px solid #e7e7e7; font-weight: 600; font-size: 12px; line-height: 20px; color: #222; text-transform: uppercase; text-align: center; vertical-align: middle; padding: 10px 5px; }
 .table { margin-bottom: 0; }
 .table .badge { text-transform: uppercase; }
 .student-data-table label { margin-right: 7px; }
@@ -1849,11 +1851,16 @@ tbody tr td:last-child { text-align: center; }
 
 
 
-.his_cases { width: 100%; padding: 20px; background-color: #eff9ff; }
+/* .his_cases { width: 100%; padding: 20px; background-color: #eff9ff; }
 .his_cases:after { content: ""; display: table; clear: both; }
 .his_cases .block { width: 50%; float: left; text-align: center; }
 .his_cases .block span { font-size: 40px; line-height: 1; color: #01406c; text-transform: uppercase; }
-.his_cases .block h3 { font-size: 20px; line-height: 36px; color: #333; text-transform: capitalize; margin: 5px 0px 0px; }
+.his_cases .block h3 { font-size: 20px; line-height: 36px; color: #333; text-transform: capitalize; margin: 5px 0px 0px; } */
+
+.his_cases { width: 100%; }
+.his_cases .block {  }
+.his_cases .block span { font-size: 18px; line-height: 24px; color: #1097f1; text-transform: uppercase; display: inline-block; vertical-align: top; }
+.his_cases .block h3 { font-size: 14px; line-height: 24px; color: #333; text-transform: capitalize; margin: 0px 10px 0px 0px; display: inline-block; vertical-align: top; }
 
 .his_cases .input-field { max-width: 800px; margin: 0 auto 30px; }
 .his_cases .input-field:after { content: ""; display: table; clear: both; }
@@ -1871,9 +1878,9 @@ tbody tr td:last-child { text-align: center; }
 .tab-area .nav-tabs .nav-item .nav-link:before { content: ""; position: absolute; bottom: 0px; left: 0px; width: 0px; height: 3px; background-color: #01406c; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease; }
 .tab-area .nav-tabs .nav-item .nav-link.active, .tab-area .nav-tabs .nav-item .nav-link:hover { background-color: #fff; color: #222; }
 .tab-area .nav-tabs .nav-item .nav-link.active i, .tab-area .nav-tabs .nav-item .nav-link:hover i { color: #1097f1; }
-.tab-area .nav-tabs .nav-item .nav-link.active:before, .tab-area .nav-tabs .nav-item .nav-link:hover:before { width: 100%; }
+.tab-area .nav-tabs .nav-item .nav-link.active:before { width: 100%; }
 
-.tab-area .tab-pane { padding: 20px; }
+.tab-area .tab-pane { padding: 20px 0px; }
 .table tbody td { font-size: 12px; line-height: 18px; color: #333; vertical-align: middle; }
 .table tbody td figure { max-width: 60px; }
 .table tbody td figure img { max-width: 100%; }
@@ -1910,3 +1917,9 @@ tbody tr td:last-child { text-align: center; }
 .profile-edit .btn.btn-info { padding: 7px 25px; }
 
 
+.generate-excel { padding: 70px 0px; text-align: center; }
+.generate-excel:after { display: table; content: ""; clear: both; }
+.generate-excel .block { float: left; width: 30%; }
+.generate-excel label { font-size: 14px; line-height: 38px; color: #333; margin-right: 10px; display: inline-block; vertical-align: top; }
+.generate-excel input:not([type="submit"]):not([type="button"]):not([type="radio"]):not([type="checkbox"]) { width: 100%; max-width: 200px; height: 40px; color: #333; border: 1px solid #ddd; font-size: 14px; line-height: 38px; text-align: left; margin-right: 20px; }
+.generate-excel input[type="button"], .generate-excel input[type="submit"] { font-size: 16px; line-height: 40px; text-transform: uppercase; padding: 0px 20px; border: none; background-color: #1097f1; color: #fff; cursor: pointer; }

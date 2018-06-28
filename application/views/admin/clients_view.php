@@ -19,7 +19,7 @@
 				<div class="card-body">
 					<h4 class="card-title">Clients List</h4>
 					<!--<h6 class="card-subtitle">Data table example</h6>-->
-					<div class="table-responsive m-t-40">
+					<div class="table-responsive">
 						<table id="clientTable" class="table table-bordered table-striped">
 							<thead>
 								<tr>

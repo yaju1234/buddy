@@ -32,22 +32,23 @@
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
 				<p><i class="fa fa-map-marker"></i><?=$client_list['city']?></p>
 				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
+				<div class="his_cases">
+					<div class="block">
+						<h3>total cases</h3>
+						<span><?=count($all_case_list)?></span>
+					</div>
+					<div class="block">
+						<h3>open cases</h3>
+						<span><?=count($open_case_list)?></span>
+					</div>
+				</div>
 			</div>
 			<label class="switch">
 				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
 				<span class="slider round"></span>
 			</label>
 		</div>
-		<div class="his_cases">
-			<div class="block">
-				<span><?=count($all_case_list)?></span>
-				<h3>total cases</h3>
-			</div>
-			<div class="block">
-				<span><?=count($open_case_list)?></span>
-				<h3>open cases</h3>
-			</div>
-		</div>
+		
 		<div class="tab-area">
 			<ul class="nav nav-tabs details-nav" id="myTab" role="tablist">
 				<li class="nav-item">
