@@ -43,10 +43,15 @@
 					</div>
 				</div>
 			</div>
-			<label class="switch">
-				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
-				<span class="slider round"></span>
-			</label>
+			<div class="btn-box">
+				<p>
+					User Status
+					<label class="switch">
+						<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
+						<span class="slider round"></span>
+					</label>
+				</p>
+			</div>
 		</div>
 		
 		<div class="tab-area">

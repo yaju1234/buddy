@@ -32,15 +32,33 @@
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
 				<p><i class="fa fa-map-marker"></i><?=$client_list['city']?></p>
 				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
+				<div class="his_cases">
+					<div class="block">
+						<h3>total cases</h3>
+						<span><?=count($all_case_list)?></span>
+					</div>
+					<div class="block">
+						<h3>open cases</h3>
+						<span><?=count($open_case_list)?></span>
+					</div>
+				</div>
 			</div>
-			<label class="switch">
-				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true" title="Disable"':'title="Enable"'?> onChange="disableUser(<?=$client_list['id']?>);">
-				<span class="slider round" <?=$client_list['status']=='1'?'title="Disable the Lawyer"':'title="Enable the Lawyer"'?>></span>
-			</label>
-			<label class="switch" style="float: right; margin-right: 7px;">
-				<input class="vrfyUsr" type="checkbox" <?=$client_list['is_active']=='1'?'checked="true" title="Not Verify"':'title="Verify"'?> onChange="verifyUser(<?=$client_list['id']?>);">
-				<span class="slider round" <?=$client_list['is_active']=='1'?'title="Disprove the Lawyer"':'title="Verify the Lawyer"'?>></span>
-			</label>
+			<div class="btn-box">
+				<p>
+					User Status
+					<label class="switch">
+						<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true" title="Disable"':'title="Enable"'?> onChange="disableUser(<?=$client_list['id']?>);">
+						<span class="slider round" <?=$client_list['status']=='1'?'title="Disable the Lawyer"':'title="Enable the Lawyer"'?>></span>
+					</label>
+				</p>
+				<p>
+					Verified
+					<label class="switch">
+						<input class="vrfyUsr" type="checkbox" <?=$client_list['is_active']=='1'?'checked="true" title="Not Verify"':'title="Verify"'?> onChange="verifyUser(<?=$client_list['id']?>);">
+						<span class="slider round" <?=$client_list['is_active']=='1'?'title="Disprove the Lawyer"':'title="Verify the Lawyer"'?>></span>
+					</label>
+				</p>
+			</div>
 		</div>
 		<div class="his_cases">
 			<div class="input-field">
@@ -50,14 +68,6 @@
 					<input type="submit" value="submit">
 					<input type="hidden" value="<?=$client_list['id']?>" name="user_id">
 				</form>
-			</div>
-			<div class="block">
-				<span><?=count($all_case_list)?></span>
-				<h3>total cases</h3>
-			</div>
-			<div class="block">
-				<span><?=count($open_case_list)?></span>
-				<h3>open cases</h3>
 			</div>
 		</div>
 		<div class="tab-area">
@@ -91,7 +101,7 @@
 								<td><?=$client_list['phone']?></td>
 								<td><?=$client_list['city']?>, <?=$client_list['state']?>, <?=$client_list['country']?></td>
 								<td>
-									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$client_list['id']?>)"><i class="fa fa-pencil"></i></button>
+									<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient(<?=$client_list['id']?>)"><i class="fa fa-pencil"></i>Edit</button>
 								</td>
 							</tr>
 						</tbody>
@@ -159,7 +169,7 @@
 									</figure>
 								</td>
 								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
-								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
+								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i>View</button></td>
 							</tr>
 								<?php
 									}
@@ -229,7 +239,7 @@
 									</figure>
 								</td>
 								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
-								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
+								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i>View</button></td>
 							</tr>
 								<?php
 									}
