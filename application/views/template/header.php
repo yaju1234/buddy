@@ -12,10 +12,6 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url()?>css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-  
-       
-    
-
     <!-- Custom CSS -->
     <link href="<?=base_url()?>css/helper.css" rel="stylesheet">
     <link href="<?=base_url()?>css/style.css" rel="stylesheet">
