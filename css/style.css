@@ -1885,11 +1885,12 @@ tbody tr td:last-child { text-align: center; }
 .table tbody td { font-size: 14px; line-height: 20px; color: #333; vertical-align: middle; }
 .table tbody td figure { max-width: 60px; }
 .table tbody td figure img { max-width: 100%; }
-.table .avatar { width: 50px; height: 50px; display: table-cell; border: 3px solid #fff; }
+.table .avatar { width: 50px; height: 50px; display: table-cell; }
 .table .avatar a { display: block; width: 50px; height: 50px; overflow: hidden; }
 .table .avatar img { width: 100%; height: 100%; }
-.table tbody td p { font-size: 14px; line-height: 20px; color: #333; margin: 2px 0px; }
+.table tbody td p { font-size: 14px; line-height: 20px; color: #333; margin: 2px 0px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .table tbody td p i { margin-right: 5px; }
+.table tbody td p i.btn-danger { padding: 0px 1px 0px 2px; }
 .client-details {  }
 .client-details .block { padding: 5px; height: 70px; -webkit-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); -moz-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); -ms-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); -o-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.03); }
 .client-details .block:after { content: ""; display: table; clear: both; }
