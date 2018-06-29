@@ -7,6 +7,8 @@
 <!-- End Wrapper -->
 	<!-- All Jquery -->
     <script src="<?=base_url()?>js/lib/jquery/jquery.min.js"></script>
+     <!--jQuery chosen-->
+  <script src="<?=base_url()?>js/lib/chosen.jquery.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="<?=base_url()?>js/lib/bootstrap/js/popper.min.js"></script>
     <script src="<?=base_url()?>js/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -30,7 +32,6 @@
     <script src="<?=base_url()?>js/lib/datatables/datatables-init.js"></script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
-     <!--jQuery chosen-->
-  <script src="<?=base_url()?>js/lib/chosen.jquery.js"></script>
+
   </body>
 </html>
