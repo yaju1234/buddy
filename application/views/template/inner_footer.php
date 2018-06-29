@@ -35,9 +35,6 @@
         <script src="<?=base_url()?>assets/flot-chart/jquery.flot.animator.min.js"></script>
         <script src="<?=base_url()?>assets/flot-chart/jquery.flot.growraf.js"></script>
         
- <!--jQuery chosen-->
-  <script src="<?=base_url()?>js/lib/chosen.jquery.js"></script>
-
         <script src="<?=base_url()?>js/custom-select/jquery.customSelect.min.js" ></script>
         <!--common script init for all pages-->
         <script src="<?=base_url()?>js/scripts.js"></script>

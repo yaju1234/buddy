@@ -30,5 +30,7 @@
     <script src="<?=base_url()?>js/lib/datatables/datatables-init.js"></script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+     <!--jQuery chosen-->
+  <script src="<?=base_url()?>js/lib/chosen.jquery.js"></script>
   </body>
 </html>
