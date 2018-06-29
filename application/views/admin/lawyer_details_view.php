@@ -158,7 +158,7 @@
 										</a>
 									</figure>
 								</td>
-								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
+								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'OPEN' : $list['status']?></p></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 								<?php
@@ -228,7 +228,7 @@
 										</a>
 									</figure>
 								</td>
-								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
+								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'OPEN' : $list['status']?></p></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
 							</tr>
 								<?php

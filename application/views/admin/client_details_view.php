@@ -148,7 +148,7 @@
 										</a>
 									</figure>
 								</td>
-								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
+								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'OPEN' : $list['status']?></p></td>
 								<td>
 									<a class="btn btn-info" href="<?=base_url()?>admin/clients/details/<?=$client_list['id']?>/case-details/<?=$list['id']?>">
 										<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
@@ -222,7 +222,7 @@
 										</a>
 									</figure>
 								</td>
-								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
+								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'OPEN' : $list['status']?></p></td>
 								<td>
 									<a class="btn btn-info" href="<?=base_url()?>admin/clients/details/<?=$client_list['id']?>/case-details/<?=$list['id']?>">
 										<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
