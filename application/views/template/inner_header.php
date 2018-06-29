@@ -21,6 +21,7 @@
         <!-- Custom styles for this template -->
         <link href="<?=base_url()?>css/style.css" rel="stylesheet">
         <link href="<?=base_url()?>css/style-responsive.css" rel="stylesheet"/>
+        <link href="<?=base_url()?>css/chosen.css" rel="stylesheet"/>
         
         
     </head>
