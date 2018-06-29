@@ -16,31 +16,42 @@
 	<div class="container-fluid no-padding">
 		<!-- Start Page Content -->
 		<div class="user-details">
+			<?php 
+				$prfImg = base_url()."images/no-image.png";
+				if( $client_list['profile_image'] != '' && (strpos($client_list['profile_image'], 'http://') !== false || strpos($client_list['profile_image'], 'https://') !== false) ){
+					$prfImg = $client_list['profile_image'];
+				} else if ($client_list['profile_image'] != '') {
+					$prfImg = base_url().$client_list['profile_image'];
+				}
+			?>
+			<figure>
+				<a class="example-image-link" href="<?=$prfImg?>" data-fancybox="client-image-<?=$client_list['id']?>">
+					<img src="<?=$prfImg?>" alt="Profile Picture">
+				</a>
+			</figure>
 			<div class="details">
-			<div class="col-md-6">
 				<h2><?=$client_list['first_name']." ".$client_list['last_name']?></h2>
 				<p><i class="fa fa-map-marker"></i><?=$client_list['city']?></p>
 				<p><i class="fa fa-envelope-o"></i><?=$client_list['email']?></p>
 				<p>Case No: <?=$case_list['case_number']?></p>
-			</div>
-			<div class="col-md-6">
+			
 				<p>Location: <?=$case_list['city']?>, <?=$case_list['state']?></p>
 				<p>Description: <?=$case_list['case_details']?></p>
 				<p>Status: <?=$case_list['status']?></p>
 				<!--<p>Total Bid(s): <?//=$case_list['bid_count']?></p>-->
-			</div>
-			</div>
-		</div>
-		<div class="his_cases">
-			<div class="block col-md-6 float-left">
-				<span><?=count($bid_list)?></span>
-				<h3>total bids</h3>
+			
 			</div>
 			<?php if($case_list['status'] == 'PENDING'){?>
 			<div class="block col-md-6 float-left">
 				<a href="javascript:void(0);" class="btn btn-primary" style="background-color: #01406c;" data-toggle="modal" data-target="#assignLawyerModal" data-backdrop="static" keyboard="false">ASSIGN LAWYER</a>
 			</div>
-			<?php } ?>			
+			<?php } ?>	
+		</div>
+		<div class="his_cases">
+			<div class="block col-md-6 float-left">
+				<span><?=count($bid_list)?></span>
+				<h3>total bids</h3>
+			</div>		
 		</div>
 		
 		<div class="tab-area">
