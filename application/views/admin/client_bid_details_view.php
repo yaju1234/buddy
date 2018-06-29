@@ -1,3 +1,4 @@
+<link href="<?=base_url()?>css/chosen.css" rel="stylesheet"/>
 <!-- Bread crumb -->
 	<div class="row page-titles no-gap">
 		<div class="col-md-5 align-self-center">
@@ -264,7 +265,7 @@
 
 <script type="text/javascript">
 
-		  
+
 	var baseUrl = "<?=base_url()?>";
 	function disableUser(id){
 		if(!$('.dsbleUsr').is(':checked')){

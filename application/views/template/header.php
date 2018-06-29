@@ -14,7 +14,7 @@
     <link href="<?=base_url()?>css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
   
        
-    <link href="<?=base_url()?>css/chosen.css" rel="stylesheet"/>
+    
 
     <!-- Custom CSS -->
     <link href="<?=base_url()?>css/helper.css" rel="stylesheet">
