@@ -222,6 +222,10 @@
 							<label for="lawyer">
 								Select Lawyer
 							</label>
+<style>
+.chosen-container .chosen-container-single	{width: 500px;}
+</style>
+
 							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control chosen-select" name="lawyer_id">
 							<?php foreach($lawyer_list as $lawyer) { ?>
 								<option value="<?=$lawyer['id']?>"><?=$lawyer['first_name']?> <?=$lawyer['last_name']?></option>
@@ -265,6 +269,16 @@
 
 <script type="text/javascript">
 
+  var config = {
+            '.chosen-select'           : {max_selected_options: 200},
+            '.chosen-select-deselect'  : {allow_single_deselect:true},
+            '.chosen-select-no-single' : {disable_search_threshold:10},
+            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+            '.chosen-select-width'     : {width:"100%"}
+          }
+          for (var selector in config) {
+            $(selector).chosen(config[selector]);
+          }
 
 	var baseUrl = "<?=base_url()?>";
 	function disableUser(id){
@@ -405,3 +419,6 @@
 		});
 	}
 </script>
+<style>
+.chosen-container .chosen-container-single	{width: 500px;}
+</style>

@@ -34,16 +34,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
 
 <script>
-    var config = {
-            '.chosen-select'           : {max_selected_options: 200},
-            '.chosen-select-deselect'  : {allow_single_deselect:true},
-            '.chosen-select-no-single' : {disable_search_threshold:10},
-            '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-            '.chosen-select-width'     : {width:"95%"}
-          }
-          for (var selector in config) {
-            $(selector).chosen(config[selector]);
-          }
+  
 
 </script>
   </body>
