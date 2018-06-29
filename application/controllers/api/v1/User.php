@@ -998,8 +998,9 @@ public function acceptBid_post(){
 	
 	$data = $this->Api_user_model->acceptCase($case_id);
 	$data = $this->Api_user_model->acceptBid($bid_id);
+	$data1 = $this->Api_user_model->getcasedetailsById($case_id);
 		$title = "Accepted";
-		$message = "That your bid has been accepted";
+		$message = "your bid has been accepted. Case No . ".$data1['case_number'];
 		$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
 		//echo $data1['lawyer_id'];
 		$this->Api_user_model->pushNotificationForlawyer($data1['lawyer_id'],$title,$message,"ACTIVITY_BID_ACCEPTED");
@@ -1057,8 +1058,32 @@ public function setViewed_post(){
 		$response['message'] = "error";
 	}
 	
-	
 
+	$this->response($response);
+}
+
+
+public function rate_post(){
+
+	$response = array();
+	$lawyer_id = $this->input->post('lawyer_id');
+	$case_id = $this->input->post('case_id');
+	$bid_id = $this->input->post('bid_id');
+	$rating = $this->input->post('rating');
+	$description = $this->input->post('description');
+	$user_id = $this->input->post('user_id');
+	
+	$status = $this->Api_user_model->rate($lawyer_id,$case_id,$bid_id,$rating,$description,$user_id );
+	if($status){
+		$response['status'] = true;
+		$response['response'] =new stdClass();
+		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] =new stdClass();
+		$response['message'] = "error";
+	}
 	
 
 	$this->response($response);

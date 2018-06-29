@@ -413,7 +413,8 @@ class Api_user_model extends CI_Model
                     "case_id" =>$case_id,
                     "city" => $row['city'],
                     'state' => $row['state'],
-                    'country' => "Canada"
+                    'country' => "Canada",
+                    'status' => $row['status']
                     )
                     );
 			//print_r($fields);
@@ -455,7 +456,7 @@ class Api_user_model extends CI_Model
 		return $this->db->insert_batch('traffic_case_notifications', $data);
 	}
 
-	public function placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text){
+	public function placebid($lawyer_id,$client_id,$case_id,$bid_amount,$bid_text,$bid_by="LAWYER"){
 
 		$rows = array();
 		$rows= $this->db->select('count(*) AS count')->where("lawyer_id",$lawyer_id)->where("case_id",$case_id)->get('traffic_bids')->row_array();
@@ -466,6 +467,7 @@ class Api_user_model extends CI_Model
 			$data['case_id'] = $case_id;
 			$data['bid_amount'] = $bid_amount;
 			$data['bid_text'] = $bid_text;
+			$data['bid_by'] = $bid_by;
 			$data['created_at'] = date("Y-m-d h:i:s");
 
 			$this->db->insert('traffic_bids',$data);
@@ -495,7 +497,7 @@ class Api_user_model extends CI_Model
 	public function getBids($case_id){
 		$rows = array();
 		$rows= $this->db
-		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,BIDS.created_at,BIDS.accepted_at,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+		->select('BIDS.id,BIDS.is_rate,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at,BIDS.is_accepted,BIDS.status,BIDS.created_at,BIDS.accepted_at,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
 		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
 		->where("BIDS.case_id",$case_id)
 		->order_by("BIDS.id", "DESC")
@@ -581,6 +583,36 @@ class Api_user_model extends CI_Model
 		}
 		//echo $this->db->last_query();
 		return true;
+	}
+
+
+	public function rate($lawyer_id,$case_id,$bid_id,$rating,$description,$user_id ){
+
+		
+		$data = array();
+		$data['lawyer_id'] = $lawyer_id;
+		$data['case_id'] = $case_id;
+		$data['bid_id'] = $bid_id;
+		$data['rating'] = $rating;
+		$data['description'] = $description;
+		$data['user_id'] = $user_id;
+		
+		$this->db->insert('traffic_rating',$data);
+
+
+		$data1 = array();
+		$data1['is_rate'] = '1';
+			
+		$this->db->where('id',$bid_id)->update('traffic_bids',$data1);
+
+		return true;
+	}
+
+	public function getcasedetailsById($case_id){
+		$rows = array();
+		$rows= $this->db->select('*')->where("id",$case_id)->get('traffic_cases')->row_array();
+		//echo $this->db->last_query();
+		return $rows;
 	}
 
 
