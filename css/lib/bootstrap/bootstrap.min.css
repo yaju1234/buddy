@@ -1822,13 +1822,18 @@ pre code {
 }
 
 .table-bordered {
-	border: 1px solid #dee2e6
+	border: 1px solid #dee2e6;
 }
 
-.table-bordered td, .table-bordered th {
-	border: 1px solid #dee2e6
+.table-bordered th {
+	border: 1px solid #555;
 }
-
+.table-bordered td {
+	border: none;
+}
+.table-bordered td {
+	border-right: 1px dashed #dee2e6;
+}
 .table-bordered thead td, .table-bordered thead th {
 	border-bottom-width: 2px
 }

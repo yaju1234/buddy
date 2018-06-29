@@ -70,16 +70,18 @@
 									</td>
                                     <td class="center">
 										<p>
-											<?=($list['email'])?$list['email']:''?>
 											<?php if($list['email'] != ''){ ?>
-												<?=$list['is_email_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
+												<?=$list['is_email_verified'] == '1' ? '<i class="fa fa-check btn-success" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-close btn-danger" aria-hidden="true" title="Not verified"></i>'?>
 											<?php } ?>
+											<?=($list['email'])?$list['email']:''?>
+											
 										</p>
 										<p>
-											<?=($list['phone'])?$list['phone']:''?>
 											<?php if($list['phone'] != ''){ ?>
-												<?=$list['is_phone_verified'] == '1' ? '<i class="fa fa-check btn-primary" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-times btn-danger" aria-hidden="true" title="Not verified"></i>'?>
+												<?=$list['is_phone_verified'] == '1' ? '<i class="fa fa-check btn-success" aria-hidden="true" title="Verified"></i>' : '<i class="fa fa-close btn-danger" aria-hidden="true" title="Not verified"></i>'?>
 											<?php } ?>
+											<?=($list['phone'])?$list['phone']:''?>
+											
 										</p>
 									</td>
                                     <td class="center">
@@ -104,6 +106,7 @@
 										<div class="button-list1">
 											<a class="btn btn-info" href="<?=base_url()?>admin/clients/details/<?=$list['id']?>">
 												<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
+												View
 											</a>
 											<!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editClientModal" data-backdrop="static" keyboard="false" onClick="editClient()">
 												<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
