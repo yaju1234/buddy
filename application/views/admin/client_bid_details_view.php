@@ -233,7 +233,7 @@
 							<label for="lawyer">
 								Bid Amount
 							</label>
-							<input type="text" name="bid_amount" class="form-control" placeholder="Enter bid Amount">
+							<input type="number" name="bid_amount" class="form-control" placeholder="Enter bid Amount" required="required" >
 							<span class="field-validation-valid text-danger"  data-valmsg-for="bid_amount" data-valmsg-replace="true"></span>
 						</div>
 						
@@ -241,7 +241,7 @@
 							<label for="lawyer">
 								Bid Text
 							</label>
-							<textarea name="bid_text" class="form-control" placeholder="Enter bid text"></textarea>
+							<textarea name="bid_text" class="form-control" placeholder="Enter bid text" required="required"></textarea>
 							<span class="field-validation-valid text-danger"  data-valmsg-for="bid_text" data-valmsg-replace="true"></span>
 						</div>
 						
