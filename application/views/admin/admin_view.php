@@ -27,18 +27,35 @@
 								<tr>
 									<th style="display: none;">tab22_id</th>
 									<th>SL No.</th>
-									<th>Image</th>
 									<th>Name</th>
-									<th>Email &amp; Phone</th>
-									<th>City & Province</th>
-									<th>Degree</th>
-									<th>Verification Status</th>
+									<th>State</th>
+									<th>City</th>
+									<th>Email</th>
 									<th>Status</th>
-									<th>Joined</th>
 									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
+							
+<?php 
+									
+                                    foreach($city_admin as $key => $list) { ?>
+							<tr>
+									<td><?php echo $key+1 ; ?></td>
+									<td><?php echo $list['display_name']; ?></td>
+									<td><?php echo $list['state']; ?></td>
+									<td><?php echo $list['city']; ?></td>
+									<td><?php echo $list['email']; ?></td>
+									<td><?php echo $list['is_active']=='1' ? 'Active' : 'Inactive'; ?></td>
+									<td><a href="javascript:void(0)" title="edit" ><i class="fa fa-pencil" aria-hidden="true"></i>
+									&nbsp; 
+									&nbsp; 
+									&nbsp;
+									<a href="javascript:void(0)" title="delete" ><i class="fa fa-trash" aria-hidden="true"></i> 
+									</td>
+
+							</tr>
+<?php } ?>
 							
 							</tbody>
 						</table>
@@ -54,7 +71,7 @@
 <div class="modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="addadminmodal">
 	<div class="modal-dialog modal-lg" role="document">
 	  <div class="modal-content">
-			<form action="<?=base_url()?>admin/clients/updateClient" method="post" >
+			<form action="<?=base_url()?>admin/cityadmin/addCityAdmin" method="post" >
 				<div class="modal-header">
 				<h4 class="modal-title">Edit Client</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:0; padding:0; font-size:25px;">
@@ -80,8 +97,9 @@
 								State
 							</label>
 							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="state" id="state" required onChange="fetchCities();">
+							<option value="">--Select--</option>
 								<?php foreach($state_list as $key=>$state) { ?>
-								<option <?=$key==0?"selected":""?> value="<?=$state['name']?>"><?=$state['name']?></option>
+								<option value="<?=$state['name']?>"><?=$state['name']?></option>
 							<?php } ?>
 							</select>
 							<span class="field-validation-valid text-danger"  data-valmsg-for="state" data-valmsg-replace="true"></span>
@@ -98,12 +116,13 @@
 						</div>
 						
 						<div class="form-group col-md-6 float-left">
-							<label for="fname">
-								First Name
+							<label for="display_name">
+								 Name
 							</label>
 						
-							<input type="text"  data-val="true" data-val-required="this is Required Field" class="form-control" name="first_name" id="fname" required/>
-							<span class="field-validation-valid text-danger" data-valmsg-for="fname" data-valmsg-replace="true"></span>
+							<input type="text"  data-val="true" data-val-required="this is Required Field" class="form-control" name="display_name" 
+							id="display_name" required/>
+							<span class="field-validation-valid text-danger" data-valmsg-for="display_name" data-valmsg-replace="true"></span>
 						</div>
 						
 						
@@ -112,7 +131,7 @@
 							<label for="email">
 								Email
 							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="email" id="email" required/>
+							<input type="Email" data-val="true" data-val-required="this is Required Field" class="form-control" name="email" id="email" required/>
 							<span class="field-validation-valid text-danger"  data-valmsg-for="email" data-valmsg-replace="true"></span>
 						</div>
 						
@@ -120,8 +139,8 @@
 							<label for="phone">
 								Password
 							</label>
-							<input type="text" data-val="true" data-val-required="this is Required Field" class="form-control" name="phone" id="phone" required/>
-							<span class="field-validation-valid text-danger"  data-valmsg-for="phone" data-valmsg-replace="true"></span>
+							<input type="text" data-val="true" minlength="6" data-val-required="this is Required Field" class="form-control" name="password" id="phone" required/>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="password" data-valmsg-replace="true"></span>
 						</div>
 						
 						
@@ -133,7 +152,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Add</button>
+				<button type="submit" class="btn btn-primary">Add City Admin</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</form>

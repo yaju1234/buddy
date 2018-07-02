@@ -16,6 +16,7 @@ class Clients extends MY_Controller {
 		if(!$this->isLoggedIn()){
 			redirect('login/logout', 'refresh');
 		}
+	
         $data = array();
         $data['title'] = 'Client Management';
         $data['client_list'] = $this->admin_model->getClients();

@@ -36,6 +36,9 @@
 								</tr>
 							</thead>
 							<tbody>
+
+
+						
 								<?php 
 									$i = 0;
                                     foreach($client_list as $key => $list) {
