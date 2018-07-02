@@ -22,6 +22,23 @@ class Downloadexcel extends MY_Controller {
         $this->load->view('admin/download_excel_view', $data);
 		$this->load->view('template/footer.php');
     }
+
+
+    public function exceldata(){
+		
+		$fromdate = $this->input->post('fromdate');
+		$todate = $this->input->post('todate');
+		echo $fromdate;
+		die();
+		
+		/*$data['created'] = date('Y-m-d H:i:s');
+		if($this->input->post('cid') && $this->input->post('cid') > 0){
+			$st = $this->admin_model->updateBanner($data, $this->input->post('cid'));
+		} else {
+			$st = $this->admin_model->addNewBanner($data);
+		}
+		redirect('/admin/banners', 'refresh');*/
+	}
 	
 
 }

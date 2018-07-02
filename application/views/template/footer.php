@@ -30,5 +30,15 @@
     <script src="<?=base_url()?>js/lib/datatables/datatables-init.js"></script>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+   <script>
+      $(document).ready(function () {
+        $( "#fromdate" ).datepicker();
+         $( "#todate" ).datepicker();
+    });
+  </script>
+
+
   </body>
 </html>
