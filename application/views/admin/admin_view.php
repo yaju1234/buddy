@@ -12,6 +12,9 @@
 	<!-- End Bread crumb -->
 	<!-- Container fluid  -->
 	<div class="container-fluid">
+		 
+                  <p style="color: green;text-align: center"> <?php echo $this->session->flashdata('sucess');?></p>
+                   <p style="color: red;text-align: center"> <?php echo $this->session->flashdata('error');?></p>
 		<!-- Start Page Content -->
 		<div class="row">
 			<div class="col-12">
@@ -40,18 +43,33 @@
 <?php 
 									
                                     foreach($city_admin as $key => $list) { ?>
-							<tr>
+							<tr id="request_tr_<?=$list['id']?>">
 									<td><?php echo $key+1 ; ?></td>
 									<td><?php echo $list['display_name']; ?></td>
 									<td><?php echo $list['state']; ?></td>
 									<td><?php echo $list['city']; ?></td>
 									<td><?php echo $list['email']; ?></td>
-									<td><?php echo $list['is_active']=='1' ? 'Active' : 'Inactive'; ?></td>
-									<td><a href="javascript:void(0)" title="edit" ><i class="fa fa-pencil" aria-hidden="true"></i>
+									<td onclick="changeStatus(<?php echo $list['id']; ?>,<?php echo $list['is_active']=='1'?>)">
+
+										<?php 
+											$statusText ='Inactive';
+											$color='red';
+										if($list['is_active']=='1'){
+											$statusText ='Active';
+											$color='green';
+										}
+
+										?>
+										
+										<p style="color: <?php echo $color;?>"> <?php echo $statusText ?></p>
+
+										</td>
+									<td><a href="javascript:void(0)" title="edit"  ><i class="fa fa-pencil" aria-hidden="true"></i>
 									&nbsp; 
 									&nbsp; 
 									&nbsp;
-									<a href="javascript:void(0)" title="delete" ><i class="fa fa-trash" aria-hidden="true"></i> 
+									<a href="javascript:void(0)" title="delete" 
+									onclick="deleteCityAdmin(<?php echo $list['id']; ?>)"><i class="fa fa-trash" aria-hidden="true"></i> 
 									</td>
 
 							</tr>
@@ -162,20 +180,63 @@
 
 <script>
 	var baseUrl = "<?=base_url()?>";
-	function deleteClient(id){
+	function deleteCityAdmin(id){
+
 		if(confirm('Are you sure, you want to delete?')){
 			$(".preloader").show();
 			$.ajax({
 				type: "POST",
 				dataType: "json",
-				url: baseUrl + "api/v1/user/deleteClient",
+				url: baseUrl + "admin/cityadmin/deleteCityAdmin",
 				data: {'id': id},
 				success: function(resp) {
-					if(resp.status){
-						$("#myTable").dataTable().fnDestroy()
-						$('#myTable').DataTable();
-						$('#request_tr_'+id).remove();
-					}
+					
+					 if(resp != '0'){
+					 	alert("Deleted successfully");
+					 	$('#request_tr_'+id).remove();
+					 }
+
+					$(".preloader").hide();
+				},
+				error : function(xhr, textStatus, errorThrown){
+					console.log(xhr);
+					$("#preloader").hide();
+				}
+			});
+		}
+	}
+
+	function changeStatus(id,status){
+
+
+		console.log("id,status",id,status);
+
+		var stausTxt="Active";
+		var isActive=1;
+		if(status==1){
+			stausTxt='Inactive'
+			isActive=0;
+		}
+
+
+		if(confirm('Are you sure, to change status '+stausTxt+'?')){
+			$(".preloader").show();
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: baseUrl + "admin/cityadmin/changeStatusCityAdmin",
+				data: {'id': id,
+				'is_active': isActive
+
+			},
+				success: function(resp) {
+					
+					 if(resp != '0'){
+					 	alert("Successfully change status");
+					 	location.reload();
+					 	
+					 }
+
 					$(".preloader").hide();
 				},
 				error : function(xhr, textStatus, errorThrown){

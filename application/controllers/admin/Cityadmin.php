@@ -50,14 +50,63 @@ class Cityadmin extends MY_Controller {
 		$password = $this->input->post('password');
 		$data['password'] = $password;
 		
-		//echo '<pre>';print_r($data);
-		//die();
+	
+		$isEmailExists=$this->admin_model->checkCityAdminEmailExists($email);
 
-		$cityAdmin = $this->admin_model->addCityAdmin($data);
+		$msg="";
+		if($isEmailExists!=null){
+ 		$msg=$email." email id already exists";
 
+ 		$this->session->set_flashdata('error', $msg);
 		redirect('/admin/cityadmin', 'refresh');
 
+		}else{
+			$msg="Sucessfully added";
+			$cityAdmin = $this->admin_model->addCityAdmin($data);
+		 $this->session->set_flashdata('sucess', $msg);
 
+		redirect('/admin/cityadmin', 'refresh');
+		}
+		
+
+
+	}
+
+
+	public function deleteCityAdmin()
+	{
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
+
+		
+			$id = $this->input->post('id');
+			$st = $this->admin_model->deleteCityAdmin($id);
+			
+			if ($st == '1') {
+                echo 1;
+            } else { 
+             echo 0;
+            }
+
+	}
+
+	public function changeStatusCityAdmin(){
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
+
+			$data = array();
+			$id = $this->input->post('id');
+			$is_active = $this->input->post('is_active');
+			$data['is_active'] = $is_active;
+			$st = $this->admin_model->changeStatusCityAdmin($id,$data);
+			
+			if ($st == '1') {
+                echo 1;
+            } else { 
+             echo 0;
+            }
 	}
 	
 

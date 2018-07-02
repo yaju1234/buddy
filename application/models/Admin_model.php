@@ -108,4 +108,26 @@ class Admin_model extends CI_Model{
 		return $res;
 
 	}
+
+	//delete city admin
+	function deleteCityAdmin($id){
+		
+		return $this->db->where("id",$id)->delete('traffic_admin');
+	}
+
+	
+
+function checkCityAdminEmailExists($email){
+		
+		$res = $this->db->select('*')->where('email', $email)->get('traffic_admin')->row_array();
+		return $res;
+	}
+function changeStatusCityAdmin($id,$data){
+		
+		$res = $this->db->where('id', $id)->update('traffic_admin', $data);
+		return 1;
+		}
+
+	
+	
 }
