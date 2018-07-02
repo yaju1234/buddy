@@ -43,10 +43,15 @@
 					</div>
 				</div>
 			</div>
-			<label class="switch">
-				<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
-				<span class="slider round"></span>
-			</label>
+			<div class="btn-box">
+				<p>
+					User Status
+					<label class="switch">
+						<input class="dsbleUsr" type="checkbox" <?=$client_list['status']=='1'?'checked="true"':''?> onChange="disableUser(<?=$client_list['id']?>);">
+						<span class="slider round"></span>
+					</label>
+				</p>
+			</div>
 		</div>
 		
 		<div class="tab-area">
@@ -152,6 +157,7 @@
 								<td>
 									<a class="btn btn-info" href="<?=base_url()?>admin/clients/details/<?=$client_list['id']?>/case-details/<?=$list['id']?>">
 										<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
+										View
 									</a>
 								</td>
 							</tr>
@@ -226,6 +232,7 @@
 								<td>
 									<a class="btn btn-info" href="<?=base_url()?>admin/clients/details/<?=$client_list['id']?>/case-details/<?=$list['id']?>">
 										<i class="fa fa-eye" aria-hidden="true" title="View details"></i>
+										View
 									</a>
 								</td>
 							</tr>

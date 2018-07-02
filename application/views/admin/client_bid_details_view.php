@@ -39,11 +39,10 @@
 				<p>Description: <?=$case_list['case_details']?></p>
 				<p>Status: <?=$case_list['status']?></p>
 				<!--<p>Total Bid(s): <?//=$case_list['bid_count']?></p>-->
-			
 			</div>
 			<?php if($case_list['status'] == 'PENDING'){?>
-			<div class="block col-md-6 float-left">
-				<a href="javascript:void(0);" class="btn btn-primary" style="background-color: #01406c;" data-toggle="modal" data-target="#assignLawyerModal" data-backdrop="static" keyboard="false">ASSIGN LAWYER</a>
+			<div class="btn-box">
+				<a href="javascript:void(0);" class="btn btn-info" data-toggle="modal" data-target="#assignLawyerModal" data-backdrop="static" keyboard="false">ASSIGN LAWYER</a>
 			</div>
 			<?php } ?>	
 		</div>
@@ -220,9 +219,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="col-md-12">
-						<div class="form-group col-md-12 float-left">
-							<label for="fname">
-								CASE NO: <?=$case_list['case_number']?>
+						<div class="col-md-12 float-left">
+							<label for="fname" class="case-no">
+								<span>CASE NO</span>: #<?=$case_list['case_number']?>
 							</label>
 							<input type="hidden" class="form-control" name="case_id" value="<?=$case_list['id']?>"/>
 							<input type="hidden" class="form-control" name="client_id" value="<?=$client_list['id']?>"/>
@@ -264,7 +263,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">Save changes</button>
+				<button type="submit" class="btn btn-info">Save changes</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
 			</form>

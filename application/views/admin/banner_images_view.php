@@ -17,10 +17,10 @@
 			<div class="col-12">
 			<div class="card">
 				<div class="card-body">
-					<h4 class="card-title">Banner images</h4>
+					<h4 class="card-title" style="display: inline-block;">Banner images</h4>
 					<!--<h6 class="card-subtitle">Data table example</h6>-->
-					<button type="button" class="btn btn-primary btn-flat float-right" data-toggle="modal" data-target="#addBannerModal" data-backdrop="static" keyboard="false" onClick="addBanner()">Add New</button>
-					<div class="table-responsive m-t-40">
+					<button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#addBannerModal" data-backdrop="static" keyboard="false" onClick="addBanner()">Add New</button>
+					<div class="table-responsive">
 						<table id="myTable" class="table table-bordered table-striped">
 							<thead>
 								<tr>
@@ -57,13 +57,13 @@
                                     <td class="center"> <?=$list['description']?> </td>
                                     <td class="center"> <?=$request_date?> </td>
                                     <td class="center" style="width:150px !important;">
-										<div class="button-list1">
-											<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#addBannerModal" data-backdrop="static" keyboard="false" onClick="editBanner(<?=$list['id']?>)">
-												<i class="fa fa-edit btn-info" aria-hidden="true" title="View details"></i>
+										<div class="button-list1" style="overflow: hidden;white-space: nowrap;">
+											<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addBannerModal" data-backdrop="static" keyboard="false" onClick="editBanner(<?=$list['id']?>)">
+												<i class="fa fa-pencil" aria-hidden="true" title="View details"></i>Edit
 											</button>
 											
-											<button type="button" class="btn btn-danger btn-flat" onClick="deleteBanner(<?=$list['id']?>)">
-												<i class="fa fa-trash btn-danger" aria-hidden="true"></i>
+											<button type="button" class="btn btn-danger" onClick="deleteBanner(<?=$list['id']?>)">
+												<i class="fa fa-trash" aria-hidden="true"></i>Delete
 											</button>
 										</div>
 									</td>

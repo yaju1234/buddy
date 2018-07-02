@@ -307,6 +307,12 @@ class Api_user_model extends CI_Model
 		return $rows;
 	}
 
+	public function getState(){
+		$rows = array();
+		$rows= $this->db->select('*')->get('traffic_state')->result_array();
+		return $rows;
+	}
+
 	public function insertOrUpdateDeviceToken($user_id,$token,$device_type,$user_type){
 
 		$rows = array();
