@@ -13,8 +13,11 @@
     <!-- Bootstrap Core CSS -->
     <link href="<?=base_url()?>css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
+
     <link href="<?=base_url()?>css/helper.css" rel="stylesheet">
     <link href="<?=base_url()?>css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
 
