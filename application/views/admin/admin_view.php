@@ -60,11 +60,15 @@
 										}
 
 										?>
+										<a style="color: <?php echo $color;?>" href="javascript:void(0)" >
+											 <?php echo $statusText ?>
+										</a>
 										
-										<p style="color: <?php echo $color;?>"> <?php echo $statusText ?></p>
 
 										</td>
-									<td><a href="javascript:void(0)" title="edit"  ><i class="fa fa-pencil" aria-hidden="true"></i>
+									<td>
+
+										<a onClick="editCityAdmin(<?php echo $list['id']; ?>)" href="javascript:void(0)" title="Edit"  ><i class="fa fa-pencil" aria-hidden="true"></i>
 									&nbsp; 
 									&nbsp; 
 									&nbsp;
@@ -178,6 +182,100 @@
 	</div>
 </div>
 
+<div class="modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="editCityAdminmodal">
+	<div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-content">
+			<form action="<?=base_url()?>admin/cityadmin/updateCityAdmin" method="post" >
+				<div class="modal-header">
+				<h4 class="modal-title">Edit City Admin</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:0; padding:0; font-size:25px;">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<input type="hidden" name="cityAdminid" id="cityAdminid">
+						<div class="form-group col-md-6">
+							<label for="country">
+								Country
+							</label>
+							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="country" id="country" required >
+							<?php foreach($country_list as $country) { ?>
+								<option selected value="<?=$country['country_name']?>"><?=$country['country_name']?></option>
+							<?php } ?>
+							</select>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="country" data-valmsg-replace="true"></span>
+						</div>
+						
+						<div class="form-group col-md-6 ">
+							<label for="state">
+								State
+							</label>
+							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="state" id="editstate" required onChange="fetchCitieseditTime();">
+							<option value="">--Select--</option>
+								<?php foreach($state_list as $key=>$state) { ?>
+								<option value="<?=$state['name']?>"><?=$state['name']?></option>
+							<?php } ?>
+							</select>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="state" data-valmsg-replace="true"></span>
+						</div>
+						
+						<div class="form-group col-md-6 ">
+							<label for="city">
+								City
+							</label>
+							<select type="select" data-val="true" data-val-required="this is Required Field" class="form-control" name="city" id="editcity" required>
+								
+							</select>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="city" data-valmsg-replace="true"></span>
+						</div>
+						
+						<div class="form-group col-md-6 float-left">
+							<label for="display_name">
+								 Name
+							</label>
+						
+							<input type="text"  data-val="true" data-val-required="this is Required Field" class="form-control" name="display_name" 
+							id="editdisplay_name" required/>
+							<span class="field-validation-valid text-danger" data-valmsg-for="display_name" data-valmsg-replace="true"></span>
+						</div>
+						
+						
+						
+						<div class="form-group col-md-6 ">
+							<label for="email">
+								Email
+							</label>
+							<input type="Email" data-val="true" data-val-required="this is Required Field" class="form-control" name="email" id="editemail" required/>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="email" data-valmsg-replace="true"></span>
+						</div>
+						
+						<div class="form-group col-md-6 float-left">
+							<label for="phone">
+								Password
+							</label>
+							<input type="text" data-val="true" minlength="6" class="form-control" name="password" id="editpassword"/>
+							<span class="field-validation-valid text-danger"  data-valmsg-for="password" data-valmsg-replace="true"></span>
+						</div>
+						
+						
+						<div class="form-group col-md-6 float-left">
+							&nbsp;
+						</div>
+						
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="modal-footer">
+				<button type="submit" class="btn btn-warning">Update City Admin</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+	  </div>
+	</div>
+</div>
+
+
 <script>
 	var baseUrl = "<?=base_url()?>";
 	function deleteCityAdmin(id){
@@ -247,25 +345,36 @@
 		}
 	}
 	
-	function editClient(id){
+	function editCityAdmin(id){
 		$(".preloader").show();
 		$.ajax({
 			type: "POST",
 			dataType: "json",
-			url: baseUrl + "api/v1/user/fetchClientDtls",
+			url: baseUrl + "admin/cityadmin/fetchCityAdminDetailsByid",
 			data: {'id': id},
 			success: function(resp) {
-				if(resp.status){
-					$('#cid').val(resp.response.id);
-					$('#fname').val(resp.response.first_name);
-					$('#lname').val(resp.response.last_name);
-					$('#email').val(resp.response.email);
-					$('#phone').val(resp.response.phone);
-					$('#city').val(resp.response.city);
-					$('#state').val(resp.response.state);
+			//var resp=resp.response;
+				console.log(resp);
+				
+				
+					$('#cityAdminid').val(resp.response.id);
+				
+					$('#editdisplay_name').val(resp.response.display_name);
+					$('#editemail').val(resp.response.email);
+					
+					
+					$('#editstate').val(resp.response.state);
+//
+					let ste = resp.response.state;
+					let cty = resp.response.city;
+		
+				getCities(ste, cty);
+
+//$('#editcity').val(resp.response.city);
 					$('#country').val(resp.response.country);
-				}
+				
 				$(".preloader").hide();
+				$("#editCityAdminmodal").modal('show');
 			},
 			error : function(xhr, textStatus, errorThrown){
 				console.log(xhr);
@@ -283,6 +392,11 @@
 	
 	function fetchCities(){
 		let ste = $('#state').val();
+		getCities(ste, '');
+	}
+
+		function fetchCitieseditTime(){
+		let ste = $('#editstate').val();
 		getCities(ste, '');
 	}
 		function getStates(country, slctState){
@@ -324,10 +438,12 @@
 					for(let i=0; i<resp.response.length; i++){
 						cityHTML += '<option value="'+resp.response[i].city+'">'+resp.response[i].city+'</option>';
 					}
-					//console.log(cityHTML);
+					console.log("here==",cityHTML);
 					$('#city').html(cityHTML);
+					$('#editcity').html(cityHTML);
 					if(slctCity != ''){
 						$('#city').val(slctCity);
+						$('#editcity').val(slctCity);
 					}
 				}
 				$(".preloader").hide();
