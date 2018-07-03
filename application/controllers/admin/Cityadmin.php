@@ -47,7 +47,7 @@ class Cityadmin extends MY_Controller {
 		$email = $this->input->post('email');
 		$data['email'] = $email;
 
-		$password = $this->input->post('password');
+		$password = md5($this->input->post('password'));
 		$data['password'] = $password;
 		
 	
@@ -108,6 +108,80 @@ class Cityadmin extends MY_Controller {
              echo 0;
             }
 	}
+
 	
+		public function fetchCityAdminDetailsByid(){
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
+		
+		$response = array();
+
+		$id = $this->input->post('id');
+
+		$ityAdminDetailsByid=$this->admin_model->getCityAdminDetailsByid($id);
+
+			
+			$response['response'] = $ityAdminDetailsByid;
+		echo json_encode($response);
+	}
+
+	
+
+	public function updateCityAdmin()
+	{
+		if(!$this->isLoggedIn()){
+			redirect('login/logout', 'refresh');
+		}
+
+		$data = array();
+
+		
+		$cityAdminid = $this->input->post('cityAdminid');
+		
+
+		$state = $this->input->post('state');
+		$data['state'] = $state;
+
+		$city = $this->input->post('city');
+		$data['city'] = $city;
+
+		$display_name = $this->input->post('display_name');
+		$data['display_name'] = $display_name;
+
+		$email = $this->input->post('email');
+		if($this->input->post('password')!=""){
+		$password = md5($this->input->post('password'));
+		$data['password'] = $password;
+		}
+
+		$isEmailExists=$this->admin_model->checkCityAdminEmailExists($email);
+		$emailExistsCityAdminId =$isEmailExists['id'];
+		if($emailExistsCityAdminId==$cityAdminid){
+			$update=true;
+			}else{
+			if($isEmailExists!=null){
+ 			$update=false;
+		}else{
+			$update=true;
+			}
+		}
+		$msg="";
+		if($update){
+			$data['email'] = $email;
+ 		$msg="Sucessfully Updated";
+ 		$cityAdmin = $this->admin_model->updateCityAdmin($cityAdminid,$data);
+		 $this->session->set_flashdata('sucess', $msg);
+		redirect('/admin/cityadmin', 'refresh');
+		}else{
+		$msg=$email." email id already exists";
+ 		$this->session->set_flashdata('error', $msg);
+		redirect('/admin/cityadmin', 'refresh');
+		}
+
+		
+			
+	}
+
 
 }

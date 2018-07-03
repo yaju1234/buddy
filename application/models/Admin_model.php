@@ -160,6 +160,7 @@ class Admin_model extends CI_Model{
 			
 		}
 
+
 		return $rows;
 
 		/*$rows = array();
@@ -171,6 +172,19 @@ class Admin_model extends CI_Model{
 		->get('traffic_bids BIDS')
 		->result_array();
 		return $rows;*/
+	}
+
+
+	function getCityAdminDetailsByid($id){
+		
+		$res = $this->db->select('*')->where('id', $id)->get('traffic_admin')->row_array();
+		return $res;
+	}
+
+	function updateCityAdmin($cityAdminid,$data){
+		
+		$res = $this->db->where('id', $cityAdminid)->update('traffic_admin', $data);
+		return 1;
 	}
 
 	

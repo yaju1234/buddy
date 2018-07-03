@@ -88,7 +88,7 @@ class Downloadexcel extends MY_Controller {
 
        // $this->excel->getActiveSheet()->fromArray($users);
 
-        $filename='just_some_random_name.xls'; //save our workbook as this file name
+        $filename='caselist_'.$fromdate.'_'.$todate.'.xls'; //save our workbook as this file name
 
         header('Content-Type: application/vnd.ms-excel'); //mime type
 
