@@ -999,11 +999,11 @@ public function acceptBid_post(){
 	$data = $this->Api_user_model->acceptCase($case_id);
 	$data = $this->Api_user_model->acceptBid($bid_id);
 	$data1 = $this->Api_user_model->getcasedetailsById($case_id);
-		$title = "Accepted";
-		$message = "your bid has been accepted. Case No . ".$data1['case_number'];
-		$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
+	$title = "Accepted";
+	$message = "your bid has been accepted. Case No . ".$data1['case_number'];
+	$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
 		//echo $data1['lawyer_id'];
-		$this->Api_user_model->pushNotificationForlawyer($data1['lawyer_id'],$title,$message,"ACTIVITY_BID_ACCEPTED");
+	$this->Api_user_model->pushNotificationForlawyer($data1['lawyer_id'],$title,$message,"ACTIVITY_BID_ACCEPTED");
 	
 	$response['status'] = true;
 	$response['response'] =new stdClass();
@@ -1087,6 +1087,69 @@ public function rate_post(){
 	
 
 	$this->response($response);
+}
+
+
+public function forgotpassword_post() {
+
+	$response = array();
+	$email = $this->input->post('email');
+
+	if($this->Api_user_model->isEmailExistForgotPassword($email)){
+		$milliseconds = round(microtime(true) * 1000);
+		$milliseconds = $milliseconds+1000*60*60*12;
+		$randNum = md5(uniqid(rand(), true));
+
+
+		$otp = rand ( 1000 , 9999 );
+		if($this->Api_user_model->sendforgotpasswordlink($email,$randNum,$milliseconds)){
+			$this->load->library('email');
+			$config['protocol']    = 'smtp';
+			$config['smtp_host']    = 'ssl://smtp.gmail.com';
+			$config['smtp_port']    = '465';
+			$config['smtp_timeout'] = '7';
+			$config['smtp_user']    = 'buddytraffic@gmail.com';
+			$config['smtp_pass']    = 'Traffic@1234';
+			$config['charset']    = 'utf-8';
+			$config['newline']    = "\r\n";
+		$config['mailtype'] = 'text'; // or html
+		$config['validation'] = TRUE; // bool whether to validate email or not      
+		$this->email->initialize($config);
+
+
+		$this->email->from('buddytraffic@gmail.com', 'Traffic Buddy');
+		$this->email->to($email); 
+
+		$urllink = base_url().'admin/cityadmin/forgotpassword/'.$randNum;
+
+		$message = $urllink;
+		$this->email->subject('Trafic Buddy OTP Validation');
+
+		$this->email->message($message);  
+
+		$this->email->send();
+
+		$response['status'] = true;
+		$response['response'] = new stdClass();
+		$response['expire'] = $milliseconds;
+		$response['message'] = "success";
+	}else{
+		$response['status'] = false;
+		$response['response'] = new stdClass();
+		$response['message'] = "error";
+	}
+}else{
+	$response['status'] = false;
+	$response['response'] = new stdClass();
+	$response['message'] = "email does not exist";
+}
+
+
+
+
+$this->response($response);
+
+
 }
 
 

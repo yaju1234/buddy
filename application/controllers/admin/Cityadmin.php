@@ -187,8 +187,10 @@ class Cityadmin extends MY_Controller {
 	public function forgotpassword() {
 		
 		$data = array();
-		$data['title'] = 'City Admin';
+		$randomNum =  $this->uri->segment(4);
+		$data['title'] = 'Fogot Password';
 		$data['country_list'] = $this->Api_user_model->getCountry();
+		$data['token'] = $randomNum;
 		//echo "<pre />";
 		//print_r($data1);exit;
 		//$this->load->view('template/header.php', $data);
