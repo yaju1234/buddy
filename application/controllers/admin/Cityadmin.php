@@ -184,4 +184,17 @@ class Cityadmin extends MY_Controller {
 	}
 
 
+	public function forgotpassword() {
+		
+		$data = array();
+		$data['title'] = 'City Admin';
+		$data['country_list'] = $this->Api_user_model->getCountry();
+		//echo "<pre />";
+		//print_r($data1);exit;
+		//$this->load->view('template/header.php', $data);
+		$this->load->view('admin/forgot_password_view', $data);
+		//$this->load->view('template/footer.php');
+	}
+
+
 }
