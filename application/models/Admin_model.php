@@ -117,28 +117,75 @@ class Admin_model extends CI_Model{
 
 	
 
-function checkCityAdminEmailExists($email){
+	function checkCityAdminEmailExists($email){
 		
 		$res = $this->db->select('*')->where('email', $email)->get('traffic_admin')->row_array();
 		return $res;
 	}
-function changeStatusCityAdmin($id,$data){
+	function changeStatusCityAdmin($id,$data){
 		
 		$res = $this->db->where('id', $id)->update('traffic_admin', $data);
 		return 1;
+	}
+
+	function getCaseExceldata($fromdate,$todate){
+
+		$rows = array();
+		$rows = $this->db->select('CASE.id,CASE.case_number,CASE.created_at,CASE.user_id AS client_id,CASE.case_details,BIDS.id, BIDS.lawyer_id,BIDS.bid_amount,BIDS.accepted_at')
+		->JOIN('traffic_cases CASE', 'CASE.id = BIDS.case_id', 'INNER')
+		//>JOIN('traffic_users USER', 'CASE.user_id = USER.id', 'INNER')
+		->where("BIDS.is_accepted",'1')
+		->where("CASE.created_at>=",$fromdate)
+		->where("CASE.created_at<=",$todate)
+
+		->get('traffic_bids BIDS')
+		->result_array();
+
+		foreach($rows as $k=>$v){
+
+			$reslt = $this->db->select('*')->where('id', $v['client_id'])->get('traffic_users')->row_array();
+			$reslt1 = $this->db->select('*')->where('id', $v['lawyer_id'])->get('traffic_users')->row_array();
+
+			
+
+			$rows[$k]['client_first_name'] = $reslt['first_name'];
+			$rows[$k]['client_last_name'] = $reslt['last_name'];
+			$rows[$k]['client_city'] = $reslt['city'];
+			$rows[$k]['client_state'] = $reslt['state'];
+
+			$rows[$k]['lawyer_first_name'] = $reslt1['first_name'];
+			$rows[$k]['lawyer_last_name'] = $reslt1['last_name'];
+			$rows[$k]['lawyer_city'] = $reslt1['city'];
+			$rows[$k]['lawyer_state'] = $reslt1['state'];
+			
 		}
 
-		function getCityAdminDetailsByid($id){
+
+		return $rows;
+
+		/*$rows = array();
+		$rows= $this->db
+		->select('BIDS.id,BIDS.client_id,BIDS.lawyer_id,BIDS.case_id,BIDS.bid_amount,BIDS.bid_text,BIDS.created_at, IF(BIDS.is_accepted = "1", "ACCEPTED", "") as status, BIDS.status as status1, BIDS.created_at,BIDS.accepted_at,TU.first_name as lawyer_first_name, TU.last_name as lawyer_last_name, TU.email as lawyer_email, TU.phone as lawyer_phone, IF(LOCATE("http", TU.profile_image) > 0, TU.profile_image, IF(TU.profile_image = "", "", CONCAT("uploadImage/lawyer_profile_image/",TU.profile_image))) as lawyer_profile_image')
+		->JOIN('traffic_users TU', 'TU.id = BIDS.lawyer_id', 'INNER')
+		->where("BIDS.case_id",$case_id)
+		->order_by("BIDS.id", "DESC")
+		->get('traffic_bids BIDS')
+		->result_array();
+		return $rows;*/
+	}
+
+
+	function getCityAdminDetailsByid($id){
 		
 		$res = $this->db->select('*')->where('id', $id)->get('traffic_admin')->row_array();
 		return $res;
 	}
 
-function updateCityAdmin($cityAdminid,$data){
+	function updateCityAdmin($cityAdminid,$data){
 		
 		$res = $this->db->where('id', $cityAdminid)->update('traffic_admin', $data);
 		return 1;
-		}
+	}
 
 	
 	
