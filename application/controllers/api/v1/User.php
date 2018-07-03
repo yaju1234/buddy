@@ -335,7 +335,7 @@ class User extends REST_Controller {
 		$response = array();
 		try {
 			$data = array();
-			var_dump($this->input->post());
+			//var_dump($this->input->post());
 			$user_id = $this->input->post('user_id');
 
 			echo $user_id;
@@ -377,8 +377,8 @@ class User extends REST_Controller {
 			}
 			
 			$data['created_at'] = date('Y-m-d H:i:s');
-			echo "<pre/>";
-			print_r($data);
+			//echo "<pre/>";
+			//print_r($data);
 
 			$id = $this->Api_user_model->addCaseFile($data);
 			
