@@ -187,6 +187,20 @@ class Admin_model extends CI_Model{
 		return 1;
 	}
 
+		function updateCityAdminPassword($token,$data){
+		return $res = $this->db->where('forgot_password_token', $token)->update('traffic_users', $data);
+		
+	}
+
+	function getUserByTocken($token){
+		
+		$res = $this->db->select('*')->where('forgot_password_token', $token)->get('traffic_users')->row_array();
+		return $res;
+	}
+
+
+	
+
 	
 	
 }

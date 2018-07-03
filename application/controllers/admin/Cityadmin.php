@@ -198,5 +198,32 @@ class Cityadmin extends MY_Controller {
 		//$this->load->view('template/footer.php');
 	}
 
+	public function updatePassword() {
+		
+		$data = array();
+		$password = md5($this->input->post('password'));
+		$data['password']=$password;
+		$token = $this->input->post('token');
+		$userByTocken = $this->admin_model->getUserByTocken($token);
+		if($userByTocken==""){
+			$msg="Token does not match!";
+ 			$this->session->set_flashdata('error', $msg);
+			redirect('/admin/cityadmin/forgotpassword/'.$token, 'refresh');
+		}else{
+			$cityAdminPassword = $this->admin_model->updateCityAdminPassword($token,$data);
+			if($cityAdminPassword==1){
+				$msg="Sucessfully updated";
+				$this->session->set_flashdata('sucess', $msg);
+				redirect('/admin/cityadmin/forgotpassword/'.$token, 'refresh');
+			}else{
+				$msg="Please try again";
+ 				$this->session->set_flashdata('error', $msg);
+				redirect('/admin/cityadmin/forgotpassword/'.$token, 'refresh');
+			}
+		}
+		
+
+	}
+
 
 }

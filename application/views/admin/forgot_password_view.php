@@ -2,11 +2,16 @@
 	<div class="block_verify">
 		<div class="form-signin-heading"><img src="<?=base_url()?>/images/logo_white.png"/></div>
 		<div class="containt-wrap">
+	 <p style="color: green;text-align: center"> <?php echo $this->session->flashdata('sucess');?></p>
+                   <p style="color: red;text-align: center"><?php echo $this->session->flashdata('error');?></p>
+			<form id="updatePass" action="<?=base_url()?>admin/cityadmin/updatePassword" method="post" >
 			<div class="forget-password">
-				<input type="password" name="" placeholder="Enter Password">
-				<input type="password" name="" placeholder="Confirm Password">
-				<input type="submit" name="">
+				<input type="password" id="password" name="password" placeholder="Enter Password">
+				<input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password">
+				<input type="hidden" id="token" name="token" value="<?php echo $token ?>">
+				<input type="button" id="submitBtn" class="btn1" name="" value="Submit">
 			</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -94,7 +99,7 @@
 			margin: 0px 0px 15px;
 		}
 
-		.forget-password input[type="submit"] {
+		.forget-password .btn1 {
 			width: 100%;
 			height: 44px;
 			border: none;
@@ -106,3 +111,40 @@
 			color: #fff;
 		}
 	</style>
+<script src="<?=base_url()?>js/lib/jquery/jquery.min.js"></script>
+<link href="<?=base_url()?>assets/toastr/toastr.min.css" rel="stylesheet" />
+ <script src="<?=base_url()?>assets/toastr/toastr.min.js" type="text/javascript"></script>
+	<script>
+
+		$( "#submitBtn" ).click(function() {
+          
+			var pass = $("#password").val().trim();
+			var conpass = $("#confirmpassword").val().trim();
+			var pass_token = $("#token").val().trim();
+
+			if(pass==""){
+				$("#password").focus();
+				toastr.error('Please Put password!');
+				return false;
+			}
+			if(conpass==""){
+				$("#confirmpassword").focus();
+				toastr.error('Please Put Confirm password!');
+				return false;
+			}
+				if(pass_token==""){
+				
+				toastr.error('Please Try Again!');
+				return false;
+			}
+
+			if(pass!=conpass){
+				toastr.error('Password and Confirm password does not match');
+				return false;
+			}else{
+				$( "#updatePass" ).submit();
+			}
+
+
+});
+	</script>
