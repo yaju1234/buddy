@@ -338,7 +338,7 @@ class User extends REST_Controller {
 			//var_dump($this->input->post());
 			$user_id = $this->input->post('user_id');
 
-			echo $user_id;
+			//echo $user_id;
 			$data['user_id'] = $user_id;
 			
 			$case_number = 'CASE'.$user_id.rand(11111, 99999);
@@ -1163,6 +1163,7 @@ public function testmail1_post() {
 
 	$response = array();
 	$email = 'yaju.rcc@gmail.com';
+	//$email = 'sirsendu.96@gmail.com';
 
 		$milliseconds = round(microtime(true) * 1000);
 		$milliseconds = $milliseconds+1000*60*60*12;
@@ -1189,15 +1190,37 @@ public function testmail1_post() {
 
 		$urllink = base_url().'admin/cityadmin/forgotpassword/'.$randNum;
 
-		$message = "<!DOCTYPE html>
-<html>
-<body>
-
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
-
-</body>
-</html>";
+		$message = '<!DOCTYPE html>
+<table width="650" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"  style="font-family: "Arial", sans-serif; padding: 30px;">
+	<tbody style="font-family: "Arial", sans-serif; border:1px solid #000;">
+		<tr>
+			<td valign="top" align="center" style="font-size: 30px; line-height: 36px; color: #0d81d0; text-transform: capitalize; padding: 30px 30px 20px;">
+				active your account
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" align="center" style="font-size: 14px; line-height: 20px; color: #333; padding: 0px 30px 40px;">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas culpa, perferendis enim reprehenderit, amet cum! Doloribus esse dolore soluta reiciendis placeat ratione fugiat nulla! Distinctio iste qui cum reprehenderit totam.
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" align="center" style="padding: 0px 30px;">
+				<a href="http://www.google.com" style="font-size: 16px; line-height: 22px; color: #fff; background-color: #0d81d0; padding: 10px 30px; text-transform: uppercase; text-decoration: none; display: inline-block; vertical-align: top;">active now</a>
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" align="center" style="font-size: 12px; line-height: 18px; color: #666; padding: 20px 30px 0px;">
+				to contact us please visit
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" align="center" style="padding: 0px 30px;">
+				<a href="javascript:void(0)" style="font-size: 12px; line-height: 18px; color: #0d81d0;">support.trafficbuddy.com</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+';
 		$this->email->subject('Trafic Buddy Test mail');
 
 		$this->email->message($message);  
