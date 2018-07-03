@@ -621,6 +621,16 @@ class Api_user_model extends CI_Model
 		return $rows;
 	}
 
+	function getLawyers(){
+		
+			$res = $this->db->select('*')->where('user_type','LAWYER')/*->where('status','1')*/->order_by('created','desc')->get('traffic_users')->result_array();
+			foreach($res as $ky=>$rslt){
+				$res[$ky]['degree'] = $this->db->select('*')->where('user_id',$rslt['id'])->get('traffic_degree')->result_array();
+			}
+			return $res;
+		
+	}
+
 
 }
 ?>

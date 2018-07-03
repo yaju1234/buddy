@@ -10,7 +10,7 @@ class User extends REST_Controller {
 		$this->load->library('twilio');
 		$this->load->library('email');
 		$this->load->library('fcm');
-		$this->load->model(array('Api_user_model','Admin_model'));
+		$this->load->model(array('Api_user_model'));
 	}
 	
 	public function register_post(){
@@ -335,7 +335,10 @@ class User extends REST_Controller {
 		$response = array();
 		try {
 			$data = array();
+			var_dump($this->input->post());
 			$user_id = $this->input->post('user_id');
+
+			echo $user_id;
 			$data['user_id'] = $user_id;
 			
 			$case_number = 'CASE'.$user_id.rand(11111, 99999);
@@ -374,6 +377,8 @@ class User extends REST_Controller {
 			}
 			
 			$data['created_at'] = date('Y-m-d H:i:s');
+			echo "<pre/>";
+			print_r($data);
 
 			$id = $this->Api_user_model->addCaseFile($data);
 			
@@ -383,7 +388,7 @@ class User extends REST_Controller {
 			//if push success then save into traffic_case_notifications table
 			
 			//fetch laywers
-			$lawyers = $this->Admin_model->getLawyers();
+			$lawyers = $this->Api_user_model->getLawyers();
 
 			foreach ($lawyers as $lawyer) {
 				$title = "New case file";
