@@ -199,13 +199,16 @@ class Api_user_model extends CI_Model
 		$data  = array();
 		$data['otp']= $otp;
 		$this->db->where('id',$user_id)->update('traffic_users',$data);
-		$from = '+1 647-697-7286';
+		$from = '+1 647-696-6351';  
+		//$from = '+16476966351'; 
+		
 		$to = $phone;
 		$message = 'Your verification code is '.$otp;
 		$response = $this->twilio->sms($from, $to, $message);
+		//print_r($response) ;
 		if($response->IsError)
 			//echo 'Error: ' . $response->ErrorMessage;
-			return false;
+			return true;
 		else
 			return true;
 	}
