@@ -240,13 +240,10 @@
 										</a>
 									</figure>
 								</td>
-<<<<<<< HEAD
+
 								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'OPEN' : $list['status']?></p></td>
 								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
-=======
-								<td><p style="<?=$list['status'] == 'PENDING' ? 'color:red' : 'color:green'?>"><?=$list['status'] == 'PENDING' ? 'Not Accepted' : $list['status']?></p></td>
-								<td><button type="button" class="btn btn-info"><i class="fa fa-eye"></i>View</button></td>
->>>>>>> 95ee8aa9be5c617ff89b57c91096a6dd2a7d4a9c
+
 							</tr>
 								<?php
 									}
