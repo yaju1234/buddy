@@ -55,15 +55,23 @@ class Admin_model extends CI_Model{
 	}
 	function getCaseListOfLawyer($user_id, $status='ALL'){
 		$rows = array();
-		$query = $this->db->select('TC.id, TC.user_id, TC.case_number, TC.case_details, IF(TC.case_front_img = "", "", CONCAT("uploadImage/case_image/",TC.case_front_img)) as case_front_img, IF(TC.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TC.case_rear_img)) as case_rear_img, IF(TC.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TC.driving_license)) as driving_license, TC.status, TC.state, TC.city, TC.created_at, count(TB.id) as bid_count, IF(TB.is_accepted = "1", TB.lawyer_id, 0) as accepted_lawyer_id')
+		$query = $this->db->select('COUNT(TCN.id) as cnt, TC.id, TC.user_id, TC.case_number, TC.case_details, IF(TC.case_front_img = "", "", CONCAT("uploadImage/case_image/",TC.case_front_img)) as case_front_img, IF(TC.case_rear_img = "", "", CONCAT("uploadImage/case_image/",TC.case_rear_img)) as case_rear_img, IF(TC.driving_license = "", "", CONCAT("uploadImage/client_license_image/",TC.driving_license)) as driving_license, TC.status, TC.state, TC.city, TC.created_at, count(TB.id) as bid_count, IF(TB.is_accepted = "1", TB.lawyer_id, 0) as accepted_lawyer_id')
+
 		->where("TCN.lawyer_id",$user_id);
 		if($status != 'ALL'){
 			$query->where("TC.status",$status);
 		}
-		$query->join('traffic_case_notifications TCN', 'TCN.case_id = TC.id');
-		$query->join('traffic_bids TB', 'TB.case_id = TC.id');
-		$rows = $query->get('traffic_cases TC')->result_array();
+		$query->join('traffic_cases TC', 'TCN.case_id = TC.id', 'INNER');
+		$query->join('traffic_bids TB', 'TB.case_id = TC.id', 'INNER');
+		$rows = $query->get('traffic_case_notifications TCN')->result_array();
+		/*if(count($rows)==0 || $rows[0]['cnt'] == 0){
+			$rows = array();
+		}*/
+		//echo $this->db->last_query();
+		echo "<pre/>";
+		print_r($rows);
 		return $rows;
+
 	}
 	function addNewBanner($data){
 		$res = $this->db->insert('traffic_banners', $data);
