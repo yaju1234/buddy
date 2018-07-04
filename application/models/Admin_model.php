@@ -187,14 +187,14 @@ class Admin_model extends CI_Model{
 			$rows[$k]['client_city'] = $reslt['city'];
 			$rows[$k]['client_state'] = $reslt['state'];
 			$rows[$k]['client_email'] = $reslt['email'];
-			$rows[$k]['client_phone'] = $reslt['email'];
+			$rows[$k]['client_phone'] = $reslt['phone'];
 
 			$rows[$k]['lawyer_first_name'] = $reslt1['first_name'];
 			$rows[$k]['lawyer_last_name'] = $reslt1['last_name'];
 			$rows[$k]['lawyer_city'] = $reslt1['city'];
 			$rows[$k]['lawyer_state'] = $reslt1['state'];
 			$rows[$k]['lawyer_email'] = $reslt1['email'];
-			$rows[$k]['lawyer_phone'] = $reslt1['email'];
+			$rows[$k]['lawyer_phone'] = $reslt1['phone'];
 
 			
 		}
