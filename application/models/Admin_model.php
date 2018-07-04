@@ -68,8 +68,8 @@ class Admin_model extends CI_Model{
 			$rows = array();
 		}*/
 		//echo $this->db->last_query();
-		echo "<pre/>";
-		print_r($rows);
+		//echo "<pre/>";
+		//print_r($rows);
 		return $rows;
 
 	}
