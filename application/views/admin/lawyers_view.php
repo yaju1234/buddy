@@ -39,6 +39,7 @@
 							<tbody>
 								<?php 
 									$i = 0;
+									if(!empty($client_list)){
                                     foreach($client_list as $key => $list) {
                                         //$request_date = date('l jS F Y', strtotime($list['created']));
                                         $request_date = date('m-d-Y', strtotime($list['created']));
@@ -118,7 +119,7 @@
 										</div>
 									</td>
                                 </tr>
-                                <?php } ?>
+                                <?php } }?>
 							</tbody>
 						</table>
 					</div>
