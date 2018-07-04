@@ -76,10 +76,10 @@
 					<a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><i class="fa fa-user"></i>profile</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="open-cases-tab" data-toggle="tab" href="#open-cases" role="tab" aria-controls="open-cases" aria-selected="false"><i class="fa fa-folder-open"></i>open cases</a>
+					<a class="nav-link" id="open-cases-tab" data-toggle="tab" href="#open-cases" role="tab" aria-controls="open-cases" aria-selected="false"><i class="fa fa-folder-open"></i>Open Cases</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" id="all-cases-tab" data-toggle="tab" href="#all-cases" role="tab" aria-controls="all-cases" aria-selected="false"><i class="fa fa-reply-all"></i>all cases</a>
+					<a class="nav-link" id="all-cases-tab" data-toggle="tab" href="#all-cases" role="tab" aria-controls="all-cases" aria-selected="false"><i class="fa fa-reply-all"></i>ACCEPTED CASE</a>
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
@@ -197,7 +197,10 @@
 						<tbody>
 							<?php 
 									$i = 0;
+									//$client_list
                                     foreach($all_case_list as $key => $list) {
+                                    	if($list['status'] == "ACCEPTED" && $list['accepted_lawyer_id'] == $client_list['id'] ){
+
                                         $request_date = date('m-d-Y', strtotime($list['created_at']));
 										
 										$cFrntImg = base_url()."images/no-image.png";
@@ -247,6 +250,7 @@
 							</tr>
 								<?php
 									}
+								}
 								?>
 						</tbody>
 					</table>
