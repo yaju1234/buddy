@@ -158,10 +158,10 @@ class Api_user_model extends CI_Model
 		return $rows['count']>0 ? true : false;
 	}
 
-	public function isEmailExistForgotPassword($email){
+	public function isEmailExistForgotPassword($email,$user_type){
 
 		$rows = array();
-		$rows= $this->db->select('count(*) AS count')->where("email",$email)->get('traffic_users')->row_array();
+		$rows= $this->db->select('count(*) AS count')->where("email",$email)->where("user_type",$user_type)->get('traffic_users')->row_array();
 		return $rows['count']>0 ? true : false;
 	}
 
@@ -666,14 +666,14 @@ class Api_user_model extends CI_Model
 	}
 
 
-	public function sendforgotpasswordlink($email,$randNum,$milliseconds){
+	public function sendforgotpasswordlink($email,$randNum,$milliseconds,$user_type){
 
 		
 		$data = array();
 		$data['forgot_password_token_validation_time'] = $milliseconds;
 		$data['forgot_password_token'] = $randNum;
 
-		$this->db->where('email',$email)->update('traffic_users',$data);
+		$this->db->where('email',$email)->where("user_type",$user_type)->update('traffic_users',$data);
 		return true;
 		
 	}

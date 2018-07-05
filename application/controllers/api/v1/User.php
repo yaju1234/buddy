@@ -1130,15 +1130,16 @@ public function forgotpassword_post() {
 
 	$response = array();
 	$email = $this->input->post('email');
+	$user_type = $this->input->post('user_type');
 
-	if($this->Api_user_model->isEmailExistForgotPassword($email)){
+	if($this->Api_user_model->isEmailExistForgotPassword($email,$user_type)){
 		$milliseconds = round(microtime(true) * 1000);
 		$milliseconds = $milliseconds+1000*60*60*12;
 		$randNum = md5(uniqid(rand(), true));
 
 
 		$otp = rand ( 1000 , 9999 );
-		if($this->Api_user_model->sendforgotpasswordlink($email,$randNum,$milliseconds)){
+		if($this->Api_user_model->sendforgotpasswordlink($email,$randNum,$milliseconds,$user_type)){
 			$this->load->library('email');
 			$config['protocol']    = 'smtp';
 			$config['smtp_host']    = 'ssl://smtp.gmail.com';
