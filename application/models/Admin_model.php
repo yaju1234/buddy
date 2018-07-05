@@ -48,9 +48,12 @@ class Admin_model extends CI_Model{
 		}else{
 			$city = $userData['city'];
 			$res = $this->db->select('*')->where('user_type','LAWYER')/*->where('status','1')*/->where('city',$city)->order_by('created','desc')->get('traffic_users')->result_array();
+			//echo $this->db->last_query();
+			//die();
 			foreach($res as $ky=>$rslt){
 				$res[$ky]['degree'] = $this->db->select('*')->where('user_id',$rslt['id'])->get('traffic_degree')->result_array();
 			}
+			return $res;
 		}
 	}
 	function getCaseListOfLawyer($user_id, $status='ALL'){

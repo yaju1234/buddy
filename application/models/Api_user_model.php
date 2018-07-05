@@ -556,6 +556,7 @@ class Api_user_model extends CI_Model
 		->JOIN('traffic_users TU', 'TU.id = BIDS.client_id', 'INNER')
 		->JOIN('traffic_cases TC', 'TC.id = BIDS.case_id', 'INNER')
 		->where("BIDS.lawyer_id",$lawyer_id)
+		->where("BIDS.is_accepted","1")
 		->order_by("BIDS.id", "DESC")
 		->get('traffic_bids BIDS')
 		->result_array();
