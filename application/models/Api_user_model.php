@@ -196,21 +196,45 @@ class Api_user_model extends CI_Model
 
 	public function sendOTP($phone,$otp,$user_id){
 
-		$data  = array();
-		$data['otp']= $otp;
-		$this->db->where('id',$user_id)->update('traffic_users',$data);
-		$from = '+1 647-696-6351';  
+		$id = getenv('ACCOUNT_SID');
+		$token = getenv('AUTH_TOKEN');
+		$url = "https://api.twilio.com/2010-04-01/Accounts/$id/SMS/Messages";
+		$from = "+16476966351";
+		$to = $phone; // twilio trial verified number
+		$body = 'Your verification code is '.$otp;;
+		$data = array (
+			'From' => $from,
+			'To' => $to,
+			'Body' => $body,
+			);
+		$post = http_build_query($data);
+		$x = curl_init($url );
+		curl_setopt($x, CURLOPT_POST, true);
+		curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+		curl_setopt($x, CURLOPT_USERPWD, "$id:$token");
+		curl_setopt($x, CURLOPT_POSTFIELDS, $post);
+		$y = curl_exec($x);
+		curl_close($x);
+		//var_dump($post);
+		//var_dump($y);
+
+		$data1  = array();
+		$data1['otp']= $otp;
+		$this->db->where('id',$user_id)->update('traffic_users',$data1);
+		/*$from = '16476966351';  
 		//$from = '+16476966351'; 
 		
 		$to = $phone;
 		$message = 'Your verification code is '.$otp;
 		$response = $this->twilio->sms($from, $to, $message);
-		//print_r($response) ;
+		print_r($response) ;
 		if($response->IsError)
 			//echo 'Error: ' . $response->ErrorMessage;
 			return true;
-		else
-			return true;
+		else*/
+		return true;
 	}
 	
 	public function sendEmailOTP($user_id,$randNum,$milliseconds){
@@ -266,16 +290,16 @@ class Api_user_model extends CI_Model
 		$rows= $this->db->select('count(*) AS count')->where("email_otp",$otp)->get('traffic_users')->row_array();
 		if($rows['count']>0){
 
-		$rows1 = array();
-		$rows1= $this->db->select('id,email_otp_validation_time')->where("email_otp",$otp)->get('traffic_users')->row_array();
-		$milliseconds = round(microtime(true) * 1000);
-		$diff = (int)$rows1['email_otp_validation_time'] - $milliseconds;
-		if($diff>0){
-			$data  = array();
-			$data['is_email_verified']= '1';
-			$this->db->where('id',$rows1['id'])->update('traffic_users',$data);
-			return true;
-		}
+			$rows1 = array();
+			$rows1= $this->db->select('id,email_otp_validation_time')->where("email_otp",$otp)->get('traffic_users')->row_array();
+			$milliseconds = round(microtime(true) * 1000);
+			$diff = (int)$rows1['email_otp_validation_time'] - $milliseconds;
+			if($diff>0){
+				$data  = array();
+				$data['is_email_verified']= '1';
+				$this->db->where('id',$rows1['id'])->update('traffic_users',$data);
+				return true;
+			}
 
 		}
 		return false;
@@ -424,15 +448,15 @@ class Api_user_model extends CI_Model
 					"icon" => "myicon",
 					"sound" => "default",
 					"click_action" => $click_action
-                ),
-                'data' => array (
-                    "case_id" =>$case_id,
-                    "city" => $row['city'],
-                    'state' => $row['state'],
-                    'country' => "Canada",
-                    'status' => $row['status']
-                    )
-                    );
+					),
+				'data' => array (
+					"case_id" =>$case_id,
+					"city" => $row['city'],
+					'state' => $row['state'],
+					'country' => "Canada",
+					'status' => $row['status']
+					)
+				);
 			//print_r($fields);
 			$this->fcm->send_fcm_notification_client($fields);
 		}
@@ -590,12 +614,12 @@ class Api_user_model extends CI_Model
 		$rows = array();
 		$rows= $this->db->select('count(*) AS count')->where('lawyer_id',$user_id)->where("case_id",$case_id)->get('is_view')->row_array();
 		if($rows['count'] == 0){
-		$data = array();
-		$data['lawyer_id'] = $user_id;
-		$data['case_id'] = $case_id;
-		$data['is_view'] = '1';
-		
-		$this->db->insert('is_view',$data);
+			$data = array();
+			$data['lawyer_id'] = $user_id;
+			$data['case_id'] = $case_id;
+			$data['is_view'] = '1';
+
+			$this->db->insert('is_view',$data);
 		}
 		//echo $this->db->last_query();
 		return true;
@@ -618,7 +642,7 @@ class Api_user_model extends CI_Model
 
 		$data1 = array();
 		$data1['is_rate'] = '1';
-			
+
 		$this->db->where('id',$bid_id)->update('traffic_bids',$data1);
 
 		return true;
@@ -633,11 +657,11 @@ class Api_user_model extends CI_Model
 
 	function getLawyers(){
 		
-			$res = $this->db->select('*')->where('user_type','LAWYER')/*->where('status','1')*/->order_by('created','desc')->get('traffic_users')->result_array();
-			foreach($res as $ky=>$rslt){
-				$res[$ky]['degree'] = $this->db->select('*')->where('user_id',$rslt['id'])->get('traffic_degree')->result_array();
-			}
-			return $res;
+		$res = $this->db->select('*')->where('user_type','LAWYER')/*->where('status','1')*/->order_by('created','desc')->get('traffic_users')->result_array();
+		foreach($res as $ky=>$rslt){
+			$res[$ky]['degree'] = $this->db->select('*')->where('user_id',$rslt['id'])->get('traffic_degree')->result_array();
+		}
+		return $res;
 		
 	}
 

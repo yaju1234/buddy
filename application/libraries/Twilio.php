@@ -66,6 +66,8 @@
 				        'Body' => $message,
 			);
 
+           // print_r($data);
+
 			if ($this->mode == 'sandbox')
 				$data['From'] = $this->number;
 
