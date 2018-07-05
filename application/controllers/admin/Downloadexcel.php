@@ -77,7 +77,7 @@ class Downloadexcel extends MY_Controller {
 			$this->excel->getActiveSheet()->setCellValue('C'.$rowNumber, 'Canada,'.$v['client_state'].','.$v['client_city']);
 			$this->excel->getActiveSheet()->setCellValue('D'.$rowNumber, $v['client_email']);
 			$this->excel->getActiveSheet()->setCellValue('E'.$rowNumber, $v['client_phone']);
-			$this->excel->getActiveSheet()->setCellValue('F'.$rowNumber, $v['lawyer_first_name'].' '.$v['lawyer_first_name']);
+			$this->excel->getActiveSheet()->setCellValue('F'.$rowNumber, $v['lawyer_first_name'].' '.$v['lawyer_last_name']);
 			$this->excel->getActiveSheet()->setCellValue('G'.$rowNumber, 'Canada,'.$v['lawyer_state'].','.$v['lawyer_city']);
 			$this->excel->getActiveSheet()->setCellValue('H'.$rowNumber, $v['lawyer_email']);
 			$this->excel->getActiveSheet()->setCellValue('I'.$rowNumber, $v['lawyer_phone']);
