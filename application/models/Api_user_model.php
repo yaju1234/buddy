@@ -584,6 +584,19 @@ class Api_user_model extends CI_Model
 
 	}
 
+	public function isCaseOpen($case_id){
+
+		$res = $this->db->select('*')->where('id',$case_id)->get('traffic_cases')->row_array();
+		if($res['status'] == "ACCEPTED"){
+			return false;
+		}else{
+			return true;
+		}
+		
+
+
+	}
+
 	public function acceptBid($bid_id){
 		$data = array();
 		$data['status'] = 'CLOSED';

@@ -1312,4 +1312,29 @@ public function testmail1_post() {
 	}
 
 
+	public function casestatus_post(){
+
+	$response = array();
+	$case_id = $this->input->post('case_id');
+	//$lawyer_id = $this->input->post('lawyer_id');
+	//$bid_id = $this->input->post('bid_id');
+	
+	$acceptStatus = $this->Api_user_model->isCaseOpen($case_id);
+	if($acceptStatus){
+		
+		$response['status'] = true;
+		$response['response'] =new stdClass();
+		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] =new stdClass();
+		$response['message'] = "Case already accepted";
+	}
+	
+
+	$this->response($response);
+}
+
+
 }
