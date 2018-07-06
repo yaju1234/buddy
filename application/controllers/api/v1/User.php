@@ -766,36 +766,36 @@ class User extends REST_Controller {
 
 		//$message = $urllink;
 		$message = '<!DOCTYPE html>
-<table width="650" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"  style="font-family: "Arial", sans-serif; padding: 30px;">
-	<tbody style="font-family: "Arial", sans-serif; border:1px solid #000;">
-		<tr>
-			<td valign="top" align="center" style="font-size: 30px; line-height: 36px; color: #0d81d0; text-transform: capitalize; padding: 30px 30px 20px;">
-				active your account
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="font-size: 14px; line-height: 20px; color: #333; padding: 0px 30px 40px;">
-				Circus Avenue Southern Flank is closed in between Karaya Road and Beckbagan Row to facilitate construction work of west bound ramp of Maa Flyover.
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="padding: 0px 30px;">
-				<a href="'.$urllink.'" style="font-size: 16px; line-height: 22px; color: #fff; background-color: #0d81d0; padding: 10px 30px; text-transform: uppercase; text-decoration: none; display: inline-block; vertical-align: top;">active now</a>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="font-size: 12px; line-height: 18px; color: #666; padding: 20px 30px 0px;">
-				to contact us please visit
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="padding: 0px 30px 30px;">
-				<a href="javascript:void(0)" style="font-size: 12px; line-height: 18px; color: #0d81d0;">support.trafficbuddy.com</a>
-			</td>
-		</tr>
-	</tbody>
-</table>
-';
+		<table width="650" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"  style="font-family: "Arial", sans-serif; padding: 30px;">
+			<tbody style="font-family: "Arial", sans-serif; border:1px solid #000;">
+				<tr>
+					<td valign="top" align="center" style="font-size: 30px; line-height: 36px; color: #0d81d0; text-transform: capitalize; padding: 30px 30px 20px;">
+						active your account
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="font-size: 14px; line-height: 20px; color: #333; padding: 0px 30px 40px;">
+						Circus Avenue Southern Flank is closed in between Karaya Road and Beckbagan Row to facilitate construction work of west bound ramp of Maa Flyover.
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="padding: 0px 30px;">
+						<a href="'.$urllink.'" style="font-size: 16px; line-height: 22px; color: #fff; background-color: #0d81d0; padding: 10px 30px; text-transform: uppercase; text-decoration: none; display: inline-block; vertical-align: top;">active now</a>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="font-size: 12px; line-height: 18px; color: #666; padding: 20px 30px 0px;">
+						to contact us please visit
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="padding: 0px 30px 30px;">
+						<a href="javascript:void(0)" style="font-size: 12px; line-height: 18px; color: #0d81d0;">support.trafficbuddy.com</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		';
 		$this->email->subject('Trafic Buddy OTP Validation');
 
 		$this->email->message($message);  
@@ -1032,18 +1032,25 @@ public function acceptBid_post(){
 	//$lawyer_id = $this->input->post('lawyer_id');
 	$bid_id = $this->input->post('bid_id');
 	
-	$data = $this->Api_user_model->acceptCase($case_id);
-	$data = $this->Api_user_model->acceptBid($bid_id);
-	$data1 = $this->Api_user_model->getcasedetailsById($case_id);
-	$title = "Accepted";
-	$message = "your bid has been accepted. Case No . ".$data1['case_number'];
-	$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
+	$acceptStatus = $this->Api_user_model->acceptCase($case_id);
+	if($acceptStatus){
+		$data = $this->Api_user_model->acceptBid($bid_id);
+		$data1 = $this->Api_user_model->getcasedetailsById($case_id);
+		$title = "Accepted";
+		$message = "your bid has been accepted. Case No . ".$data1['case_number'];
+		$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
 		//echo $data1['lawyer_id'];
-	$this->Api_user_model->pushNotificationForlawyer($data1['lawyer_id'],$title,$message,"ACTIVITY_BID_ACCEPTED");
-	
-	$response['status'] = true;
-	$response['response'] =new stdClass();
-	$response['message'] = "success";
+		$this->Api_user_model->pushNotificationForlawyer($data1['lawyer_id'],$title,$message,"ACTIVITY_BID_ACCEPTED");
+
+		$response['status'] = true;
+		$response['response'] =new stdClass();
+		$response['message'] = "success";
+
+	}else{
+		$response['status'] = false;
+		$response['response'] =new stdClass();
+		$response['message'] = "Case already accepted";
+	}
 	
 
 	$this->response($response);
@@ -1161,36 +1168,36 @@ public function forgotpassword_post() {
 
 		//$message = $urllink;
 		$message = '<!DOCTYPE html>
-<table width="650" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"  style="font-family: "Arial", sans-serif; padding: 30px;">
-	<tbody style="font-family: "Arial", sans-serif; border:1px solid #000;">
-		<tr>
-			<td valign="top" align="center" style="font-size: 30px; line-height: 36px; color: #0d81d0; text-transform: capitalize; padding: 30px 30px 20px;">
-				Reset your password
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="font-size: 14px; line-height: 20px; color: #333; padding: 0px 30px 40px;">
-				Circus Avenue Southern Flank is closed in between Karaya Road and Beckbagan Row to facilitate construction work of west bound ramp of Maa Flyover.
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="padding: 0px 30px;">
-				<a href="'.$urllink.'" style="font-size: 16px; line-height: 22px; color: #fff; background-color: #0d81d0; padding: 10px 30px; text-transform: uppercase; text-decoration: none; display: inline-block; vertical-align: top;">Reset Password</a>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="font-size: 12px; line-height: 18px; color: #666; padding: 20px 30px 0px;">
-				To contact us please visit
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="padding: 0px 30px 30px;">
-				<a href="javascript:void(0)" style="font-size: 12px; line-height: 18px; color: #0d81d0;">support.trafficbuddy.com</a>
-			</td>
-		</tr>
-	</tbody>
-</table>
-';
+		<table width="650" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"  style="font-family: "Arial", sans-serif; padding: 30px;">
+			<tbody style="font-family: "Arial", sans-serif; border:1px solid #000;">
+				<tr>
+					<td valign="top" align="center" style="font-size: 30px; line-height: 36px; color: #0d81d0; text-transform: capitalize; padding: 30px 30px 20px;">
+						Reset your password
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="font-size: 14px; line-height: 20px; color: #333; padding: 0px 30px 40px;">
+						Circus Avenue Southern Flank is closed in between Karaya Road and Beckbagan Row to facilitate construction work of west bound ramp of Maa Flyover.
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="padding: 0px 30px;">
+						<a href="'.$urllink.'" style="font-size: 16px; line-height: 22px; color: #fff; background-color: #0d81d0; padding: 10px 30px; text-transform: uppercase; text-decoration: none; display: inline-block; vertical-align: top;">Reset Password</a>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="font-size: 12px; line-height: 18px; color: #666; padding: 20px 30px 0px;">
+						To contact us please visit
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="padding: 0px 30px 30px;">
+						<a href="javascript:void(0)" style="font-size: 12px; line-height: 18px; color: #0d81d0;">support.trafficbuddy.com</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		';
 		$this->email->subject('Trafic Buddy OTP Validation');
 
 		$this->email->message($message);  
@@ -1228,21 +1235,21 @@ public function testmail1_post() {
 	$email = 'yaju.rcc@gmail.com';
 	//$email = 'sirsendu.96@gmail.com';
 
-		$milliseconds = round(microtime(true) * 1000);
-		$milliseconds = $milliseconds+1000*60*60*12;
-		$randNum = md5(uniqid(rand(), true));
+	$milliseconds = round(microtime(true) * 1000);
+	$milliseconds = $milliseconds+1000*60*60*12;
+	$randNum = md5(uniqid(rand(), true));
 
 
-		$otp = rand ( 1000 , 9999 );
-			$this->load->library('email');
-			$config['protocol']    = 'smtp';
-			$config['smtp_host']    = 'ssl://smtp.gmail.com';
-			$config['smtp_port']    = '465';
-			$config['smtp_timeout'] = '7';
-			$config['smtp_user']    = 'buddytraffic@gmail.com';
-			$config['smtp_pass']    = 'Traffic@1234';
-			$config['charset']    = 'utf-8';
-			$config['newline']    = "\r\n";
+	$otp = rand ( 1000 , 9999 );
+	$this->load->library('email');
+	$config['protocol']    = 'smtp';
+	$config['smtp_host']    = 'ssl://smtp.gmail.com';
+	$config['smtp_port']    = '465';
+	$config['smtp_timeout'] = '7';
+	$config['smtp_user']    = 'buddytraffic@gmail.com';
+	$config['smtp_pass']    = 'Traffic@1234';
+	$config['charset']    = 'utf-8';
+	$config['newline']    = "\r\n";
 		$config['mailtype'] = 'html'; // or html
 		$config['validation'] = TRUE; // bool whether to validate email or not      
 		$this->email->initialize($config);
@@ -1254,36 +1261,36 @@ public function testmail1_post() {
 		$urllink = base_url().'admin/cityadmin/forgotpassword/'.$randNum;
 
 		$message = '<!DOCTYPE html>
-<table width="650" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"  style="font-family: "Arial", sans-serif; padding: 30px;">
-	<tbody style="font-family: "Arial", sans-serif; border:1px solid #000;">
-		<tr>
-			<td valign="top" align="center" style="font-size: 30px; line-height: 36px; color: #0d81d0; text-transform: capitalize; padding: 30px 30px 20px;">
-				active your account
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="font-size: 14px; line-height: 20px; color: #333; padding: 0px 30px 40px;">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas culpa, perferendis enim reprehenderit, amet cum! Doloribus esse dolore soluta reiciendis placeat ratione fugiat nulla! Distinctio iste qui cum reprehenderit totam.
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="padding: 0px 30px;">
-				<a href="http://www.google.com" style="font-size: 16px; line-height: 22px; color: #fff; background-color: #0d81d0; padding: 10px 30px; text-transform: uppercase; text-decoration: none; display: inline-block; vertical-align: top;">active now</a>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="font-size: 12px; line-height: 18px; color: #666; padding: 20px 30px 0px;">
-				to contact us please visit
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center" style="padding: 0px 30px;">
-				<a href="javascript:void(0)" style="font-size: 12px; line-height: 18px; color: #0d81d0;">support.trafficbuddy.com</a>
-			</td>
-		</tr>
-	</tbody>
-</table>
-';
+		<table width="650" bgcolor="#f2f2f2" cellpadding="0" cellspacing="0" border="0"  style="font-family: "Arial", sans-serif; padding: 30px;">
+			<tbody style="font-family: "Arial", sans-serif; border:1px solid #000;">
+				<tr>
+					<td valign="top" align="center" style="font-size: 30px; line-height: 36px; color: #0d81d0; text-transform: capitalize; padding: 30px 30px 20px;">
+						active your account
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="font-size: 14px; line-height: 20px; color: #333; padding: 0px 30px 40px;">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas culpa, perferendis enim reprehenderit, amet cum! Doloribus esse dolore soluta reiciendis placeat ratione fugiat nulla! Distinctio iste qui cum reprehenderit totam.
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="padding: 0px 30px;">
+						<a href="http://www.google.com" style="font-size: 16px; line-height: 22px; color: #fff; background-color: #0d81d0; padding: 10px 30px; text-transform: uppercase; text-decoration: none; display: inline-block; vertical-align: top;">active now</a>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="font-size: 12px; line-height: 18px; color: #666; padding: 20px 30px 0px;">
+						to contact us please visit
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" align="center" style="padding: 0px 30px;">
+						<a href="javascript:void(0)" style="font-size: 12px; line-height: 18px; color: #0d81d0;">support.trafficbuddy.com</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		';
 		$this->email->subject('Trafic Buddy Test mail');
 
 		$this->email->message($message);  
@@ -1294,15 +1301,15 @@ public function testmail1_post() {
 		$response['response'] = new stdClass();
 		$response['expire'] = $milliseconds;
 		$response['message'] = "success";
-	
 
 
 
 
-$this->response($response);
+
+		$this->response($response);
 
 
-}
+	}
 
 
 }

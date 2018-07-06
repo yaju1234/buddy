@@ -567,12 +567,19 @@ class Api_user_model extends CI_Model
 
 
 	public function acceptCase($case_id){
-		$data = array();
+
+		$res = $this->db->select('*')->where('id',$case_id)->get('traffic_cases')->row_array();
+		if($res['status'] == "ACCEPTED"){
+			return false;
+		}else{
+			$data = array();
 		$data['status'] = 'ACCEPTED';
 		$data['accepted_at'] = date("Y-m-d h:i:s");
 		
 		$this->db->where('id',$case_id)->update('traffic_cases',$data);
-		return 1;
+		return true;
+		}
+		
 
 
 	}
