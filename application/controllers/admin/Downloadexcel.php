@@ -54,29 +54,37 @@ class Downloadexcel extends MY_Controller {
 		$this->excel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
 
 
-		$this->excel->getActiveSheet()->getStyle("A1:I1")->applyFromArray(array("font" => array("bold" => true)));
+		$this->excel->getActiveSheet()->getStyle("A1:M1")->applyFromArray(array("font" => array("bold" => true)));
 
 		$this->excel->setActiveSheetIndex(0)->setCellValue('A1', 'SL');
 		$this->excel->setActiveSheetIndex(0)->setCellValue('B1', 'CLIENT NAME');
 		$this->excel->setActiveSheetIndex(0)->setCellValue('C1', 'CLIENT ADDRESS');
-		$this->excel->setActiveSheetIndex(0)->setCellValue('D1', 'LAWYER NAME');
-		$this->excel->setActiveSheetIndex(0)->setCellValue('E1', 'LAWYER ADDRESS');
-		$this->excel->setActiveSheetIndex(0)->setCellValue('F1', 'CASE NUMBER');
-		$this->excel->setActiveSheetIndex(0)->setCellValue('G1', 'CASE DESCRIPTION');
-		$this->excel->setActiveSheetIndex(0)->setCellValue('H1', 'PRICE');
-		$this->excel->setActiveSheetIndex(0)->setCellValue('I1', 'DATE');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('D1', 'CLIENT EMAIL');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('E1', 'CLIENT PHONE');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('F1', 'LAWYER NAME');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('G1', 'LAWYER ADDRESS');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('H1', 'LAWYER EMAIL');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('I1', 'LAWYER PHONE');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('J1', 'CASE NUMBER');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('K1', 'CASE DESCRIPTION');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('L1', 'PRICE');
+		$this->excel->setActiveSheetIndex(0)->setCellValue('M1', 'DATE');
 
 		$rowNumber=2;
 		foreach($cases as $k=>$v){
 			$this->excel->getActiveSheet()->setCellValue('A'.$rowNumber, $rowNumber-1);
 			$this->excel->getActiveSheet()->setCellValue('B'.$rowNumber, $v['client_first_name'].' '.$v['client_last_name']);
 			$this->excel->getActiveSheet()->setCellValue('C'.$rowNumber, 'Canada,'.$v['client_state'].','.$v['client_city']);
-			$this->excel->getActiveSheet()->setCellValue('D'.$rowNumber, $v['lawyer_first_name'].' '.$v['lawyer_first_name']);
-			$this->excel->getActiveSheet()->setCellValue('E'.$rowNumber, 'Canada,'.$v['lawyer_state'].','.$v['lawyer_city']);
-			$this->excel->getActiveSheet()->setCellValue('F'.$rowNumber, $v['case_number']);
-			$this->excel->getActiveSheet()->setCellValue('G'.$rowNumber, $v['case_details']);
-			$this->excel->getActiveSheet()->setCellValue('H'.$rowNumber, $v['bid_amount']);
-			$this->excel->getActiveSheet()->setCellValue('I'.$rowNumber, $v['created_at']);
+			$this->excel->getActiveSheet()->setCellValue('D'.$rowNumber, $v['client_email']);
+			$this->excel->getActiveSheet()->setCellValue('E'.$rowNumber, $v['client_phone']);
+			$this->excel->getActiveSheet()->setCellValue('F'.$rowNumber, $v['lawyer_first_name'].' '.$v['lawyer_last_name']);
+			$this->excel->getActiveSheet()->setCellValue('G'.$rowNumber, 'Canada,'.$v['lawyer_state'].','.$v['lawyer_city']);
+			$this->excel->getActiveSheet()->setCellValue('H'.$rowNumber, $v['lawyer_email']);
+			$this->excel->getActiveSheet()->setCellValue('I'.$rowNumber, $v['lawyer_phone']);
+			$this->excel->getActiveSheet()->setCellValue('J'.$rowNumber, $v['case_number']);
+			$this->excel->getActiveSheet()->setCellValue('K'.$rowNumber, $v['case_details']);
+			$this->excel->getActiveSheet()->setCellValue('L'.$rowNumber, $v['bid_amount']);
+			$this->excel->getActiveSheet()->setCellValue('M'.$rowNumber, $v['created_at']);
 			$rowNumber++;
 		}
 

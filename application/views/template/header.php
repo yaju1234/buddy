@@ -199,11 +199,18 @@
                                 <li><a href="<?=base_url()?>admin/downloadexcel">List </a></li>
                             </ul>
                         </li>
+                        <?php  
+
+                            $userData = $this->session->userdata['logged_user'];
+        $role = $userData['role'];
+        if($role=="SUPER_ADMIN"){
+                        ?>
                         <li> <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-file-excel-o"></i><span class="hide-menu">City Admin</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?=base_url()?>admin/cityadmin">List </a></li>
                             </ul>
                         </li>
+                        <?php  }?>
 						
                         <!-- 
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="hide-menu">Charts</span></a>
