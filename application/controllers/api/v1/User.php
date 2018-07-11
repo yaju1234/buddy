@@ -1040,6 +1040,59 @@ public function acceptBid_post(){
 	$data1 = $this->Api_user_model->getBidsByBidId($bid_id);
 		//echo $data1['lawyer_id'];
 	$this->Api_user_model->pushNotificationForlawyer($data1['lawyer_id'],$title,$message,"ACTIVITY_BID_ACCEPTED");
+
+	$data3 = $this->Api_user_model->getRejectedLawyerList($case_id,$bid_id);
+
+
+			if(count($data3)>0){
+
+			$email = $data3[0]['client_email'];	
+
+			$name = '';
+
+			foreach($data3 as $k=>$v){
+				$name = $name . ' '.$v['lawyer_name'].',';
+			}
+
+			$name = rtrim($name,',');
+
+			$this->load->library('email');
+			$config['protocol']    = 'smtp';
+			$config['smtp_host']    = 'ssl://smtp.gmail.com';
+			$config['smtp_port']    = '465';
+			$config['smtp_timeout'] = '7';
+			$config['smtp_user']    = 'buddytraffic@gmail.com';
+			$config['smtp_pass']    = 'Traffic@1234';
+			$config['charset']    = 'utf-8';
+			$config['newline']    = "\r\n";
+		$config['mailtype'] = 'html'; // or html
+		$config['validation'] = TRUE; // bool whether to validate email or not      
+		$this->email->initialize($config);
+
+
+		$this->email->from('buddytraffic@gmail.com', 'Traffic Buddy');
+		$this->email->to($email); 
+
+		//$urllink = base_url().'admin/cityadmin/forgotpassword/'.$randNum;
+
+		//$message = $urllink;
+		$message = $name.' Lawyers are rejected';
+
+		$this->email->subject('Trafic Buddy Lawyer Rejection');
+
+		$this->email->message($message);  
+
+		$this->email->send();
+	}
+
+
+
+
+
+
+
+
+
 	
 	$response['status'] = true;
 	$response['response'] =new stdClass();

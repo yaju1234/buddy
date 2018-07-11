@@ -651,6 +651,18 @@ class Api_user_model extends CI_Model
 		
 	}
 
+	public function getRejectedLawyerList($case_id,$bid_id){
+		$rows = $this->db->select('*')->where('case_id',$case_id)->where('id !=',$bid_id)->get('traffic_bids')->result_array();
+		foreach($rows as $k=>$v){
+			$reslt = $this->db->select('*')->where("id",$v['lawyer_id'])->get('traffic_users')->row_array();
+			$reslt1 = $this->db->select('*')->where("id",$v['client_id'])->get('traffic_users')->row_array();
+			$rows[$k]['lawyer_name'] = $reslt['first_name'].' '.$reslt['last_name'];
+			$rows[$k]['client_email'] = $reslt1['email'];
+		}
+
+		return $rows;
+	}
+
 
 }
 ?>
